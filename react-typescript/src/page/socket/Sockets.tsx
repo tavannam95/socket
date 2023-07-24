@@ -8,7 +8,7 @@ export default function Sockets() {
 
     useEffect(() => {
         SocketService.getInstance().initSocket();
-        SocketService.getInstance().socketClient.connect({ username: new Date().getTime() }, () => {
+        SocketService.getInstance().socketClient.connect({ username: 'namtv' }, () => {
 
             SocketService.getInstance().socketClient.subscribe(
                 '/chat/topic/messages',

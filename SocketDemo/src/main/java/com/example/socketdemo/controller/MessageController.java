@@ -29,7 +29,8 @@ public class MessageController {
 //      Set message data
         data.put("data", content);
         for (SimpUser simpUser : listSimpUser) {
-            simpMessagingTemplate.convertAndSendToUser(simpUser.getName(), "/topic/messages", data);
+//            simpMessagingTemplate.convertAndSendToUser(simpUser.getName(), "/topic/messages", data);
+            simpMessagingTemplate.convertAndSendToUser("namtv", "/topic/messages", data);
         }
     }
 
