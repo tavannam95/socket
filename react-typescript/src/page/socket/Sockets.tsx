@@ -13,7 +13,7 @@ export default function Sockets() {
             SocketService.getInstance().socketClient.subscribe(
                 '/chat/topic/messages',
                 (msg: any) => {
-                    console.log(JSON.parse(msg.body));
+                    console.log(msg);
                     
                 },
                 (err: any) => {
