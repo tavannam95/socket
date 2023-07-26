@@ -1,0 +1,93 @@
+<div class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 overflow-hidden">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0" *ngIf="!data">
+          {{ "button.add.title" | translate }}
+        </h2>
+        <h2 class="card-title mb-0" *ngIf="data">
+          {{ "button.edit.title" | translate }}
+        </h2>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="closePopup()"></button>
+      </div>
+
+      <form  #form="ngForm" (ngSubmit)="onSave(form.value, form.invalid)">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="mb-3">
+                <label for="eventName" class="form-label">{{"bus.event.eventName.title" | translate}}</label>
+                <input type="text" id="eventName" name="eventName" class="form-control " placeholder="Enter your firstname" [(ngModel)]="eventMng.name"
+                    #eventName="ngModel" [ngClass]="{ 'is-invalid': (eventName.invalid && submitted) || (eventName.invalid && (eventName.dirty || eventName.touched))}"
+                    required>
+                <div class="invalid-error" *ngIf="(eventName.invalid && submitted) || eventName.invalid && (eventName.dirty || eventName.touched)">
+                    <span *ngIf="eventName.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="mb-3">
+                <label for="discount" class="form-label">{{
+                  "bus.event.discount.title" | translate
+                  }}</label>
+                <div class="form-icon right">
+                  <input type="number" maxlength="2" max="99" min="0"  class="form-control" id="discount" name="discount"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    #eventDiscount="ngModel" [ngClass]="{ 'is-invalid': (eventDiscount.invalid && submitted) || (eventDiscount.invalid && (eventDiscount.dirty || eventDiscount.touched))}"
+                    [(ngModel)]="eventMng.discount" required />
+                  <i class="ri-percent-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                </div>
+                <div class="invalid-error" *ngIf="(eventDiscount.invalid && submitted) || eventDiscount.invalid && (eventDiscount.dirty || eventDiscount.touched)">
+                  <span *ngIf="eventDiscount.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+              </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="fromDate" class="form-label">From Date</label>
+                <div class="form-icon right">
+                    <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="eventMng.fromDate" id="fromDate" name="fromDate" [required]="true" #fromDate="ngModel"
+                        dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"
+                        [ngClass]="{ 'ng-invalid ng-dirty': (fromDate.invalid && submitted) || fromDate.invalid && (fromDate.dirty || fromDate.touched)}"></p-calendar>
+                    <i class="ri-calendar-2-fill"></i>
+                </div>
+                <div class="invalid-error" *ngIf="(fromDate.invalid && submitted) || fromDate.invalid && (fromDate.dirty || fromDate.touched)">
+                     <span *ngIf="fromDate.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="toDate" class="form-label">To Date</label>
+                <div class="form-icon right">
+                    <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="eventMng.toDate" id="toDate" name="toDate" [required]="true" #toDate="ngModel"
+                        dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"
+                        [ngClass]="{ 'ng-invalid ng-dirty': (eventMng.toDate < eventMng.fromDate || toDate.invalid && submitted) || toDate.invalid && (toDate.dirty || toDate.touched)}"></p-calendar>
+                    <i class="ri-calendar-2-fill"></i>
+                </div>
+                <div class="invalid-error" *ngIf="(eventMng.toDate < eventMng.fromDate || toDate.invalid && submitted) || toDate.invalid && (toDate.dirty || toDate.touched)">
+                    <span *ngIf="toDate.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                    <span *ngIf="eventMng.toDate < eventMng.fromDate">{{ 'message.requiredRangeDate' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="closePopup()">
+            {{ "button.cancel.title" | translate }}
+          </button>
+          <button type="submit" class="btn btn-primary">
+            {{ "button.save.title" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

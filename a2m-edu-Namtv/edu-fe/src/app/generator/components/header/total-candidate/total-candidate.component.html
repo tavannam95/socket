@@ -1,0 +1,66 @@
+<div  class="tab-content" id="notificationItemsTabContent">
+  <div  class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
+    <div data-simplebar style="max-height: 300px;" class="pe-2">
+
+      <div (click)="gotoCandidate('Today')"
+        class="text-reset notification-item d-block dropdown-item position-relative">
+        <div class="d-flex">
+          <div class="flex-1">
+            <a class="stretched-link">
+              <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{'header.title.totalCandidateToday' | translate}}
+              </h6>
+            </a>
+            <div class="fs-13 text-muted">
+
+            </div>
+            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+              <span> {{totalCandidate}} {{'header.candidate' | translate}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div (click)="gotoCandidate('Pending')"
+        class="text-reset notification-item d-block dropdown-item position-relative">
+        <div class="d-flex">
+          <div class="flex-1">
+            <a class="stretched-link">
+              <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{'header.title.totalPending' | translate}} </h6>
+            </a>
+            <div class="fs-13 text-muted">
+
+            </div>
+            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+              <span> {{pending}} {{'header.candidate' | translate}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div (click)="gotoCandidate('InProgress')"
+        class="text-reset notification-item d-block dropdown-item position-relative">
+        <div class="d-flex">
+          <div class="flex-1">
+            <a class="stretched-link">
+              <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{'header.title.totalInProgess' | translate}}</h6>
+            </a>
+            <div class="fs-13 text-muted">
+
+            </div>
+            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+              <span> {{inProgress}} {{'header.candidate' | translate}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <div *ngIf="isApprover" class="tab-pane fade show active py-2 ps-2 " id="messages-tab" role="tabpanel"
+    aria-labelledby="messages-tab">
+    <div data-simplebar style="max-height: 300px;" class="pe-2">
+      <app-list-approval #listApprovalCpn (renewTotal)="renewTotal($event)"></app-list-approval>
+    </div>
+  </div> -->
+</div>

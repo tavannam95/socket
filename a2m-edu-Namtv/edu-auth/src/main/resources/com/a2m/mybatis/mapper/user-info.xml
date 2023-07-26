@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Mar 12 15:27:16 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a2m.auth.dao.UserInfoDao">
+
+	<insert id="save" parameterType="com.a2m.auth.model.request.TsstUserRequest" useGeneratedKeys="true" keyColumn="EMP_NO" keyProperty="empNo">
+        INSERT INTO TSST_USER_INFO
+        (
+        	FULL_NAME,
+        	DOB,
+        	EMAIL,
+        	CELL_PHONE,
+        	ADDRESS,
+        	GENDER,
+        	IMG_PATH,
+        	EMAIL_VERIFY_KEY,
+        	2FA_ENABLE,
+        	2FA_KEY
+        )VALUES
+        (
+        	#{fullName},
+        	#{dateOfBirth},
+        	#{email},
+        	#{cellPhone},
+        	#{address},
+        	#{gender},
+        	#{imgPath},
+        	#{emailVerifyKey},
+        	#{twoFactorAuthEnable},
+        	#{twoFactorAuthKey}
+        )
+    </insert>
+    
+</mapper>

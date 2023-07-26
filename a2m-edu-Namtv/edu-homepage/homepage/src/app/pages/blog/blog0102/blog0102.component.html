@@ -1,0 +1,252 @@
+<app-breadcrumb></app-breadcrumb>
+
+<!--=====================================-->
+<!--=       Blog Details Area Start     =-->
+<!--=====================================-->
+<div class="blog-details-area section-gap-equal">
+    <div class="container">
+        <div class="row row--30">
+            <div class="col-lg-8">
+                <div class="blog-details-content">
+                    <div class="entry-content">
+                        <span class="category">Developer</span>
+                        <h3 class="title">{{data.NOTICE_TITLE}}</h3>
+                        <ul class="blog-meta">
+                            <li><i class="icon-27"></i>{{data.CREATED_DATE | date: 'yyyy-MM-dd'}}</li>
+                            <li><i class="icon-28"></i>Com 09</li>
+                        </ul>
+                        <!-- <div class="thumbnail">
+                            <img src="assets/images/blog/blog-large-1.jpg" alt="Blog Image">
+                        </div> -->
+                    </div>
+                    <div [innerHTML]="data.CONTENT"></div>
+
+
+                    <div class="blog-share-area">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <div class="blog-tags">
+                                    <h6 class="title">Tags:</h6>
+                                    <div class="tag-list">
+                                        <a href="#">Language</a>
+                                        <a href="#">eLearn</a>
+                                        <a href="#">Tips</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="blog-share">
+                                    <h6 class="title">Share on:</h6>
+                                    <ul class="social-share icon-transparent">
+                                        <li>
+                                            <a href="#"><i class="icon-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="icon-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="icon-instagram"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="blog-author">-->
+<!--                    <div class="thumbnail">-->
+<!--                        <img src="assets/images/blog/author-01.jpg" alt="Author Images">-->
+<!--                    </div>-->
+<!--                    <div class="author-content">-->
+<!--                        <h5 class="title">Edward Norton</h5>-->
+<!--                        <p>Enim ad minim veniam quis nostrud exercitation lamco laboris nisi ex commodo consequat aute irure.</p>-->
+<!--                        <ul class="social-share icon-transparent">-->
+<!--                            <li>-->
+<!--                                <a href="#"><i class="icon-facebook"></i></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#"><i class="icon-twitter"></i></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#"><i class="icon-instagram"></i></a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="blog-pagination">-->
+<!--                    <div class="row g-5">-->
+<!--                        <div class="col-lg-6">-->
+<!--                            <div class="blog-pagination-list prev-post">-->
+<!--                                <a href="#">-->
+<!--                                    <i class="icon-west"></i>-->
+<!--                                    <span>Instructional Design and Adult Learners</span>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-lg-6">-->
+<!--                            <div class="blog-pagination-list next-post">-->
+<!--                                <a href="#">-->
+<!--                                    <span>Qualification for Students Satisfaction Rate</span>-->
+<!--                                    <i class="icon-east"></i>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <!-- Start Comment Area  -->
+                <div class="comment-area">
+                    <h3 class="heading-title">{{"news.comments.tile"|translate}}</h3>
+                    <div class="comment-list-wrapper">
+                        <!-- Start Single Comment  -->
+                        <div class="comment">
+                            <div class="thumbnail">
+                                <img src="assets/images/blog/comment-01.jpg" alt="Comment Images">
+                            </div>
+                            <div class="comment-content">
+                                <h5 class="title">Haley Bennet</h5>
+                                <span class="date">Oct 10, 2021</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="reply-btn-wrapper">
+                                    <a class="reply-btn" href="#">{{"news.reply.tile" | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Comment  -->
+                        <!-- Start Single Comment  -->
+                        <div class="comment comment-reply">
+                            <div class="thumbnail">
+                                <img src="assets/images/blog/comment-02.jpg" alt="Comment Images">
+                            </div>
+                            <div class="comment-content">
+                                <h5 class="title">Simon Baker</h5>
+                                <span class="date">Oct 10, 2021</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="reply-btn-wrapper">
+                                    <a class="reply-btn" href="#">{{"news.reply.tile" | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Comment  -->
+                        <!-- Start Single Comment  -->
+                        <div class="comment">
+                            <div class="thumbnail">
+                                <img src="assets/images/blog/comment-03.jpg" alt="Comment Images">
+                            </div>
+                            <div class="comment-content">
+                                <h6 class="title">Richard Gere</h6>
+                                <span class="date">Oct 10, 2021</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="reply-btn-wrapper">
+                                    <a class="reply-btn" href="#">{{"news.reply.tile" | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Comment  -->
+                    </div>
+                </div>
+                <!-- End Comment Area  -->
+                <div class="comment-form-area">
+                    <h3 class="heading-title">{{"news.leaveYourComment.tile"|translate}}</h3>
+                    <form class="comment-form">
+                        <div class="row g-5">
+                            <div class="form-group col-lg-6">
+                                <input type="text" name="comm-name" id="comm-name" placeholder="{{ 'news.form.name' | translate}}*">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input type="email" name="comm-email" id="comm-email" placeholder="{{ 'news.form.email' | translate}}*">
+                            </div>
+                            <div class="form-group col-12">
+                                <textarea name="comm-message" id="comm-message" cols="30" rows="5" placeholder="{{ 'news.form.comment' | translate}}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="edu-form-check">
+                                    <input type="checkbox" id="save-info">
+                                    <label for="save-info">{{ 'news.form.saveInfo' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
+                                <button type="submit" class="edu-btn submit-btn">{{ 'news.form.save' | translate}} <i class="icon-4"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+          <div class="col-lg-4">
+            <div class="edu-blog-sidebar">
+              <!-- Start Single Widget  -->
+              <div class="edu-blog-widget widget-search">
+                <div class="inner">
+                  <h4 class="widget-title">{{"button.search.title" | translate}}</h4>
+                  <div class="content">
+                    <form class="blog-search" action="#">
+                      <button class="search-button"><i class="icon-2"></i></button>
+                      <input type="text" placeholder="{{'button.search.title' | translate}}">
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- End Single Widget  -->
+              <!-- Start Single Widget  -->
+              <div class="edu-blog-widget widget-latest-post">
+                <div class="inner">
+                  <h4 class="widget-title">{{'blog.latestPost' | translate}}</h4>
+                  <div class="content latest-post-list">
+                    <div *ngFor="let new of news "  class="latest-post">
+                      <div class="thumbnail">
+                        <a href="javascript:void(0)" (click)="goToNewsDetail(new.ID)">
+                          <img src="assets/images/blog/small-post-01.jpg" alt="Blog Images">
+                        </a>
+                      </div>
+                      <div class="post-content">
+                        <h6 class="title"><a href="javascript:void(0)" (click)="goToNewsDetail(new.ID)" >{{new.NOTICE_TITLE}}</a></h6>
+                        <ul class="blog-meta">
+                          <li><i class="icon-27"></i>{{new.CREATED_DATE | date: 'yyyy-MM-dd'}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<!--=====================================-->
+<!--=        CTA  Area Start            =-->
+<!--=====================================-->
+<!-- Start Ad Banner Area  -->
+<div class="edu-cta-banner-area home-one-cta-wrapper bg-image">
+    <div class="container">
+        <div class="edu-cta-banner">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="section-title section-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                        <h2 class="title">Get Your Quality Skills <span class="color-secondary">Certificate</span> Through EduBlink</h2>
+                        <a href="contact-us.html" class="edu-btn">Get started now <i class="icon-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <ul class="shape-group">
+                <li class="shape-01 scene">
+                    <img data-depth="2.5" src="assets/images/cta/shape-10.png" alt="shape">
+                </li>
+                <li class="shape-02 scene">
+                    <img data-depth="-2.5" src="assets/images/cta/shape-09.png" alt="shape">
+                </li>
+                <li class="shape-03 scene">
+                    <img data-depth="-2" src="assets/images/cta/shape-08.png" alt="shape">
+                </li>
+                <li class="shape-04 scene">
+                    <img data-depth="2" src="assets/images/about/shape-13.png" alt="shape">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Ad Banner Area  -->

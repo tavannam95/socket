@@ -1,0 +1,91 @@
+<div class="page-content">
+  <div class="container-fluid">
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ mat_data.student.fullName }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header align-items-center">
+                <h2 class="card-title mb-0 flex-grow-1">{{quiz?.quizNm}}</h2>
+              </div>
+
+              <div class="card-body">
+                <h3>{{quiz?.quizContent}}</h3>
+              </div>
+            </div>
+            <app-ques-lst-area [item]="listQuizItem" [submitInput]="submit" [currentQues]="quizItemCurrent"></app-ques-lst-area>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-xxl-12 col-xl-12 col-sm-12">
+            <div class="card" *ngFor="let quizItemCurrent of listQuizItem; let index = index;">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">
+                  {{(index+1)+': '}}{{quizItemCurrent?.quizItemContent}}</h4>
+              </div>
+              <div class="card-body">
+                <div class="live-preview">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-6">
+                      <div *ngIf="quizItemCurrent.quizItemType=='08-01'">
+                        <div class="form-check mb-2" *ngFor="let answer of quizItemCurrent.listAnswer">
+                          <input [readonly]="submit"
+                            class="form-check-input" type="checkbox" id="answerCheck{{answer.key}}"
+                            name="answerCheck{{answer.key}}" [(ngModel)]="answer.isChoose">
+                          <label class="form-check-label" [class.text-success]="submit && answer.isAnswerCorrect"
+                            [class.text-danger]="submit && !answer.isAnswerCorrect && answer.isChoose"
+                            for="answerCheck{{answer.key}}">
+                            {{answer?.answerContent}}
+                          </label>
+                        </div>
+                      </div>
+                      <div *ngIf="quizItemCurrent.quizItemType=='08-02'">
+                        <div class="form-check mb-2">
+                          <label for="meassageInput" class="form-label-inline">{{
+                            "course0104.quiz.quizDetail.answer" |
+                            translate
+                            }}</label>
+                          <div class="col-lg-12">
+                            <textarea [(ngModel)]="quizItemCurrent.answerCorrectString" name="answerCorrectString"
+                              class="form-control" id="meassageInput" rows="3"
+                              placeholder="Enter your message"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="card-footer">
+                <div class="row justify-content-end text-center" style="align-items: left;">
+                  <div class="col-lg-2">
+                    <div *ngIf="submit">
+                      <div class="form-check mb-2">
+                        <label for="meassageInput" class="form-label-inline">
+                          {{ "course0104.quiz.quizDetail.result" | translate }}
+                          {{totalCorrectAnswer}}/{{listQuizItem.length}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,51 @@
+<div class="col-lg-12">
+  <!-- <div class="row"> -->
+    <div class="col-xxl-12">
+      <div class="card ">
+        <div class="card-body">
+          <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist"
+          style="border-bottom: none;">
+            <li class="nav-item">
+              <a id="tabStandard1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_STANDARD_KNOWLEDGE"
+                role="tab">{{'course.tab.standard.Know.title' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a id="tabStandard2" (click)="changeTab(3)" class="nav-link " data-bs-toggle="tab" href="#MENU_STANDARD_SKILL"
+                role="tab">{{'course.tab.standard.Skill.title' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a id ="tabStandard3" (click)="changeTab(2)" class="nav-link" data-bs-toggle="tab" href="#MENU_STANDARD_QUALITY"
+                role="tab">{{'course.tab.standard.Quality.title' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a id ="tabStandard4" (click)="changeTab(4)" class="nav-link" data-bs-toggle="tab" href="#MENU_STANDARD_SUMMARY"
+                role="tab">{{'course.tab.standard.Synthetic.title' | translate}}</a>
+            </li>
+          </ul>
+          <div class="tab-content text-muted">
+            <div class="tab-pane active" id="MENU_STANDARD_KNOWLEDGE" role="tabpanel">
+              <app-knowledge-form #standKnowledge (saveKnow)="afterSaveStand($event)"></app-knowledge-form>
+            </div>
+            <div class="tab-pane" id="MENU_STANDARD_SKILL" role="tabpanel">
+              <app-skill-form #standSkill (saveSkill)="afterSaveStand($event)"></app-skill-form>
+            </div>
+            <div class="tab-pane" id="MENU_STANDARD_QUALITY" role="tabpanel">
+              <app-quality-form #standQuality (saveQua)="afterSaveStand($event)"></app-quality-form>
+            </div>
+            <div class="tab-pane" id="MENU_STANDARD_SUMMARY" role="tabpanel">
+              <app-standard-summary-table #standSummary [listStandard]="listStandard"></app-standard-summary-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end col-->
+  <!-- </div> -->
+  <!--end row-->
+
+  <!-- <div class="row"> -->
+    <!--Start Right Content -->
+
+    <!--End Right Content -->
+  </div>
+<!-- </div> -->

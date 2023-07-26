@@ -1,0 +1,163 @@
+<!-- <app-breadcrumb></app-breadcrumb> -->
+
+<!--=====================================-->
+<!--=     Courses Details Area Start    =-->
+<!--=====================================-->
+<section class="edu-section-gap course-details-area">
+    <div class="container">
+        <div class="row row--30" style="justify-content: center;">
+            <div class="col-lg-8">
+                <div class="course-details-content">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">{{'courses.detail.overview' | translate}}</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="carriculam-tab" data-bs-toggle="tab" data-bs-target="#carriculam" type="button" role="tab" aria-controls="carriculam" aria-selected="false">{{'courses.detail.carriculam' | translate}}</button>
+                        </li>
+                        <!-- <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">{{'courses.detail.instructor' | translate}}</button>
+                        </li> -->
+
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                            <div class="course-tab-content">
+                                <div class="course-overview">
+                                    <h3 class="heading-title">{{'courses.detail.description' | translate}}</h3>
+                                    <!-- <p>Công nghệ được đào tạo là Java Web cùng các kỹ năng cần thiết cho công việc phát
+                                      triển phần mềm. Người học từ mức chưa có hoặc chưa vững về kỹ thuật lập trình có thể
+                                      nắm được cách tư duy trong công việc, có thể bắt tay ngay vào công việc thực tế sau
+                                      khóa học. Không những vậy, với những nền tảng có được, người học còn có khả năng tự
+                                      học và phát triển bản thân và nghề nghiệp lâu dài.</p> -->
+                                      <p>{{courseInfo.courseDisciption}}</p>
+                                    <!-- <p class="mb--60">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p> -->
+                                    <h5 class="title">{{'courses.detail.whatywlearn' | translate}}</h5>
+                                    <ul class="mb--60" [innerHTML]="courseInfo.courseGoal  | safeHtml">
+                                    <!-- <ul class="mb--60" >
+                                        <li>Sử dụng thành thạo ngôn ngữ JavaScript và Java</li>
+                                        <li>Làm chủ được các kỹ thuật lập trình Hướng đối tượng bằng JavaScript và Java</li>
+                                        <li>Sử dụng các cấu trúc dữ liệu phù hợp trong các tình huống thông dụng</li>
+                                        <li>Tuân thủ tốt các nguyên tắc mã sạch thông dụng</li>
+                                        <li>Xây dựng được các website tĩnh có độ phức tạp thấp</li>
+                                        <li>Tạo được các ứng dụng web sử dụng nền tảng Spring MVC</li>
+                                        <li>Tạo lập và truy vấn đuợc cơ sở dữ liệu quan hệ MySQL</li>
+                                        <li>Tạo đuợc ứng dụng frontend sử dụng nền tảng Angular</li> -->
+                                        <!-- <ng-container *ngFor="let item of courseGoal">
+                                          <li *ngIf="item!=''">{{item}}</li>
+                                        </ng-container> -->
+                                    </ul>
+                                    <!-- <p>Consectetur adipisicing elit, sed do eiusmod tempor inc idid unt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exerec tation ullamco laboris nis aliquip commodo consequat duis aute irure dolor.</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="carriculam" role="tabpanel" aria-labelledby="carriculam-tab">
+                            <div class="course-tab-content">
+                                <div class="course-curriculam">
+                                    <h3 class="heading-title">{{'courses.detail.carriculam' | translate}}</h3>
+
+                                    <div *ngFor="let item of this.courseProgram" class="course-lesson">
+                                      <ng-container *ngIf="!item.deleteFlag" >
+                                        <h5 class="title">{{item.subjectNm}}</h5>
+                                        <!-- <p>{{item.shortDiscription}}</p> -->
+                                        <ul *ngFor="let element of item.chapterModels">
+                                            <li *ngIf="element && !element.deleteFlag">
+                                                <div class="text"><i class="icon-65"></i> {{element.chapterNm}}</div>
+                                                <div class="icon"><i class="icon-68"></i></div>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                  </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group footer-subscription-form custom_center mt-3" >
+                          <button class="edu-btn btn-medium"  type="button" (click)="goToRegis()" >{{'common.menu.apply' | translate}}<i class="icon-4">  </i></button>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
+                            <div class="course-tab-content">
+                                <div class="course-instructor">
+                                    <div class="thumbnail">
+                                        <img src="assets/images/course/author-01.png" alt="Author Images">
+                                    </div>
+                                    <div class="author-content">
+                                        <h6 class="title">Edward Norton</h6>
+                                        <span class="subtitle">Founder & CEO</span>
+                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua enim minim veniam quis nostrud exercitation ulla mco laboris nisi ut aliquip ex ea commodo consequat. duis aute irure dolor in reprehenderit in voluptate.</p>
+                                        <ul class="social-share">
+                                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                            <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+                                            <li><a href="#"><i class="icon-youtube"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4">
+                <div class="course-sidebar-3 sidebar-top-position">
+                    <div class="edu-course-widget widget-course-summery">
+                        <div class="inner">
+                            <div class="thumbnail">
+                                <img src="assets/images/course/course-46.jpg" alt="Courses">
+                                <a href="https://www.youtube.com/watch?v=PICj5tr9hcc" class="play-btn video-popup-activation"><i class="icon-18"></i></a>
+                            </div>
+                            <div class="content">
+                                <h4 class="widget-title">{{'courses.detail.courseIncludes' | translate}}:</h4>
+                                <ul class="course-item">
+                                    <li>
+                                        <span class="label"><i class="icon-60"></i>{{'courses.detail.price' | translate}}:</span>
+                                        <span class="value price">$70.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="label"><i class="icon-62"></i>{{'courses.detail.instrutor' | translate}}:</span>
+                                        <span class="value">Edward Norton</span>
+                                    </li>
+                                    <li>
+                                        <span class="label"><i class="icon-61"></i>{{'courses.detail.duration' | translate}}:</span>
+                                        <span class="value">3 weeks</span>
+                                    </li>
+                                    <li>
+                                        <span class="label">
+                                            <img class="svgInject" src="assets/images/svg-icons/books.svg" alt="book icon">
+                                            {{'courses.detail.lessons' | translate}}:</span>
+                                        <span class="value">8</span>
+                                    </li>
+                                    <li>
+                                        <span class="label"><i class="icon-63"></i>{{'courses.detail.enrolled' | translate}}:</span>
+                                        <span class="value">65 students</span>
+                                    </li>
+                                    <li>
+                                        <span class="label"><i class="icon-59"></i>{{'courses.detail.language' | translate}}:</span>
+                                        <span class="value">English</span>
+                                    </li>
+                                    <li>
+                                        <span class="label"><i class="icon-64"></i>{{'courses.detail.certificate' | translate}}:</span>
+                                        <span class="value">{{'common.status.yes' | translate}}</span>
+                                    </li>
+                                </ul>
+                                <div class="read-more-btn">
+                                    <a href="#" class="edu-btn">{{'common.menu.apply' | translate}}<i class="icon-4"></i></a>
+                                </div>
+                                <div class="share-area">
+                                    <h4 class="title">{{'common.shareOn' | translate}}:</h4>
+                                    <ul class="social-share">
+                                        <li><a href="#"><i class="icon-facebook"></i></a></li>
+                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+                                        <li><a href="#"><i class="icon-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>

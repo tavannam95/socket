@@ -1,0 +1,108 @@
+ <ng-container *ngIf=" vc != 'VIEW'">
+  <ng-container *ngIf="elmType=='INP'">
+    <input [required]="required" #templatInputRef="ngModel" [type]="type" class="form-control text-dark" [name]="inputName" [(ngModel)]="inpValue"
+      [minlength]="minlength" [placeholder]="placeholder" (change)="changeInpValue($event)"
+      [maxlength]="maxlength"
+      [ngClass]="{ 'is-invalid': (templatInputRef.invalid && submitted) || (templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched))}"
+    />
+    <div class="invalid-error"
+      *ngIf="(templatInputRef.invalid && submitted) || templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched) || inpValue?.length == maxlength ">
+      <span *ngIf="templatInputRef.errors?.['required']">{{ requiredMessage}}</span>
+      <span *ngIf="minlength > 0 && templatInputRef.errors?.['minlength']">Phải dài ít nhất {{minlength}} ký tự.</span>
+      <span *ngIf="inpValue.length == maxlength ">Không thể vượt quá {{maxlength}} ký tự.</span>
+      <!-- {{'message.requiredMin' |translate }} -->
+    </div>
+  </ng-container>
+  <ng-container *ngIf="elmType=='DISABLE'">
+    <input [disabled]="true" [required]="required" #templatInputRef="ngModel" [type]="type" class="form-control text-dark" [name]="inputName" [(ngModel)]="inpValue"
+      [minlength]="minlength" [placeholder]="placeholder" (change)="changeInpValue($event)"
+      [ngClass]="{ 'is-invalid': (templatInputRef.invalid && submitted) || (templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched))}"
+    />
+    <div class="invalid-error"
+      *ngIf="(templatInputRef.invalid && submitted) || templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched)">
+      <span *ngIf="templatInputRef.errors?.['required']">{{ requiredMessage}}</span>
+      <span *ngIf="minlength > 0 && templatInputRef.errors?.['minlength']">Phải dài ít nhất {{minlength}} ký tự.</span>
+      <!-- {{'message.requiredMin' |translate }} -->
+    </div>
+  </ng-container>
+  <ng-container *ngIf="elmType=='AREA'">
+    <textarea [required]="required" #templatInputRef="ngModel" class="form-control" [name]="inputName" [(ngModel)]="inpValue" rows="3"(change)="changeInpValue($event)"
+    [ngClass]="{ 'is-invalid': (templatInputRef.invalid && submitted) || (templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched))}" [placeholder]="placeholder"
+    [minlength]="minlength"  [ngModelOptions]="{ standalone: true }"
+    ></textarea>
+
+    <input type="text" hidden [required]="required" class="form-control "  [name]="inputName"
+    [placeholder]="placeholder"
+    [(ngModel)]="inpValue" #templatInputRef="ngModel"
+    [ngClass]="{ 'is-invalid': (templatInputRef.invalid && submitted) || (templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched))}" />
+
+    <div class="invalid-error"
+      *ngIf="(templatInputRef.invalid && submitted) || templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched)">
+      <span *ngIf="templatInputRef.errors?.['required']">{{ requiredMessage}}</span>
+      <!-- {{'message.requiredMin' |translate }} -->
+    </div>
+  </ng-container>
+  <ng-container *ngIf="elmType=='DROPDOWN'">
+    <p-dropdown appendTo="body" [placeholder]="placeholder"
+      (onChange)="changeInpValue($event)"
+      [required]="required" [options]="optionsDropDown" [(ngModel)]="inpValue"
+      [optionLabel]="optionLabel" [optionValue]="optionValue" [ngModelOptions]="{ standalone: true }">
+    </p-dropdown>
+
+    <input type="text" hidden [required]="required" class="form-control "  [name]="inputName"
+    [placeholder]="placeholder"
+    [(ngModel)]="inpValue" #templatInputRef="ngModel"
+    [ngClass]="{ 'is-invalid': (templatInputRef.invalid && submitted) || (templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched))}" />
+
+    <div class="invalid-error"
+      *ngIf="(templatInputRef.invalid && submitted) || templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched)">
+      <span *ngIf="templatInputRef.errors?.['required']">{{ requiredMessage}}</span>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="elmType=='CALENDAR'">
+    <div class="form-icon right ">
+      <p-calendar
+      (onSelect)="changeInpValue($event)"
+       [required]="required" #templatInputRef="ngModel" [placeholder]="placeholder"
+        [(ngModel)]="inpValue" [name]="inputName"
+        [dateFormat]="dateFormat" [readonlyInput]="true" appendTo="body" [minDate]="minDate">
+      </p-calendar>
+      <i class="ri-calendar-2-fill"></i>
+    </div>
+    <div class="invalid-error"
+    *ngIf="(templatInputRef.invalid && submitted) || templatInputRef.invalid && (templatInputRef.dirty || templatInputRef.touched)">
+    <span *ngIf="templatInputRef.errors?.['required']">{{ 'message.requiredStartDate' | translate}}</span>
+  </div>
+  </ng-container>
+
+</ng-container>
+
+<ng-container *ngIf=" vc == 'VIEW'">
+  <ng-container *ngIf="elmType == 'INP' || elmType=='DISABLE'  " >
+    <label class="form-label-inline" style="color: black;">
+      {{ inpValue?inpValue:"" }}
+    </label>
+  </ng-container>
+  <ng-container *ngIf="elmType == 'DROPDOWN' && inpLable " >
+    <label class="form-label-inline" style="color: black;">
+      {{ inpLable?inpLable:"" }}
+    </label>
+  </ng-container>
+  <ng-container *ngIf="elmType == 'DROPDOWN' && !inpLable " >
+    <!-- <ng-container *ngFor="let item of optionsDropDown"> -->
+      <label  class="form-label-inline" style="color: black;">
+        {{ showComNm(inpValue) }}
+      </label>
+    <!-- </ng-container> -->
+  </ng-container>
+  <ng-container *ngIf="elmType == 'CALENDAR' " >
+    <label class="form-label-inline" style="color: black;">
+      {{ inpValue | date: ' dd/MM/yyyy' }}
+    </label>
+  </ng-container>
+  <ng-container *ngIf="elmType =='AREA'" >
+    <label rows="3" class="form-label-inline text-dark text-break">{{ inpValue?inpValue:"" }}
+    </label>
+  </ng-container>
+</ng-container>

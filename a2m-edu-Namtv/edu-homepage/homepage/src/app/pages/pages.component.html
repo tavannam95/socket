@@ -1,0 +1,60 @@
+<div id="edublink-preloader">
+    <div class="loading-spinner">
+        <div class="preloader-spin-1"></div>
+        <div class="preloader-spin-2"></div>
+    </div>
+    <!-- <div class="preloader-close-btn-wraper">
+        <span class="btn btn-primary preloader-close-btn">
+            Cancel Preloader</span>
+    </div> -->
+</div>
+
+<div id="main-wrapper" class="main-wrapper">
+
+    <!--=====================================-->
+    <!--=        Header Area Start       	=-->
+    <!--=====================================-->
+    <app-header></app-header>
+    <!--=====================================-->
+
+    <router-outlet></router-outlet>
+    <!--=====================================-->
+    <!--=        Footer Area Start       	=-->
+    <!--=====================================-->
+    <!-- Start Footer Area  -->
+    <app-footer></app-footer>
+    <!-- End Footer Area  -->
+</div>
+
+<div>
+  <a style="
+    width: 50px;
+    height: 50px;
+    bottom: 175px;
+    right: 30px;
+    position: fixed;
+    z-index: 10000;"
+    href="https://m.me/atwom.edu.vn" target="_blank">
+    <img alt="Icon" src="/assets/images/logo/logo-messenger.png" class="lazyload">
+  </a>
+  <!-- href="https://zalo.me/0949591987" -->
+</div>
+
+<div>
+  <!-- <a routerlink="/apply" > -->
+  <button class="button_regis" (click)="goToRegis()"  style="
+  width: 40px;
+  height: 40px;
+  bottom: 100px;
+  right: 30px;
+  position: fixed;
+  z-index: 10000;">
+    <i class="ri-phone-line" style="font-size: large; color: white;"></i></button>
+  <!-- </a> -->
+</div>
+
+<div class="rn-progress-parent">
+    <svg class="rn-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>

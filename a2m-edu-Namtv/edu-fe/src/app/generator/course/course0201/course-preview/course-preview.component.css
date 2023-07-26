@@ -1,0 +1,23 @@
+.fixed-submenu{
+  position: fixed;
+    right: 0;
+}
+.antiquewhite{
+  color: antiquewhite;
+}
+.burlywood{
+  color: burlywood;
+}
+
+.mat-expansion-panel-header-description {
+  display: flex;
+  justify-content: flex-end;
+}
+@media screen and (max-width: 600px) {
+
+.hidden{
+  visibility: hidden;
+}
+
+
+}

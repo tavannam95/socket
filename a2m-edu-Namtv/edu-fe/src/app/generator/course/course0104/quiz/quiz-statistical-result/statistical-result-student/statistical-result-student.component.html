@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-xxl-4 col-xl-4 col-sm-12" style="max-width: 400px;">
+            <div class="input-group">
+              <span class="input-group-text">{{"sys3.userNameSearch" | translate}}</span>
+              <input type="text" class="form-control" placeholder="{{'sys3.userNameSearch' | translate}}"
+                [(ngModel)]="studentSubmitSearch.fullName" (keyup.enter)="onSearch()" />
+            </div>
+          </div>
+          <!--end col-->
+
+          <div class="col-xxl-4 col-xl-4 col-sm-12" style="min-width: 400px;">
+            <div class="input-group">
+              <span class="input-group-text">{{'course0104.quiz.quizDetail.class' | translate}}</span>
+                <p-multiSelect (onChange)="onSearch()" #multiselect [options]="listClass"
+                [(ngModel)]="listClassSelected" name="classIds" emptyFilterMessage="{{ 'autocomplete.input.emtyMessage' | translate }}" emptyMessage="{{ 'autocomplete.input.emtyMessage' | translate }}" defaultLabel="{{'course0104.quiz.quizDetail.class' | translate}}" optionLabel="className"
+                [style]="{'width':'250px'}" [panelStyle]="{'width':'250px'}"></p-multiSelect>
+            </div>
+          </div>
+          <!-- Buttons Group -->
+          <div class="col-xxl-2 col-xl-2 col-sm-12">
+            <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+            (click)="onSearch()">
+            <i class="ri-search-line"></i>
+          </button>
+          <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+            (click)="onSearchReset()">
+            <i class="ri-refresh-line"></i>
+          </button>
+          </div>
+
+        </div>
+        <!--end row-->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h2 class="card-title mb-0 flex-grow-1">{{'course0104.quiz.quizStatis.title' | translate}}</h2>
+              <div class="flex-shrink-0">
+                  <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end;">
+                    <button type="button" class="btn rounded-pill btn-primary waves-effect right waves-light"
+                      (click)="backSubject()">
+                      {{ "button.back.title2" | translate }}
+                    </button>
+                    <button type="button" class="btn rounded-pill btn-primary waves-effect right waves-light"
+                      (click)="retakeQuiz()">
+                      {{ "course0104.quiz.takeQuiz" | translate }}
+                    </button>
+                      <!-- <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light" >
+                          <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                          {{'button.add.title' | translate}}</button>
+
+                      <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill"><i
+                              class="ri-save-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> {{'button.save.title' | translate}}</button>
+                      <button type="button"  class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill">
+                          <i class="bx bx-trash label-icon align-middle rounded-pill fs-16 ms-2"></i> {{'button.delete.title' | translate}}</button> -->
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-xl-12 mb-3">
+                      <div class="table-responsive mt-4 mt-xl-0">
+                          <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                              <thead class="">
+                                  <tr>
+                                      <th scope="col">{{'course0104.quiz.quizStatis.No.' | translate}}</th>
+                                      <th scope="col">{{'course0104.quiz.quizStatis.fullName' | translate}}</th>
+                                      <th scope="col">{{'course0104.quiz.quizStatis.result' | translate}}</th>
+                                      <th scope="col">{{'course0104.quiz.quizStatis.insDate' | translate}}</th>
+                                      <th scope="col">{{ "course0101.columns.action" | translate }}</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let student of listStuSubmited">
+                                      <td class="fw-medium">{{student.index}}</td>
+                                      <td>{{student.fullName}}</td>
+                                      <td>{{student.totalCorrect}}/{{student.totalCorrect+student.totalWrong+student.totalNotChoose}}
+                                        <div class="progress bg-soft-success">
+                                          <div class="progress-bar bg-success" role="progressbar" [style.width]="(student.totalCorrect/(student.totalCorrect+student.totalWrong+student.totalNotChoose))*100+'%'" aria-valuenow="10" aria-valuemin="0" aria-valuemax="30"></div>
+                                      </div>
+                                      </td>
+                                      <td>{{student.insDate | date: 'dd/MM/yyyy'}}</td>
+                                      <td>
+                                          <!-- <div class="hstack flex-wrap gap-4">
+                                              <a href="javascript:void(0);" class="link-primary" tooltipPosition="top" pTooltip="{{'button.edit.title' | translate}}">
+                                                  <i class="ri-edit-line fs-4 fs-4"></i>
+                                              </a>
+                                              <a href="javascript:void(0);" class="link-primary" tooltipPosition="top" pTooltip="{{'button.delete.title' | translate}}">
+                                                  <i class="ri-delete-bin-6-line fs-4"></i>
+                                              </a>
+                                              <a href="javascript:void(0);" class="link-primary" tooltipPosition="top" pTooltip="{{'button.connection.title' | translate}}">
+                                                  <i class="mdi mdi-connection fs-4"></i>
+                                              </a>
+                                          </div> -->
+                                          <button type="button" class="btn btn-primary waves-effect waves-light" (click)="showView(student)">
+                                            {{ "iqTest.IqTest.columns.viewResult" | translate }}
+                                          </button>
+                                      </td>
+                                  </tr>
+                                  <tr *ngIf="listStuSubmited.length == 0">
+                                    <td colspan="5">
+                                      <div class="text-center">
+                                        <p>{{ "table.noContentToDisplay" | translate }}</p>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                      </div>
+                  </div>
+                  <div *ngIf="listStuSubmited.length > 0" class="col-xxl-12">
+                    <app-paginator [totalRecords]="totalRecords" (onPageChange)="getPaging($event)">
+                    </app-paginator>
+                  </div>
+                  <!--end col-->
+              </div>
+              <!--end row-->
+
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+  <!-- end col -->
+</div>

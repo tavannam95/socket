@@ -1,0 +1,102 @@
+<div class="page-content">
+  <div class="container-fluid">
+<app-breadcrumb></app-breadcrumb>
+    <div class="row  justify-content-center">
+      <div class="col-xxl-9 col-xl-10 col-sm-12">
+        <div class="card">
+          <div class="card-header align-items-center">
+            <div class="row">
+              <div class="col-lg-10">
+                <h2 class="card-title mb-0 flex-grow-1">{{iqTest?.iqTestNm}}</h2>
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-primary waves-effect waves-light" (click)="Submit()"
+                  *ngIf="!submit">
+                  {{ "button.submitQuiz.title" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+
+
+      <div class="col-xxl-9">
+        <div class="card">
+            <div class="progress bg-soft-primary progress-xl" *ngIf="!submit" style="height: 40px;">
+              <div *ngIf="percent >= 11" class="progress-bar bg-success bg-gradient" role="progressbar" [attr.aria-valuenow]="percent" aria-valuemin="0" aria-valuemax="100" [style.width]="percent + '%'">
+                <h1 *ngIf="percent >= 90" style="color: black; margin: auto;">{{display}}</h1>
+              </div>
+              <div *ngIf="percent < 11" class="progress-bar bg-success bg-danger" role="progressbar" [attr.aria-valuenow]="percent" aria-valuemin="0" aria-valuemax="100" [style.width]="percent + '%'">
+              </div>
+              <h1 *ngIf="percent < 90" style="color: black; margin: auto;">{{display}}</h1>
+            </div>
+          <app-ques-lst-area [item]="listQues" [submitInput]="submit" [currentQues]="iqItemCurrent" (onPageChange)="goQuestion($event)"></app-ques-lst-area>
+
+          <div class="card-header align-items-center d-flex">
+            <div class="text-dark text-break  editer-view-img" [innerHTML]="quesContents | safeHtml"></div>
+          </div>
+
+          <div class="card-body">
+            <div class="live-preview">
+              <div class="row">
+                <div class="col-lg-12 col-md-6">
+
+                  <div *ngIf="iqItemCurrent.quesType == '09-02'">
+                    <div class="form-check mb-2" *ngFor="let answer of iqItemCurrent.answerList">
+                      <input (change)="chageAnswer0801(iqItemCurrent)" [readonly]="submit" class="form-check-input" type="checkbox" id="answerCheck{{answer.key}}" name="answerCheck{{answer.key}}"
+                        [(ngModel)]="answer.isChoose">
+                      <label class="form-check-label" [class.text-success]="submit && answer.answerCorrect" [class.text-danger]="submit && !answer.answerCorrect && answer.isChoose"  for="answerCheck{{answer.key}}">
+                        {{answer?.answerContent}}
+                      </label>
+                    </div>
+                  </div>
+                  <div *ngIf="iqItemCurrent.quesType=='09-01'">
+                    <div class="form-check mb-2">
+                        <label for="meassageInput" class="form-label-inline">{{ "course0104.quiz.quizDetail.answer" | translate }}</label>
+                      <div class="col-lg-12">
+                        <textarea [(ngModel)]="iqItemCurrent.answerCorrectString" name="answerCorrectString" class="form-control"
+                          id="meassageInput" rows="3" placeholder="Enter your message"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-lg-4">
+                <button *ngIf="quesIndexCurrent > 0" type="button" class="btn btn-success waves-effect waves-light" (click)="goQuestion(quesIndexCurrent-1)">
+                  {{ "course0104.quiz.quizDetail.prev" | translate }}
+                </button>
+              </div>
+              <div class="col-lg-4">
+                <div *ngIf="submit">
+                  <div class="form-check mb-2">
+                    <label for="meassageInput" class="form-label-inline">
+                      {{ "course0104.quiz.quizDetail.result" | translate }}
+                      {{totalCorrectAnswer}}/{{listQues.length}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 justify-content-end" style="display: flow-root; padding-left: 294px;">
+                <button class="justify-content-end" *ngIf="quesIndexCurrent < listQues.length-1" type="button" class="btn btn-success waves-effect waves-light" (click)="goQuestion(quesIndexCurrent+1)">
+                  {{ "course0104.quiz.quizDetail.next" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<p-confirmDialog key="resultDialog" ></p-confirmDialog>

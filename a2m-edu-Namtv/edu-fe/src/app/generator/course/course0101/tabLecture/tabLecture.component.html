@@ -1,0 +1,63 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <!-- <app-breadcrumb></app-breadcrumb> -->
+        <app-progress-bar></app-progress-bar>
+        <!-- end page title -->
+        <div class="row justify-content-center">
+        <!--Start Left Content -->
+          <!-- <i  #iconShowHide (click)="handleShowHide()"class="ri-arrow-left-s-fill btn-showHide"></i >
+            <div [style.display]="showHide"  class="col-lg-3 hiddenMobile"  >
+             <app-sub-menu #subMenuTag [courseId]="this.courseId" [subjectId]="subjectId" [chapterId]="chapterId"></app-sub-menu>
+            </div> -->
+        <!--End Left Content -->
+        <div class="col-xxl-9">
+          <div class="row">
+            <div class="col-xxl-12">
+                <div class="card ">
+                    <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist" style="border-bottom: none;">
+                      <li class="nav-item">
+                          <a id="tabLecture1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_CHAPTER_FORM" role="tab">{{'course.tab.chapter.form.title' | translate}}</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                          <a id="tabLecture2" (click)="changeTab(2)" class="nav-link" data-bs-toggle="tab" href="#MENU_LIST_LECTURE_MGT" role="tab">{{'course.tab.lecture.list.title' | translate}}</a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a id="tabLecture3" (click)="changeTab(3)" class="nav-link" data-bs-toggle="tab" href="#MENU_LIST_QUIZ_MGT" role="tab">{{'course.tab.document.list.title' | translate}}</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <!--Start Right Content -->
+            <div class="col-xxl-12">
+                <div class="tab-content text-muted">
+                    <div class="tab-pane active" id="MENU_CHAPTER_FORM" role="tabpanel">
+                        <app-chapter-form #chapterForm ></app-chapter-form>
+                    </div>
+                    <!-- <div class="tab-pane" id="MENU_LIST_LECTURE_MGT" role="tabpanel">
+                        <app-list-lecture #lectureList></app-list-lecture>
+                    </div> -->
+                    <div class="tab-pane" id="MENU_LIST_QUIZ_MGT" role="tabpanel">
+                      <app-quiz-list #quizList></app-quiz-list>
+                    </div>
+                </div>
+            </div>
+              <!--End Right Content -->
+          </div>
+
+        </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+
+    </div>
+    <!-- container-fluid -->
+</div>
+
+<p-confirmDialog >
+</p-confirmDialog>

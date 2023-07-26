@@ -1,0 +1,125 @@
+<div class="row g-4 mb-3 justify-content-center">
+
+  <div class="col-xxl-6 col-xl-8 col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="d-flex justify-content-sm-start gap-2">
+      <div>
+        <a (click)="viewDetail(post,'')" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i>{{'community.button.addNew' | translate }}</a>
+      </div>
+      <div class="search-box ms-2">
+        <input [(ngModel)]="pagingRequest.searchText" type="text" class="form-control" placeholder="Search..." (keyup.enter)="searchData()">
+        <i class="ri-search-line search-icon"></i>
+      </div>
+      <button (click)="searchData()" type="button" class="btn btn-light waves-effect"><i class="ri-search-line search-icon"></i></button>
+
+      <!-- <select class="form-control w-md" data-choices="" data-choices-search-false="">
+        <option value="All">All</option>
+        <option value="Today">Today</option>
+        <option value="Yesterday" selected="">Yesterday</option>
+        <option value="Last 7 Days">Last 7 Days</option>
+        <option value="Last 30 Days">Last 30 Days</option>
+        <option value="This Month">This Month</option>
+        <option value="Last Year">Last Year</option>
+      </select> -->
+    </div>
+  </div>
+</div>
+    <div class="row justify-content-center">
+
+      <div class="col-xxl-6 col-xl-8 col-lg-9 col-md-12 col-sm-12 col-xs-12 project-card">
+        <div class="card" *ngFor="let post of listPost">
+          <div class="card-body">
+            <div class="d-flex flex-column h-100">
+              <!-- <div class="d-flex">
+                <div class="flex-grow-1">
+                  <p class="text-muted mb-4">{{ 'community.post.updateDate' | translate }} {{post.insDate | date: 'hh:mm dd/MM/yyyy'}}</p>
+                </div>
+                <div class="flex-shrink-0">
+                  <div class="d-flex gap-1 align-items-center">
+
+                  </div>
+                </div>
+              </div> -->
+              <div class="d-flex mb-2">
+                <div class="flex-shrink-0 me-3">
+                  <div class="avatar-sm">
+                    <img *ngIf="post.userInfoCreate.imgPath==null" src="assets/images/brands/slack.png" alt=""
+                      class="avatar-sm rounded-circle shadow">
+                    <img *ngIf="post.userInfoCreate.imgPath!=null"
+                      src="{{apiUrl}}/tcco-files/getFile/{{post.userInfoCreate?.imgPath}}?filePath={{post.userInfoCreate?.imgPath}}"
+                      alt="" class="avatar-sm rounded-circle shadow">
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 fs-15"><a routerLink="/community/post/{{post.key}}"
+                      class="text-dark">{{post.postTitle}}</a></h5>
+                  <p class="text-muted text-truncate-two-lines mb-3">{{post.userInfoCreate.fullName}}</p>
+                </div>
+                <!-- <button type="button" class="btn avatar-xs mt-n1 p-0 favourite-btn shadow-none">
+                      <span class="avatar-title bg-transparent fs-15">
+                        <i class="ri-star-fill"></i>
+                      </span>
+                    </button> -->
+                <div class="dropdown">
+                  <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 shadow-none"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-more-horizontal icon-sm">
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="19" cy="12" r="1"></circle>
+                      <circle cx="5" cy="12" r="1"></circle>
+                    </svg>
+                  </button>
+
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a routerLink="/community/post-form/{{post.key}}" class="dropdown-item"><i
+                        class="ri-pencil-fill align-bottom me-2 text-muted"></i> {{ 'community.button.edit' | translate}}</a>
+                    <div class="dropdown-divider"></div>
+                    <!-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i
+                            class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a> -->
+                  </div>
+                </div>
+              </div>
+              <div class="mt-auto">
+                <div class="d-flex mb-2" style="max-height: 150px; overflow:hidden;" role="button" (click)="goPostDiscuss(post)">
+                  <div class="flex-grow-1">
+                    <div class="text-dark text-muted editer-view-img editer-view-hidden-img" [innerHTML]="post.postContent | safeHtml"></div>
+                  </div>
+                  <!-- <div class="flex-shrink-0">
+                    <div><i class="ri-list-check align-bottom me-1 text-muted"></i> 18/42</div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- end card body -->
+          <div class="card-footer bg-transparent border-top-dashed py-2">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <div class="flex-grow-1 d-flex flex-wrap gap-2">
+                  <span *ngFor="let item of post.listTag" class="btn badge bg-light text-dark" (click)="badgeTagClick(item)" >{{item}}</span>
+                </div>
+              </div>
+
+              <div class="flex-shrink-0 align-self-center">
+                <div class="text-muted">
+                  <i class="ri-reply-line me-1 align-bottom"></i>{{post.countAnswer}}
+                  <i class="ri-reply-fill me-1 align-bottom"></i>{{post.countReply}}
+                  <i class="ri-calendar-event-fill me-1 align-bottom"></i>{{post.insDate | date: 'hh:mm dd/MM/yyyy'}}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- end card footer -->
+        </div>
+
+        <div *ngIf="listPost.length > 0" class="col-xxl-12">
+          <app-paginator [totalRecords]="totalPost" (onPageChange)="getPaging($event)">
+          </app-paginator>
+        </div>
+        <!-- end card -->
+      </div>
+    </div>

@@ -1,0 +1,149 @@
+<app-loader></app-loader>
+<!-- <app-progress-bar [LoaderSize]="LoaderSize"></app-progress-bar> -->
+
+<div class="row">
+  <div class="col-12">
+
+    <!-- button -->
+    <div class="btn-toolbar p-3" role="toolbar">
+      <div class="btn-group me-2 mb-2 mb-sm-0">
+        <button type="button" class="btn btn-primary" (click)="back()">
+          <i class="dripicons-backspace"></i>
+        </button>
+        <!-- <button type="button" class="btn btn-primary" (click)="doDelete(request['uid'][0])">
+          <i class="far fa-trash-alt"></i>
+        </button> -->
+      </div>
+    </div>
+
+    <!-- detail mail -->
+    <div class="card-body">
+      <div class="message-content">
+
+        <!-- subject -->
+        <div class="row mb-3">
+          <h2>
+            <strong>{{ mesDetail.subject ? mesDetail.subject : "Untitled" }}</strong>
+          </h2>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+
+          <!-- img -->
+          <img *ngIf="avtSender" class="d-flex me-3 rounded-circle avatar-sm" [src]="avtSender"
+            alt="Generic placeholder image" />
+          <div *ngIf="!avtSender" class="avatar-sm me-3">
+            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+              {{mesDetail.from.charAt(0)}}
+            </span>
+          </div>
+
+          <!--  -->
+          <div class="d-flex detail" style="width: 80%;">
+            <div class="flex-1">
+              <h5 class="font-size-14 my-1">{{ mesDetail.from }}</h5>
+              <small class="text-muted">{{ "mail.mail0105.to" | translate }}: {{ mesDetail.to }}</small>
+              <i class="fas fa-caret-down" (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin
+                #trigger="cdkOverlayOrigin"></i>
+
+              <!-- open -->
+              <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
+                <ul class="mail-detail">
+                  <li class="d-flex">
+                    <div class="col-lg-2 text-end">from:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{ mesDetail.from }}</strong>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="col-lg-2 text-end">to:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{ mesDetail.to }}</strong>
+                    </div>
+                  </li>
+                  <li class="d-flex" *ngIf="mesDetail.cc">
+                    <div class="col-lg-2 text-end">cc:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{ mesDetail.cc }}</strong>
+                    </div>
+                  </li>
+                  <li class="d-flex" *ngIf="mesDetail.bcc">
+                    <div class="col-lg-2 text-end">bcc:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{ mesDetail.bcc }}</strong>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="col-lg-2 text-end">date:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{
+                        mesDetail.date ? (mesDetail.date | date: "medium") : ""
+                        }}</strong>
+                    </div>
+                  </li>
+                  <li class="d-flex">
+                    <div class="col-lg-2 text-end">title:</div>
+                    <div class="col-lg-10 text-start">
+                      <strong>{{ mesDetail.subject }}</strong>
+                    </div>
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- detail mail -->
+        <div class="mb-3">
+          <div class="txt display-html" id="task_content" [innerHTML]="testMarkup"></div>
+        </div>
+      </div>
+
+      <!-- attachment -->
+      <div class="row" *ngIf="messageAttachments.length > 0">
+        <div class="col-xl-2 col-6" *ngFor="let att of messageAttachments">
+          <div class="card" style="background-color: aliceblue; padding: 5px">
+            <div>
+              <span style="font-size:20px ">
+                <i class="far fa-file-word text-primary me-2" *ngIf="att.type == 'word'"></i>
+                <i class="far fa-file-pdf text-danger me-2" *ngIf="att.type == 'pdf'"></i>
+                <i class="far fa-file-powerpoint text-danger me-2" *ngIf="att.type == 'ppt'"></i>
+                <i class="far fa-file-excel text-success me-2" *ngIf="att.type == 'excel'"></i>
+                <i class="far fa-file-archive text-secondary me-2" *ngIf="att.type == 'zip'"></i>
+                <i class="far fa-file-image text-secondary me-2" *ngIf="att.type == 'media'"></i>
+              </span>
+              <span>{{ att.name }}</span>
+            </div>
+            <div class="py-2 text-center" *ngIf="attachmentSelected != att.name">
+              <a href="javascript:void(0)" class="fw-medium" (click)="downloadAttachment(att)">{{
+                "mail.mail0105.download" | translate }}</a>
+            </div>
+            <!-- <app-loader *ngIf="LoaderSize && childrenItem" [LoaderSize]="LoaderSize"></app-loader> -->
+            <div *ngIf="attachmentSelected == att.name">
+              <!-- <ngb-progressbar [value]="LoaderSize" showValue="true" height="15px" type="info"></ngb-progressbar> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="messageAttachments.length <= 0">
+        <span>{{ "mail.mail0105.noAttachments" | translate }}.</span>
+      </div>
+
+      <!-- button -->
+      <div class="button-items">
+        <a href="javascript: void(0);" class="btn btn-secondary mt-4" (click)="replyMail()"><i
+            class="mdi mdi-reply"></i>
+          {{ "mail.mail0105.reply" | translate }}</a>
+        <a href="javascript: void(0);" class="btn btn-secondary mt-4" (click)="replyMailAll()"><i
+            class="mdi mdi-reply-all"></i>
+          {{ "mail.mail0105.replyAll" | translate }}</a>
+        <a href="javascript: void(0);" class="btn btn-secondary mt-4" (click)="forwardMail()"><i
+            class="dripicons-forward"></i>
+          {{ "mail.mail0105.forward" | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog position="top"></p-confirmDialog>

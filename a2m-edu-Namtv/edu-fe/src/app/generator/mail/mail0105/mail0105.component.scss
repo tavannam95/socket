@@ -1,0 +1,75 @@
+
+.message-content {
+  .detail {
+    i {
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  }
+}
+
+.mail-detail {
+  width: 500px;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  background: #fff;
+  text-align: center;
+  padding: 10px;
+  margin: 0;
+
+  .col-lg-10 {
+    margin-left: 10px;
+  }
+}
+
+#task_content {
+  // padding: 0px;
+  padding-top: 20px;
+  padding: 10px;
+  min-height: 300px;
+}
+
+:host ::ng-deep {
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+  }
+
+  .table {
+    overflow: scroll;
+    border-top: 1px solid #e9e9f0;
+    border-bottom: 1px solid #e9e9f0;
+    margin: 0.5rem 0 0.65rem;
+    width: 100%;
+  }
+  
+  .table>table {
+    position: relative;
+    overflow: hidden;
+    width: calc(100%);
+    // margin-left: -1px;
+    line-height: 1.25;
+  }
+  
+  .table>table td {
+    position: relative;
+    word-break: keep-all;
+    padding: 0.7rem 0.6rem;
+    min-height: 53px;
+    color: #2b2b2b;
+    text-align: center;
+    position: relative;
+    font-size: 13px;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+  }
+  
+  .table>table tr {
+    border-bottom: 1px solid #e9e9f0;
+    -webkit-transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+  }
+}
+
+

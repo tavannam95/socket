@@ -1,0 +1,197 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+      <app-breadcrumb></app-breadcrumb>
+
+        <!-- end page title -->
+
+        <div  class="row justify-content-center" >
+          <div class="col-xxl-9">
+              <div *ngIf="isAdmin" class="card crm-widget">
+                  <div class="card-body p-0">
+                      <div class="row row-cols-xxl-4 row-cols-md-4 row-cols-1 g-0">
+                          <div class="col">
+                              <div class="py-4 px-3">
+                                  <h5 class="text-muted text-uppercase fs-13"> {{ "dashBoard.title.totalClassActive" | translate }} /  {{ "dashBoard.title.totalClass" | translate }}</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class=" flex-shrink-0">
+                                          <i class=" ri-space-ship-line display-6 text-primary"  ></i>
+                                      </div>
+                                      <div class="flex-grow-1 ms-3">
+                                          <h2 class="mb-0"><span class="counter-value" data-target="197">{{totalClassInprogress}}/{{totalClass}}</span></h2>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- end col -->
+                          <div class="col">
+                              <div class="mt-3 mt-md-0 py-4 px-3">
+                                  <h5 class="text-muted text-uppercase fs-13"> {{ "dashBoard.title.totalStudentActive" | translate }} /  {{ "dashBoard.title.totalStudent" | translate }}</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="flex-shrink-0">
+                                          <i class="ri-exchange-dollar-line display-6 text-success"></i>
+                                      </div>
+                                      <div class="flex-grow-1 ms-3">
+                                          <h2 class="mb-0"><span class="counter-value" data-target="489.4">{{totalStudentInprogress}}/{{totalStudent}}</span></h2>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- end col -->
+                          <div class="col">
+                              <div class="mt-3 mt-md-0 py-4 px-3">
+                                  <h5 class="text-muted text-uppercase fs-13"> {{ "dashBoard.title.totalCourseActive" | translate }} /  {{ "dashBoard.title.totalCourse" | translate }}  </h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="flex-shrink-0">
+                                          <i class="ri-pulse-line display-6 text-warning"></i>
+                                      </div>
+                                      <div class="flex-grow-1 ms-3">
+                                          <h2 class="mb-0"><span class="counter-value" data-target="32.89">{{totalCourseInprogress}}/{{totalCourse}}</span></h2>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- end col -->
+                          <div class="col">
+                              <div class="mt-3 mt-lg-0 py-4 px-3">
+                                  <h5 class="text-muted text-uppercase fs-13">  {{'header.title.totalCandidateToday' | translate}} /  {{ "dashBoard.title.totalCandidate" | translate }} </h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="flex-shrink-0">
+                                          <i class="ri-trophy-line display-6 text-danger"></i>
+                                      </div>
+                                      <div class="flex-grow-1 ms-3">
+                                          <h2 class="mb-0"><span class="counter-value" data-target="1596.5">{{totalCandidateToday}}/{{totalCandidate}}</span></h2>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- end col -->
+
+                      </div><!-- end row -->
+                  </div><!-- end card body -->
+              </div><!-- end card -->
+
+              <div *ngIf="!isAdmin" class="row">
+                <div *ngFor="let class of listClass" class="col-xl-6 col-lg-6 col-md-6">
+                    <!-- card -->
+                    <div class="card card-animate">
+                        <div class="card-header ">
+                          <div class="row">
+                            <div class="d-flex align-items-center pb-2">
+
+                              <div class="flex-grow-1">
+                                <div class="card-body">
+                                  <div class="d-flex">
+                                      <div class="flex-grow-1">
+                                          <h5 class="mb-0"><b class="text-secondary">{{class.percentComplete}}%</b> {{ "dashBoard.title.totalTimeCourse" | translate }} </h5>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="progress bg-soft-success rounded-0 align-self-center">
+                                  <div class="progress-bar bg-success" role="progressbar" [style.width]="class.percentComplete + '%'"
+                                  [attr.aria-valuenow]="class.percentComplete" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                              </div>
+                              <div class="flex-shrink-0 align-self-end">
+                                <app-class-notification [classModel]="class"></app-class-notification>
+                              </div>
+                            </div>
+                            <div class="card bg-light overflow-hidden">
+                              <div class="card-body">
+                                  <div class="d-flex">
+                                      <div class="flex-grow-1">
+                                          <h5 class="mb-0"><b class="text-secondary">{{class.percentDocComplete}}%</b> {{ "dashBoard.title.totalLesson" | translate }} </h5>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="progress bg-soft-secondary rounded-0">
+                                  <div class="progress-bar bg-secondary" role="progressbar" [style.width]="class.percentDocComplete + '%'"
+                                  [attr.aria-valuenow]="class.percentDocComplete" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body"  (click)="gotoClass(class)" style="cursor: pointer;">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted  mb-0"> {{class.className}}</p>
+                                    <h5 class="text-success fs-14 mb-0">
+                                      {{class.startDate | date: 'dd/MM/yyyy'}} - {{class.endDate | date: 'dd/MM/yyyy'}}
+                                  </h5>
+                                </div>
+                            </div>
+                            <ng-container *ngFor="let teacher of class.listTeacher">
+                              <div class="d-flex align-items-center mb-3 mt-3">
+                                <h4 class="fs-5 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ "edu.edu0201.Teachers" | translate }}</span></h4>
+                                <span class="text-truncate badge badge-soft-success fs-12">{{teacher.fullName}}</span>
+                              </div>
+                            </ng-container>
+                            <div class="d-flex align-items-center mb-3">
+                              <h4 class="fs-5 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ "dashBoard.title.totalStudent" | translate }} </span></h4>
+                              <span class="text-truncate badge badge-soft-success fs-12">{{class.listStudent.length}}</span>
+                            </div>
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+            </div>
+
+            <full-calendar [options]="calendarOptions"></full-calendar>
+          </div><!-- end col -->
+
+          <div  class="col-xxl-3">
+            <div  style="max-height: 500px;overflow: auto;" class="card">
+            <!-- <div  class="card"> -->
+                <div class="card-header border-0">
+                    <h4 class="card-title mb-0">{{ "course0201.course.courseList" | translate }}</h4>
+                </div><!-- end cardheader -->
+                <div class="card-body pt-0">
+                    <div class="upcoming-scheduled">
+                        <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" data-deafult-date="today" data-inline-date="true">
+                    </div>
+
+                  <ng-container *ngIf="listCourse.length>0 ">
+                    <div (click)="gotoCoursePreview(course.key)" role="button" *ngFor="let course of listCourse" class="dropdown-item mini-stats-wid d-flex align-items-center mt-3">
+                        <div class="flex-shrink-0 avatar-sm">
+                              <img [src]="course.imgUrl" class=" avatar-title avatar-xxs rounded-circle me-1 shadow" alt="">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <!-- <h6 [style.width]="'20%'" class="trim-text mb-1">{{course.courseGoal}}</h6> -->
+                            <p class="text-muted mb-0">{{course.courseNm}} </p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <p class="text-muted mb-0">{{course.courseInfoModel?course.courseInfoModel.time: '' }} </p>
+                        </div>
+                    </div>
+                  </ng-container>
+
+                </div><!-- end cardbody -->
+        </div>
+
+        <div *ngIf="listApprover.length>0 && type == 'approver'" style="max-height: 500px;overflow: auto;" class="card">
+          <div class="card-header border-0">
+              <h4 class="card-title mb-0"> {{ "approver.title.listApproval" | translate }}</h4>
+          </div>
+          <div class="card-body pt-0">
+              <div class="upcoming-scheduled">
+                  <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" data-deafult-date="today" data-inline-date="true">
+              </div>
+
+            <ng-container >
+              <a  (click)="goDocument(approver)" *ngFor="let approver of listApprover" href="javascript:void(0);" class=" dropdown-item mini-stats-wid d-flex align-items-center mt-3">
+
+                  <div class="flex-grow-1 ms-3">
+                      <p class="text-muted mb-0">{{ "approver.title.approvalRequest" | translate }}  </p>
+                  </div>
+                  <div class="flex-shrink-0">
+                      <p class="text-muted mb-0">{{approver.insDate | date : 'dd/MM/yyyy hh:mm:ss'}} </p>
+                  </div>
+              </a>
+            </ng-container>
+
+          </div>
+
+      </div>
+      <!-- end card -->
+
+      </div>
+
+    </div>
+    <!-- container-fluid -->
+</div>

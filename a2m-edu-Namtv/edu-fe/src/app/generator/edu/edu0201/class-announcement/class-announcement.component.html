@@ -1,0 +1,112 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex flex-row-reverse ">
+        <button *ngIf="isClose==true" (click)="onCancel()"  type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+          <i  class="  ri-close-circle-fill label-icon align-middle fs-16 ms-2"></i> {{ "sys3.userDetail.buttonCancel" | translate }}
+        </button>
+        <button *ngIf="typeView!='EDIT' && isEdit"   (click)="editAnnoun()" type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+          <i  class="ri-settings-4-fill label-icon align-middle fs-16 ms-2"></i> {{"edu.edu0201.editClass" | translate}}
+        </button>
+        <button *ngIf="typeView!='EDIT' && isEdit"  (click)="delete(classAnnouncement)"  type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+          <i  class="  ri-delete-bin-6-line label-icon align-middle fs-16 ms-2"></i> {{'button.delete.title' | translate}}
+        </button>
+        <button *ngIf="typeView=='EDIT'" (click)="onSave(myForm.invalid)"  type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+          <i  class="  ri-save-fill label-icon align-middle fs-16 ms-2"></i> {{ "sys3.userDetail.buttonSave" | translate }}
+        </button>
+        <h4 *ngIf="title=='' " class="card-title mb-0 flex-grow-1">
+           {{ "edu.classAnnoun.info" | translate }}
+        </h4>
+        <h2 *ngIf="title!=''" class="red card-title mb-0 flex-grow-1">
+           {{title}}
+        </h2>
+      </div>
+
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll">
+        <form #myForm="ngForm">
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="fullName" class="form-label-inline">{{ 'edu.classAnnoun.title' | translate }}<span *ngIf="typeView!='VIEW'" class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+
+              <app-inp-vc [maxlength]=200 name="titleAnnouncement" [submitted]="submitted" [(inpValue)]="classAnnouncement.title"
+              [vc]="typeView" elmType="INP" type="text"  [required]="true"
+              requiredMessage="{{ 'edu.classAnnoun.title.required' | translate }}"
+              placeholder="{{ 'edu.classAnnoun.title.placehoder' | translate }}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="fullName" class="form-label-inline">{{ 'edu.classAnnoun.content' | translate }}<span *ngIf="typeView!='VIEW'" class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <ckeditor name="couterContent" [(ngModel)]="classAnnouncement.content" [config]="configCkeditor" (change)="onEditorChange($event)">
+              </ckeditor>
+              <input type="text" hidden required class="form-control " id="courseContentRequired" name="courseContentRequired" [(ngModel)]="classAnnouncement.content" #courseContentRequired="ngModel"
+                [ngClass]="{ 'is-invalid': (courseContentRequired.invalid && submitted) || (courseContentRequired.invalid && (courseContentRequired.dirty || courseContentRequired.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(courseContentRequired.invalid && submitted) || courseContentRequired.invalid && (courseContentRequired.dirty || courseContentRequired.touched)">
+                <span *ngIf="courseContentRequired.errors?.['required']">{{ 'course0201.course.content.required' | translate }}</span>
+              </div>
+
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="mx-n3">
+                          <div data-simplebar style="max-height: 400px;" class="px-3 text-dark text-break">
+                            <div [innerHtml]="classAnnouncement.content | safeHtml" data-simplebar>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="startDate" class="form-label-inline">{{'edu.edu0201.startDate' | translate}}
+                <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class=" col-lg-9">
+              <app-inp-vc name="startDate" [submitted]="submitted" [(inpValue)]="classAnnouncement.startDate"
+                [vc]="typeView" elmType="CALENDAR" type="text" [required]="true"
+                requiredMessage="{{ 'message.requiredStartDate' | translate}}"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="endDate" class="form-label-inline">{{'edu.edu0201.endDate' |translate}}
+              <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class=" col-lg-9">
+              <app-inp-vc name="endDate" [submitted]="submitted" [(inpValue)]="classAnnouncement.endDate"
+                [vc]="typeView" elmType="CALENDAR" type="text"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div> -->
+
+          </form>
+
+
+        </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,25 @@
+.input-margin-top {
+    margin-top: -10px;
+}
+
+.ng-autocomplete {
+    width: 90%;
+    display: table;
+    margin: 0;
+}
+
+.block_container {
+    display: flex;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload-mail {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 20px;
+}

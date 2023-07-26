@@ -1,0 +1,247 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- <app-progress-bar></app-progress-bar> -->
+    <div class="row justify-content-center">
+      <!--Start Left Content -->
+      <!-- <i *ngIf="showHideIcon"   #iconShowHide  (click)="handleShowHide()"
+        class="ri-arrow-left-s-fill btn-showHide hiddenMobile"></i >
+      <div class="col-lg-3 hiddenMobile" [style.display]="showHide">
+        <app-sub-menu #subMenuTag [scheduleId]="this.scheduleId"  [data]="couSubjectLst"></app-sub-menu>
+      </div> -->
+      <!--End Left Content -->
+      <div class="col-xxl-9">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  <!-- {{ "schedule0103.listchapterTitle" | translate }} -->
+                </h2>
+                <div class="flex-shrink-0">
+                  <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                    <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                    *ngIf="commonService.permModify(schedule.insUid, true) && typeView=='VIEW'"
+                      (click)="showUpdatescheduleForm()">
+                      <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                      {{ "button.edit.schedule.title" | translate }}
+                    </button>
+                    <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+                      <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="goList()">
+                        {{ "sys3.userDetail.buttonCancel" | translate }}
+                      </button>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+                      <button type="button" class="btn btn-primary" (click)="onSaveAll(myForm.invalid)">
+                        {{ "sys3.userDetail.buttonSave" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form #myForm="ngForm" style="padding-right: 2%;">
+
+                  <!-- <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div> -->
+
+
+
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="position" class="form-label-inline">{{"sys3.userDetail.room" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+                      <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectRoom' | translate}}"
+                        [ngClass]="{ 'ng-invalid ng-dirty': (room.invalid && submitted) || room.invalid && (room.dirty || room.touched)}"
+                        name="roomChecked" #room="ngModel" (onChange)="getScheduleForRoomId($event)"
+                        [required]="true" [options]="listRoom" [(ngModel)]="roomChecked"
+                        optionLabel="roomNm"  [ngModelOptions]="{ standalone: true }">
+                      </p-dropdown>
+
+                      <input type="text" hidden required class="form-control " id="room" name="room"
+                      placeholder="{{'sys3.userDetail.selectRoom' | translate}}"
+                      [(ngModel)]="roomChecked" #room="ngModel"
+                      [ngClass]="{ 'is-invalid': (room.invalid && submitted) || (room.invalid && (room.dirty || room.touched))}" />
+
+                      <div class="invalid-error"
+                        *ngIf="(room.invalid && submitted) || room.invalid && (room.dirty || room.touched)">
+                        <span *ngIf="room.errors?.['required']">{{ 'message.requiredRoom' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+                      <label rows="3" class="form-label-inline text-dark text-break">{{ schedule.roomNm }}
+                    </label>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="position" class="form-label-inline">{{"sys3.userDetail.class" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+                      <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectClass' | translate}}" (onChange)="changeClass($event)"
+                      [ngClass]="{ 'ng-invalid ng-dirty': (class.invalid && submitted) || class.invalid && (class.dirty || class.touched)}"
+                      name="classChecked" #class="ngModel"
+                      [required]="true" [options]="listClass" [(ngModel)]="classChecked"
+                      optionLabel="className"  [ngModelOptions]="{ standalone: true }">
+                    </p-dropdown>
+
+                    <input type="text" hidden required class="form-control " id="class" name="class"
+                    placeholder="{{'sys3.userDetail.selectClass' | translate}}"
+                    [(ngModel)]="classChecked" #class="ngModel"
+                    [ngClass]="{ 'is-invalid': (class.invalid && submitted) || (class.invalid && (class.dirty || class.touched))}" />
+
+                    <div class="invalid-error"
+                      *ngIf="(class.invalid && submitted) || class.invalid && (class.dirty || class.touched)">
+                      <span *ngIf="class.errors?.['required']">{{ 'message.requiredClass' | translate}}</span>
+                    </div>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+                      <label rows="3" class="form-label-inline text-dark text-break">{{ schedule.classNm }}
+                    </label>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3" [hidden]="hiddenSubject">
+                    <div class="col-lg-3">
+                      <label for="position" class="form-label-inline">{{"sys3.userDetail.subject" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+                      <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectSubject' | translate}}"
+                        [ngClass]="{ 'ng-invalid ng-dirty': (subject.invalid && submitted) || subject.invalid && (subject.dirty || subject.touched)}"
+                        name="subjectChecked" #subject="ngModel"
+                        [required]="true" [options]="listSubject" [(ngModel)]="subjectChecked"
+                        optionLabel="subjectNm"  [ngModelOptions]="{ standalone: true }">
+                      </p-dropdown>
+
+                      <input type="text" hidden required class="form-control " id="subject" name="subject"
+                      placeholder="{{'sys3.userDetail.selectSubject' | translate}}"
+                      [(ngModel)]="subjectChecked" #subject="ngModel"
+                      [ngClass]="{ 'is-invalid': (subject.invalid && submitted) || (subject.invalid && (subject.dirty || subject.touched))}" />
+
+                      <div class="invalid-error"
+                        *ngIf="(subject.invalid && submitted) || subject.invalid && (subject.dirty || subject.touched)">
+                        <span *ngIf="subject.errors?.['required']">{{ 'message.requiredSubject' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+                      <label rows="3" class="form-label-inline text-dark text-break">{{ schedule.subjectNm }}
+                    </label>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3"  *ngIf="typeView!='VIEW'" [hidden] = "disablecheck">
+                    <div class="col-lg-3">
+                      <label for="status-user" class="form-label-inline">{{
+                        "edu.edu0204.repeat" | translate
+                        }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+
+                    <div class="col-lg-9">
+                      <span class="form-check form-check-inline">
+                        <label class="form-check-label" for="active">
+                          {{"edu.edu0204.repeat.active" | translate }}
+                        </label>
+                        <input class="form-check-input" type="radio" name="status" id="active"
+                          (change)="status=true" [checked]="status == true" (click)="showEndDate(false)">
+                      </span>
+                      <span class="form-check form-check-inline">
+                        <label class="form-check-label" for="disable">
+                          {{"edu.edu0204.repeat.blocked" | translate }}
+                        </label>
+                        <input class="form-check-input" type="radio" name="status" id="disable"
+                          (change)="status=false" [checked]="status == false" (click)="showEndDate(true)">
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="startDate" class="form-label-inline">{{'edu.edu0201.startDate' | translate}}
+                        <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+                      <app-inp-vc name="startDate" [submitted]="submitted" [(inpValue)]="usageDate"
+                        [vc]="typeView" elmType="CALENDAR" type="text" [required]="true" [minDate] = "minimumDate"
+                        requiredMessage="{{ 'message.requiredStartDate' | translate}}"
+                        dateFormat="{{'common.template.dateformat' | translate}}"
+                        placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+                      <label rows="3" class="form-label-inline text-dark text-break">{{(schedule.usageDate != null ? schedule.usageDate : '') | date: 'dd/MM/yyyy'}}
+                    </label>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3" [hidden]="disable">
+                    <div class="col-lg-3">
+                      <label for="endDate" class="form-label-inline">{{'edu.edu0201.endDate' | translate}}
+                        <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                    </div>
+                    <div class="col-lg-9">
+                      <app-inp-vc name="endDate" [submitted]="submitted" [(inpValue)]="stopDate"
+                        [vc]="typeView" elmType="CALENDAR" type="text" [required]="false" [minDate] = "minimumDate"
+                        requiredMessage="{{ 'message.requiredEndDate' | translate}}"
+                        dateFormat="{{'common.template.dateformat' | translate}}"
+                        placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+                    </div>
+                  </div>
+
+                  <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="startDate" class="form-label-inline"> {{'edu.edu0204.startEndTime' | translate }}
+                        <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span>
+                      </label>
+                    </div>
+                    <div class=" col-lg-9" *ngIf="typeView!='VIEW'">
+                      <div class="input-wrapper">
+                        <div class="select-box">
+                            <p-calendar id="start_time" [(ngModel)]="startDate" name="start_time"
+                                [stepMinute]="15" [required]="true" [style]="{'width':'45%'}" [timeOnly]="true"
+                                [showTime]="true" [readonlyInput]="true" hourFormat="24"
+                                #start_time="ngModel" (onSelect)="onSelect($event, 'START_TIME')">
+                            </p-calendar>
+                            <span> ~ </span>
+                            <p-calendar id="end_time" [(ngModel)]="endDate" name="end_time"
+                                [stepMinute]="15" [required]="true" [style]="{'width':'45%'}" [timeOnly]="true"
+                                [showTime]="true" [readonlyInput]="true" hourFormat="24"
+                                #end_time="ngModel" (onSelect)="onSelect($event, 'END_TIME')">
+                            </p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+                      <label rows="3" class="form-label-inline text-dark text-break">{{(schedule.startDate != null ? schedule.startDate : '') | date: 'HH:mm'}}  ~  {{(schedule.endDate != null ? schedule.endDate : '') | date: 'HH:mm'}}
+                    </label>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+              <!-- end card-body -->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog>
+</p-confirmDialog>
+

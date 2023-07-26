@@ -1,0 +1,145 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <app-breadcrumb></app-breadcrumb>
+        <!-- end page title -->
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-xxl-2 col-md-2">
+                                <h2 class="card-title mb-0 flex-grow-1">
+                                    {{ "common.search" | translate }}
+                                </h2>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" >{{ "gen.gen0601.projectName" | translate }}</span>
+                                    <input type="text" class="form-control" [(ngModel)]="request.projectName" (keyup.enter)="search()" />
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" >{{ "gen.gen0601.fromDate" | translate }}</span>
+                                    <div class="form-icon right form-control-2">
+                                        <p-calendar placeholder="{{'common.template.placeholder.dateformat' | translate}}" [(ngModel)]="request.fromDate" name="fromDate"
+                                            dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" [showButtonBar]="true">
+                                        </p-calendar>
+                                        <i class="ri-calendar-2-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" >{{ "gen.gen0601.toDate" | translate }}</span>
+                                    <div class="form-icon right form-control-2">
+                                        <p-calendar placeholder="{{'common.template.placeholder.dateformat' | translate}}" [(ngModel)]="request.toDate" name="toDate"
+                                            dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" [showButtonBar]="true">
+                                        </p-calendar>
+                                        <i class="ri-calendar-2-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" >{{ "gen.statusSearch" | translate }}</span>
+                                    <div class="form-icon right form-control-2">
+                                        <p-dropdown [options]="listStatus" [(ngModel)]="request.status" optionLabel="label" optionValue="value" appendTo="body" name="status"></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="search()">
+                                <i class="ri-search-line"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="onSearchReset()">
+                                <i class="ri-refresh-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h2 class="card-title mb-0 flex-grow-1">
+                            {{ "gen.gen0601.title"| translate }}
+                        </h2>
+                        <div class="flex-shrink-0">
+                            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                                <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light" (click)="onExtend('a')">
+                                    <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                    {{ "button.add.title" | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12 mb-3">
+                                <div class="table-responsive mt-4 mt-xl-0">
+                                    <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'common.no' | translate}}</th>
+                                                <th>{{ "gen.gen0601.projectName" | translate }}</th>
+                                                <th>{{ "gen.gen0601.startDate" | translate }}</th>
+                                                <th>{{ "gen.gen0601.expiredDate" | translate }}</th>
+                                                <th>{{ "gen.gen0601.price" | translate }}</th>
+                                                <th>{{ "gen.gen0601.status" | translate }}</th>
+                                                <th>{{ "gen.gen0601.action" | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let subInfo of subInfoList">
+                                                <td>{{ subInfo.index }}</td>
+                                                <td>{{ subInfo.projectName }}</td>
+                                                <td>{{ subInfo.startDt | date: 'yyyy-MM-dd' }}</td>
+                                                <td>{{ subInfo.expiredDt | date: 'yyyy-MM-dd'}}</td>
+                                                <td>{{ subInfo.price }}</td>
+                                                <td>
+                                                    <span *ngIf="subInfo.status == '05-01'">{{'common.status.unpaid'| translate}}</span>
+                                                    <span *ngIf="subInfo.status == '05-02'">{{'common.status.paid'| translate}}</span>
+                                                    <span *ngIf="subInfo.status == '05-03'">{{'common.status.expired'| translate}}</span>
+                                                </td>                                          
+                                                <td>
+                                                    <div class="hstack flex-wrap gap-4">
+                                                        <a href="javascript:void(0);" (click)="onExtend(subInfo)" class="link-primary" tooltipPosition="top"
+                                                            pTooltip="{{ 'button.extend.title' | translate }}">
+                                                            <i class="ri-repeat-fill fs-4 fs-4"></i>
+                                                        </a>
+                                                        <!-- <a href="javascript:void(0);" (click)="onUnsubscribe(subInfo)" class="link-primary" tooltipPosition="top"
+                                                            pTooltip="{{ 'button.unsubscribe.title' | translate }}">
+                                                            <i class="ri-stop-circle-line fs-4"></i>
+                                                        </a> -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="totalRecords == 0">
+                                                <td colspan="10">
+                                                    <div class="text-center">
+                                                        {{ "table.noContentToDisplay" | translate }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div *ngIf="subInfoList.length > 0" class="col-xxl-12">
+                                <app-paginator [totalRecords]="totalRecords" (onPageChange)="onChangePagi($event)"></app-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-confirmDialog> </p-confirmDialog>

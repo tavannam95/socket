@@ -1,0 +1,105 @@
+<div class="edu-course-area course-area-1">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-9 col-pl--35">
+                <div class="edu-sorting-area" style="display: flex;justify-content: flex-end;margin-bottom: -10px;">
+                    <div class="sorting-right">
+                       <div class="layout-switcher">
+                           <label>{{'button.search.title' | translate}}</label>
+                           <ul class="switcher-btn">
+                               <li><a href="javascript:void(0)" (click)="open()" class="active" style="font-size: 8px;padding: 5px;"><i class="icon-55"></i></a></li>
+                           </ul>
+                       </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+  
+<div class="edu-search-popup-2" [id]="searchId" [ngClass]="{'open': active}">
+    <div class="content-wrap" style="height: 100vh;">
+        <!-- <div class="site-logo">
+          <img src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+        </div> -->
+        
+        <div class="inner">
+            <div class="row">
+                <div class="col-lg-12" style="display: flex; justify-content: space-between;">
+                    <h5 class="widget-title">{{'button.search.title' | translate}}</h5>
+                    <a href="javascript:void(0)" (click)="close()"><i class="icon-73"></i></a>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="edu-course-sidebar">
+                        <div class="edu-course-widget widget-category">
+                            <div class="inner">
+                                <h5 class="widget-title">{{ "courses.filterByCategories" | translate}}</h5>
+                                <div class="content">
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check1" checked>
+                                        <label for="cat-check1">Art &amp; Design <span>(7)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check2">
+                                        <label for="cat-check2">Development <span>(2)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check3">
+                                        <label for="cat-check3">Business <span>(3)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check4">
+                                        <label for="cat-check4">Marketing <span>(6)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check5">
+                                        <label for="cat-check5">Academics <span>(2)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="cat-check6">
+                                        <label for="cat-check6">Data Science <span>(9)</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="edu-course-widget widget-level">
+                            <div class="inner">
+                                <h5 class="widget-title">{{'courses.detail.level' | translate}}</h5>
+                                <div class="content">
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="level-check1">
+                                        <label for="level-check1">All Levels <span>(23)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="level-check2">
+                                        <label for="level-check2">Beginner <span>(7)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="level-check3">
+                                        <label for="level-check3">High <span>(10)</span></label>
+                                    </div>
+                                    <div class="edu-form-check">
+                                        <input type="checkbox" id="level-check4">
+                                        <label for="level-check4">Intermediate <span>(13)</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: end;margin-bottom: 35px;" >
+                    <button name="submit" type="submit" class="rn-btn edu-btn btn-medium submit-btn">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

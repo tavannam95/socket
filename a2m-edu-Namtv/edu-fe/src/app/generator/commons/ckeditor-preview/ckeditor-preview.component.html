@@ -1,0 +1,16 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          <!-- {{ "course0101.lectureDetail.title" | translate }} -->
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+      <div class="card-body" style="min-height: 800px; overflow-y: scroll; ">
+        <div #tagDiv [id]="id"  [style.maxWidth]="maxWidth" [style.maxHeight]="maxHeight "  [style.overflow]="overflow" class="square" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+

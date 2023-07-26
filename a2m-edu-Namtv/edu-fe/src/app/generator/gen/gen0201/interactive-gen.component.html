@@ -1,0 +1,220 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <app-breadcrumb></app-breadcrumb>
+        <!-- end page title -->
+
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-xxl-2 col-md-2">
+                                <h2 class="card-title mb-0 flex-grow-1">
+                                    {{ "common.search" | translate }}
+                                </h2>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">{{
+                                        "gen.projectNameSearch" | translate }}</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" (keyup.enter)="search()"
+                                        [(ngModel)]="request.projectName" />
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">{{ "gen.statusSearch"
+                                        | translate }}</span>
+                                    <p-dropdown *ngIf="this.language == 'kr'" [options]="projectStatus"
+                                        [(ngModel)]="request.status" optionLabel="commNm" optionValue="commCd">
+                                    </p-dropdown>
+                                    <p-dropdown *ngIf="this.language == 'en'" [options]="projectStatus"
+                                        [(ngModel)]="request.status" optionLabel="commNmEn" optionValue="commCd">
+                                    </p-dropdown>
+                                    <p-dropdown *ngIf="this.language == 'vi'" [options]="projectStatus"
+                                        [(ngModel)]="request.status" optionLabel="commNmVi" optionValue="commCd">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <button type="button"
+                                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                                (click)="search()" (keyup.enter)="search()">
+                                <i class="ri-search-line"></i>
+                            </button>
+                            <button type="button"
+                                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                                (click)="onSearchReset()">
+                                <i class="ri-refresh-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <div class="col-xl-6">
+                            <h2 class="card-title mb-0 flex-grow-1">
+                                {{ "gen.listProjectTitle" | translate }}
+                            </h2>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="flex-shrink-0">
+                                <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                                    <button type="button"
+                                        class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                                        (click)="addNewProject()">
+                                        <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                        {{ "gen.addButton" | translate }}
+                                    </button>
+                                    <button type="button"
+                                        class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill"
+                                        (click)="deleteProject()">
+                                        <i class="bx bx-trash label-icon align-middle rounded-pill fs-16 ms-2"></i>
+                                        {{ "gen.deleteButton" | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12 mb-3">
+                                <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "gen.columns.projectName" | translate }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let project of listProject" (click)="onRowSelect(project)">
+                                            <td style="width: 10%">{{ project.index }}</td>
+                                            <td>{{ project.projectName }}</td>
+                                        </tr>
+                                        <tr *ngIf="listProject.length == 0">
+                                            <td colspan="10">
+                                                <div class="text-center">
+                                                    {{ "table.noContentToDisplay" | translate }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="listProject.length > 0" class="col-xxl-12">
+                                    <app-paginator [totalRecords]="totalRecords" (onPageChange)="onChangePagi($event)">
+                                    </app-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <div class="col-xl-6">
+                            <h2 class="card-title mb-0 flex-grow-1">
+                                {{ "gen.columns.projectDetail" | translate }}
+                            </h2>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="flex-shrink-0">
+                                <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                                    <button type="button"
+                                        class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                                        (click)="addSource()" [disabled]="isSource">
+                                        <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                        {{ "gen.addSource" | translate }}
+                                    </button>
+                                    <button type="button"
+                                        class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                                        (click)="addTarget()">
+                                        <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                        {{ "gen.addTarget" | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div #container class="container" style="background-color: gray;">
+                        <div class="draggable" *ngFor="let buttonText of listShapes; let i = index;" [attr.id]="buttonText.id"(click)="addDrag(buttonText,i)" >
+                            <div class="main">
+                            <span> {{buttonText.id}}</span>
+                        </div>
+                            <div class="menu">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" (click)="checkId($event)"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon class="example-icon">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item *ngIf="!buttonText.isNew" (click)="buttonText.source == false ? addNewTarget(buttonText.id) : onStart()">
+                                <mat-icon>{{buttonText.source == false ? "edit" : "play_arrow" }}</mat-icon>
+                                <span>{{buttonText.source == false ? "edit" : "start" }}</span>
+                            </button>
+                            <button mat-menu-item *ngIf="buttonText.isNew" (click)="buttonText.source == false ? addNewTarget(buttonText.id) : addNewProject()">
+                                <mat-icon>edit</mat-icon>
+                                <span>edit</span>
+                            </button>
+                            
+                            <button mat-menu-item (click)="checkId($event)" [style.visibility]="(buttonText.source == false) ? 'hidden' : 'visible'" [ngStyle]="{'display': buttonText.source == false ? 'none' : 'initial'}">
+                                <mat-icon>stop</mat-icon>
+                                <span>stop</span>
+                            </button>
+                            <button mat-menu-item (click)="removeComponent(buttonText.id,buttonText.source)">
+                                <mat-icon>delete</mat-icon>
+                                <span>delete</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                        </div>
+                        <!-- <div class="draggable" id="Source"
+                            [style.visibility]="(isSelected == false) ? 'hidden' : 'visible' ">
+                            <span> {{selectedProject.projectName}}</span>
+
+                            <button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon class="example-icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="checkId($event)">
+                                    <mat-icon>play_arrow</mat-icon>
+                                    <span>start</span>
+                                </button>
+                                <button mat-menu-item (click)="checkId($event)">
+                                    <mat-icon>stop</mat-icon>
+                                    <span>stop</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>delete</span>
+                                </button>
+                            </mat-menu>
+                        </div> -->
+
+                        <!-- <div class="draggable" id="Target1">
+                            Target1
+                            <button mat-icon-button [matMenuTriggerFor]="menu1" (click)="checkId($event)"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon class="example-icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu1="matMenu">
+                                <button mat-menu-item (click)="removeComponent('Target1')">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>delete</span>
+                                </button>
+                            </mat-menu>
+                        </div> -->
+                    </div>
+
+                </div>
+
+                <!-- <p-confirmDialog></p-confirmDialog>
+  <app-spinner [visible]="spinner"></app-spinner> -->

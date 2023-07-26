@@ -1,0 +1,17 @@
+.pointer{
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mt-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+custom-trim-text{
+        white-space: nowrap;
+        align-items: center;
+        width: 15%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}

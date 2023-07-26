@@ -1,0 +1,102 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- <app-progress-bar></app-progress-bar> -->
+
+    <bar-my-course></bar-my-course>
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <h2 class="card-title mb-0 flex-grow-1">
+              {{ "course0104.quiz.historySubmitQuiz" | translate }}
+            </h2>
+            <div class="flex-shrink-0">
+              <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                <button type="button" class="btn rounded-pill btn-primary waves-effect right waves-light"
+                  (click)="backSubject()">
+                  {{ "button.back.title2" | translate }}
+                </button>
+                <button type="button" class="btn rounded-pill btn-primary waves-effect right waves-light"
+                  (click)="retakeQuiz()">
+                  {{ "course0104.quiz.retakeQuiz" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
+                <div class="table-responsive mt-4 mt-xl-0">
+                  <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                    <thead class="">
+                      <tr>
+                        <th scope="col" class="w-5">
+                          {{ "course0104.quiz.columns.stt" | translate }}
+                        </th>
+                        <th scope="col" class="w-40">
+                          {{ "course0104.quiz.columns.dateSubmit" | translate }}
+                        </th>
+                        <th scope="col" class="w-20">
+                          {{ "course0104.quiz.columns.correctTotal" | translate }}
+                        </th>
+                        <th scope="col" class="w-20">
+                          {{ "course0104.quiz.columns.marks" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "course0104.quiz.columns.review" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let his of listHisStu">
+                        <td scope="col trimText">{{ his.index }}</td>
+                        <td scope="col">
+                          <p class="trimText" style="width: 25%;">{{his.insDate| date: 'EEEE, dd MMMM yyyy, hh:mm'}}</p>
+                        </td>
+                        <td scope="col">
+                          <p class="trimText" style="width: 15%;">{{his.totalCorrect}}/{{his.totalQuestion}}</p>
+                        </td>
+                        <td scope="col">
+                          <p class="trimText" style="width: 15%;">{{his.marks}}</p>
+                        </td>
+                        <td>
+                          <div class="hstack gap-3 fs-15">
+                            <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                              pTooltip="{{ 'button.edit.title' | translate }}" (click)="showUpdateForm(his.quizStudentId, $event)">
+                              <i class="ri-edit-line fs-4 fs-4"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+
+                      <tr *ngIf="listHisStu.length == 0">
+                        <td colspan="10">
+                          <div class="text-center">
+                            {{ "table.noContentToDisplay" | translate }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div *ngIf="listDocument.length > 0" class="col-xxl-12">
+                <app-paginator [totalRecords]="listDocument.length" (onPageChange)="getPaging($event)">
+                </app-paginator>
+              </div> -->
+              <!--end col-->
+            </div>
+            <!--end row-->
+          </div>
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!--end row-->
+  </div>
+</div>
+
+<p-confirmDialog> </p-confirmDialog>

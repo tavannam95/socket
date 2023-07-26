@@ -1,0 +1,335 @@
+<!-- <div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ "course0101.lectureDetail.title" | translate }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll"> -->
+
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="card">
+
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary" (click)="onSaveFile(myForm.invalid)">
+          callChild
+        </button> -->
+
+        <!-- <button type="button" class="btn btn-primary" (click)="previewLecture()">
+          {{ "course0101.lectureDetail.buttonPreview" | translate }}
+        </button> -->
+
+        <button type="button" class="btn btn-primary"
+          (click)="backListDocument()">
+          {{ "button.back.title2" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary"
+        [hidden]="checkView || typeView!='VIEW'"
+          (click)="showUpdateDocumentForm()">
+          {{ "button.edit.title" | translate }}
+        </button>
+
+        <button *ngIf="typeView != 'VIEW'" type="button" class="btn btn-primary" (click)="handleSave(myForm.invalid)" >
+          {{ "course0101.lectureDetail.buttonSave" | translate }}
+        </button>
+      </div>
+      <div class="card-body">
+
+        <form #myForm="ngForm">
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="lectureNm" class="form-label-inline">{{
+                "course.document.docNm" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="lectureNm" [submitted]="submitted" [(inpValue)]="lecture.lectureNm" [vc]="typeView" elmType="INP"
+              [minlength]=4 [required]="true" placeholder="{{'course.document.placeholderDocNm' | translate}}"></app-inp-vc>
+
+              <!-- <input type="text" required class="form-control " id="lectureNm" name="lectureNm" minlength="4"
+                placeholder="{{'course0101.lectureDetail.placeholderLectureNm' | translate}}"
+                [(ngModel)]="lecture.lectureNm" #lectureNm="ngModel"
+                [ngClass]="{ 'is-invalid': (lectureNm.invalid && submitted) || (lectureNm.invalid && (lectureNm.dirty || lectureNm.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(lectureNm.invalid && submitted) || lectureNm.invalid && (lectureNm.dirty || lectureNm.touched)">
+                <span *ngIf="lectureNm.errors?.['required']">{{ 'message.requiredFullName' | translate
+                  }}</span>
+                <span *ngIf="lectureNm.errors?.['minlength']">{{'message.requiredMin' |
+                  translate }}</span>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{
+                "course0101.lectureDetail.chapter" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <!-- <p-dropdown appendTo="body" placeholder="{{'course0101.lectureDetail.placeholderChapter' | translate}}"
+                [required]="true" [options]="chapterList" [(ngModel)]="lecture.chapterId" optionLabel="chapterNm"
+                optionValue="key" [ngModelOptions]="{ standalone: true }" #Position="ngModel" [readonly]="true"
+                [ngClass]="{ 'ng-invalid ng-dirty': (Position.invalid && submitted) || Position.invalid && (Position.dirty || Position.touched)}">
+              </p-dropdown>
+              <div class="invalid-error"
+                *ngIf="(Position.invalid && submitted) || Position.invalid && (Position.dirty || Position.touched)">
+                <span *ngIf="Position.errors?.['required']">{{ 'message.requiredPosition' | translate
+                  }}</span>
+              </div> -->
+              <label class="form-control">{{chapterNm}}</label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label class="form-label-inline" style="color: black;">
+                {{chapterNm}}
+              </label>
+            </div>
+          </div>
+<!--
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="totalLesson" class="form-label-inline">{{
+                "course0101.lectureDetail.totalLesson" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <input type="number" required class="form-control" id="totalLesson" name="totalLesson"
+                placeholder="{{'course0101.lectureDetail.placeholderTotalLesson' | translate}}"
+                [(ngModel)]="lecture.totalLesson" #totalLesson="ngModel"
+                [ngClass]="{ 'is-invalid': (totalLesson.invalid && submitted) || (totalLesson.invalid && (totalLesson.dirty || totalLesson.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(totalLesson.invalid && submitted) || totalLesson.invalid && (totalLesson.dirty || totalLesson.touched)">
+                <span *ngIf="totalLesson.errors?.['required']">{{ 'message.requiredTotalLesson' | translate
+                  }}</span>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="typeDocument" class="form-label-inline">{{"course0101.lectureDetail.typeDocument" | translate}}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="typeDocument"
+              [submitted]="submitted" [(inpValue)]="lecture.typeDocument" [required]="true"
+              [optionsDropDown]="typeOfDocument" optionLabel="label" optionValue="commCd"  [vc]="typeView" elmType="DROPDOWN" type="text"
+              requiredMessage="{{ 'message.requiredTypeDocument' | translate}}" placeholder="{{'course0101.lectureDetail.placeholderTypeDocument' | translate}}"></app-inp-vc>
+
+              <!-- <p-dropdown appendTo="body" placeholder="{{'course0101.lectureDetail.placeholderTypeDocument' | translate}}"
+                [required]="true" [options]="typeOfDocument" [(ngModel)]="lecture.typeDocument" optionLabel="label"
+                optionValue="commCd" [ngModelOptions]="{ standalone: true }" #typeDocument="ngModel"
+                [ngClass]="{ 'ng-invalid ng-dirty': (typeDocument.invalid && submitted) || typeDocument.invalid && (typeDocument.dirty || typeDocument.touched)}">
+              </p-dropdown>
+              <div class="invalid-error"
+                *ngIf="(typeDocument.invalid && submitted) || typeDocument.invalid && (typeDocument.dirty || typeDocument.touched)">
+                <span *ngIf="typeDocument.errors?.['required']">{{ 'message.requiredTypeDocument' | translate}}</span>
+              </div> -->
+            </div>
+          </div>
+<!--
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{
+                "course0101.lectureDetail.lectureType" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.placeholderPosition' | translate}}"
+                [required]="true" [options]="lectureTypes" [(ngModel)]="lecture.lectureType" optionLabel="label"
+                optionValue="commNm" [ngModelOptions]="{ standalone: true }" #Position="ngModel"
+                [ngClass]="{ 'ng-invalid ng-dirty': (Position.invalid && submitted) || Position.invalid && (Position.dirty || Position.touched)}">
+              </p-dropdown>
+              <div class="invalid-error"
+                *ngIf="(Position.invalid && submitted) || Position.invalid && (Position.dirty || Position.touched)">
+                <span *ngIf="Position.errors?.['required']">{{ 'message.requiredPosition' | translate
+                  }}</span>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="lectureGoal" class="form-label-inline">{{
+                "course0101.lectureDetail.lectureGoal" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <textarea class="form-control" rows="3"
+                placeholder="{{'course0101.lectureDetail.placeholderLectureGoal' | translate}}" id="lectureGoal"
+                name="lectureGoal" [(ngModel)]="lecture.lectureGoal" #lectureGoal="ngModel"></textarea>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label rows="3" class="form-label-inline text-dark text-break">{{ lecture.lectureGoal }}
+              </label>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="tags" class="form-label-inline">{{
+                "course0101.lectureDetail.tags" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <app-mat-chips-autocomplete [tagsJsonInput]="lecture.tags" (response)="receiveArrTag($event)"></app-mat-chips-autocomplete>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label rows="3" class="form-label-inline text-dark text-break">{{ tags }}
+              </label>
+            </div>
+          </div>
+
+          <!-- default -->
+          <!-- <div class="row mb-3" [style.display]="lecture.lectureType == 'default'? '':'none' "> -->
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="lectureContent" class="form-label-inline">{{
+                "course0101.lectureDetail.lectureContent" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <ckeditor name="lectureContent" [(ngModel)]="lecture.lectureContent" [config]="configCkeditor"
+                (change)="onEditorChange($event)">
+              </ckeditor>
+              <input type="text" hidden required class="form-control " id="subjectContentRequired" name="subjectContentRequired" [(ngModel)]="lecture.lectureContent" #subjectContentRequired="ngModel"
+              [ngClass]="{ 'is-invalid': (subjectContentRequired.invalid && submitted) || (subjectContentRequired.invalid && (subjectContentRequired.dirty || subjectContentRequired.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(subjectContentRequired.invalid && submitted) || subjectContentRequired.invalid && (subjectContentRequired.dirty || subjectContentRequired.touched)">
+                <span *ngIf="subjectContentRequired.errors?.['required']">{{ 'course0102.subjectDetail.content.required' | translate }}</span>
+              </div>
+            </div>
+            <!-- <div *ngIf="typeView=='VIEW'" class="col-lg-9">
+              <label [innerHTML]="lecture.lectureContent?lecture.lectureContent:'' | safeHtml"  class="form-label-inline" style="color: black;">
+              </label>
+            </div> -->
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="mx-n3">
+                          <div data-simplebar style="max-height: 400px;" class="px-3 text-dark text-break">
+                            <div [innerHtml]="lecture.lectureContent | safeHtml" data-simplebar>
+                            </div>
+                          </div>
+                      </div>
+                  </div><!-- end card-body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+          <!-- <div class="row mb-3" [style.display]="lecture.lectureType == 'default'? '':'none' "> -->
+          <!-- <div class="row mb-3"> -->
+            <!-- <div class="col-lg-3">
+              <label for="lectureContent" class="form-label-inline">{{
+                "course0101.lectureDetail.lectureFile" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9">
+              <app-multi-upload [typeView]="''" [listTccoFile]="listFile" (childrenCall)="onFileUploaded($event)" #upload>
+              </app-multi-upload>
+            </div>
+          </div> -->
+          <!-- /default -->
+          <!-- document view -->
+          <!-- <div class="row mb-3" [style.display]="lecture.lectureType == 'document'? '':'none' ">
+            <div class="col-lg-3">
+              <label for="lectureContent" class="form-label-inline">PDF<span class="text-danger"> *</span></label>
+              <button class="btn btn-sm btn-primary" (click)="file1.click()">Select Pdf File</button>&nbsp;
+              <input hidden type='file' accept="application/pdf" #file1 onclick="this.value = null" (change)="onSelectPDFFile($event)">
+              <button class="btn btn-sm btn-primary" (click)="getFileInNewWindow()">View File in New Window</button>
+            </div>
+            <div class="col-lg-9" style="height: 680px;"><object #pdfViewer type="application/pdf" width="100%"
+              height="100%"></object></div>
+          </div> -->
+          <!-- /document view -->
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="linkVideo" class="form-label-inline">{{
+                "course0101.lectureDetail.LinkVideo" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <input type="text" class="form-control " id="linkVideo" name="linkVideo" minlength="4"
+                placeholder="{{'course0101.lectureDetail.placeholderLinkVideo' | translate}}"
+                [(ngModel)]="lecture.linkVideo" #linkVideo="ngModel" />
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label class="form-label-inline" style="color: black;">
+                {{lecture.linkVideo}}
+              </label>
+              <!-- <input type="text" class="form-control " id="linkVideo" name="linkVideo" minlength="4"
+                placeholder="{{'course0101.lectureDetail.placeholderLinkVideo' | translate}}"
+                [(ngModel)]="lecture.linkVideo" #linkVideo="ngModel" /> -->
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="ordNo" class="form-label-inline">{{
+                "course0101.lectureDetail.ordNo" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <input type="number" class="form-control " id="ordNo" name="ordNo"
+                placeholder="{{'course0101.lectureDetail.placeholderOrdNo' | translate}}" [(ngModel)]="lecture.ordNo"
+                #url="ngModel" />
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label class="form-label-inline" style="color: black;">
+                {{lecture.ordNo ? lecture.ordNo :''}}
+              </label>
+            </div>
+          </div>
+
+          <div class="row mb-3" [hidden]="!disable">
+            <div class="col-lg-3">
+              <label for="status-user" class="form-label-inline">{{
+                "sys3.userDetail.status" | translate
+                }}</label>
+            </div>
+
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="active" (change)="lecture.status  = true"
+                  [checked]="lecture.status == true">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="disable"
+                  (change)="lecture.status  = false" [checked]="lecture.status == false">
+              </span>
+            </div>
+
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <span class="text-dark text-break" *ngIf="lecture.status == true">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+              </span>
+              <span class="text-dark text-break" *ngIf="lecture.status == false">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+              </span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

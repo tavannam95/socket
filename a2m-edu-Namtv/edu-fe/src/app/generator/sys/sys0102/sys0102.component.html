@@ -1,0 +1,60 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <app-breadcrumb></app-breadcrumb>
+        <!-- end page title -->
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="card ">
+                    <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist" style="border-bottom: none;">
+                        <li class="nav-item">
+                            <a (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_ROLE_MGT" role="tab">{{'sys0102.tab.role.title' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a (click)="changeTab(2)" class="nav-link" data-bs-toggle="tab" href="#MENU_ROLE_USER_MGT" role="tab">{{'sys0102.tab.role.user.title' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a (click)="changeTab(3)" class="nav-link" data-bs-toggle="tab" href="#MENU_USER_ROLE_MGT" role="tab">{{'sys0102.tab.user.role.title' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a (click)="changeTab(4)" class="nav-link" data-bs-toggle="tab" href="#MENU_ROLE_PROGRAM_MGT" role="tab">{{'sys0102.tab.role.program.title' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a (click)="changeTab(5)" class="nav-link" data-bs-toggle="tab" href="#MENU_PROGRAM_ROLE_MGT" role="tab">{{'sys0102.tab.role.program.title' | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="tab-content text-muted">
+                    <div class="tab-pane active" id="MENU_ROLE_MGT" role="tabpanel">
+                        <app-role-list #roleList></app-role-list>
+                    </div>
+                    <div class="tab-pane" id="MENU_ROLE_USER_MGT" role="tabpanel">
+                        <app-role-user #roleUser></app-role-user>
+                    </div>
+                    <div class="tab-pane" id="MENU_USER_ROLE_MGT" role="tabpanel">
+                        <app-user-role #userRole></app-user-role>
+                    </div>
+                    <div class="tab-pane" id="MENU_ROLE_PROGRAM_MGT" role="tabpanel">
+                        <app-role-program #roleProgram></app-role-program>
+                    </div>
+                    <div class="tab-pane" id="MENU_PROGRAM_ROLE_MGT" role="tabpanel">
+                        <app-program-role #programRole></app-program-role>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- container-fluid -->
+</div>
+
+<p-confirmDialog >
+</p-confirmDialog>

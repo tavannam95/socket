@@ -1,0 +1,136 @@
+<header class="edu-header header-style-1 header-fullwidth no-topbar">
+    <div id="edu-sticky-placeholder"></div>
+    <div class="header-mainmenu">
+        <div class="container-fluid">
+            <div class="header-navbar">
+                <div class="header-brand">
+                    <div class="logo">
+                        <a href="/">
+                            <!--                                    <img   class="svg logo" src="assets/images/logo/edu-logo-full.svg" alt="Corporate Logo">-->
+                            <img class="logo-light" src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+                            <img class="logo-dark" src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+                        </a>
+                    </div>
+                    <!-- <div class="header-category">
+                        <nav class="mainmenu-nav">
+                            <ul class="mainmenu">
+                                <li class="has-droupdown">
+                                    <a href="#"><i class="icon-1"></i>{{'common.menu.category' | translate}}</a>
+                                    <ul class="submenu">
+                                        <li *ngFor="let each of categories"><a [href]="each.url">{{each.name}}</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+                </div>
+                <div class="header-mainnav">
+                    <nav class="mainmenu-nav">
+                        <ul class="mainmenu" [style.justify-content]="'center'">
+                            <li *ngFor="let each of menus" class="{{each.children? 'has-droupdown': ''}}">
+<!--                              <a routerLink="{{each.url? each.url: null}}"  [routerLinkActive]="each.url ? 'is_active' : 'is_disabled'" [routerLinkActiveOptions]="{exact: true}">{{ each.name| translate}}</a>-->
+                              <a *ngIf="each.url" routerLink="{{ each.url}}"  >{{ each.name| translate}}</a>
+                              <a *ngIf="!each.url"  href="javascipt:void(0)"  >{{ each.name| translate}}</a>
+                              <ul *ngIf="each.children" class="submenu">
+                                <li *ngFor="let each2 of each.children"><a routerLink="{{each2.url}}">{{each2.name | translate}}</a></li>
+                              </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <ul class="header-action">
+                        <!-- <li>
+                            <div class="header-mainnav-lang">
+                                <nav class="mainmenu-nav">
+                                    <ul class="mainmenu">
+                                        <li class="has-droupdown">
+                                            <a href="javascript:void(0)" class="non-icon d-lang-name">{{langName}}</a>
+                                            <a href="javascript:void(0)" class="non-icon d-sm-none">
+                                                <img src="{{langIcon}}" alt="" style="width: 30px;">
+                                            </a>
+                                            <ul class="submenu" style="min-width: 180px;">
+                                                <li *ngFor="let lang of languages"><a href="javascript:void(0)" (click)="onChangeLang(lang)">{{lang.name}}</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </li>
+                        <li class="search-bar">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{'button.search.title'| translate}}...">
+                                <button class="search-btn" type="button"><i class="icon-2"></i></button>
+                            </div>
+                        </li> -->
+                        <!-- <li class="icon search-icon">
+                            <a href="javascript:void(0)" class="search-trigger">
+                                <i class="icon-2"></i>
+                            </a>
+                        </li> -->
+                        <li class="header-btn">
+                            <a routerLink="/apply" class="edu-btn btn-medium btn-gradient">{{"common.menu.applyHeader"|translate}}<i class="icon-4"></i></a>
+                        </li>
+                        <li class="mobile-menu-bar d-block d-xl-none">
+                            <button class="hamberger-button">
+                                <i class="icon-54"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-mobile-menu">
+        <div class="inner">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+<!--                        <embed class="logo" src="assets/images/logo/edu-logo-full.svg" alt="Corporate Logo">-->
+                                                      <img src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+
+
+                        <!--                                <img class="logo-light" src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">-->
+                        <!--                                <img class="logo-dark" src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">-->
+                    </a>
+                </div>
+                <div class="close-menu">
+                    <button class="close-button">
+                        <i class="icon-73"></i>
+                    </button>
+                </div>
+            </div>
+            <ul class="mainmenu">
+              <li *ngFor="let each of menus" class="{{each.children? 'has-droupdown': ''}}">
+                <a *ngIf="each.url" routerLink="{{ each.url}}"  >{{ each.name| translate}}</a>
+                <a *ngIf="!each.url"  href="javascipt:void(0)"  >{{ each.name| translate}}</a>
+                <ul *ngIf="each.children" class="submenu">
+                  <li *ngFor="let each2 of each.children"><a routerLink="{{each2.url}}">{{each2.name | translate}}</a></li>
+                </ul>
+              </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- Start Search Popup  -->
+    <div class="edu-search-popup">
+        <div class="content-wrap">
+            <div class="site-logo">
+<!--                <embed class="logo" src="assets/images/logo/edu-logo-full.svg" alt="Corporate Logo">-->
+              <img src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+
+            </div>
+            <div class="close-button">
+                <button class="close-trigger"><i class="icon-73"></i></button>
+            </div>
+            <div class="inner">
+                <form class="search-form">
+                    <input type="text" class="edublink-search-popup-field" placeholder="Search Here...">
+                    <button class="submit-button"><i class="icon-2"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Search Popup  -->
+</header>

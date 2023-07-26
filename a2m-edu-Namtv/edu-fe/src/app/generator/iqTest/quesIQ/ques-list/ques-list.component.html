@@ -1,0 +1,170 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <app-breadcrumb></app-breadcrumb>
+    <!-- <app-progress-bar></app-progress-bar> -->
+
+    <!-- end page title -->
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-xxl-2 col-md-2">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  {{ "sys3.search" | translate }}
+                </h2>
+              </div>
+              <!-- <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"edu.edu0102.courseName" | translate}}</span>
+                  <input type="text" class="form-control" placeholder="{{'edu.edu0102.courseName' | translate}}"
+                    [(ngModel)]="pagingRequest.searchText" (keyup)="onSearch()" />
+                </div>
+              </div> -->
+              <!--end col-->
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{
+                    "sys.sys0101.status" | translate
+                    }}</span>
+                  <p-dropdown [options]="listStatus" [(ngModel)]="pageRequest.searchStatus" (onChange)="onSearch()" appendTo="body"
+                    optionLabel="label" optionValue="value" name="status">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!-- Buttons Group -->
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearch()">
+                <i class="ri-search-line"></i>
+              </button>
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearchReset()">
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+            <!--end row-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="row justify-content-center">
+  <div class="col-xxl-9">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+          {{ "iqTest.iqQues.listIqQuesTitle" | translate }}
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+              (click)="addIqTest()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.addNewIqTest" | translate }}
+            </button>
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+              (click)="showAddForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.add.title" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-12 mb-3">
+            <div class="table-responsive mt-4 mt-xl-0">
+              <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                <thead class="">
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.stt" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.iqQuesNm" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.iqQuesCategory" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.iqQuesType" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.status" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "iqTest.iqQues.columns.action" | translate }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ques of listQues" (click)="showUpdateForm(ques.key, $event)" style="cursor: pointer;">
+                    <td scope="col trimText" *ngIf="ques.checked!= true">
+                      <input [(ngModel)]="ques.checked" [ngModelOptions]="{standalone: true}" name="checkbox_ques_{{ques.index}}" class="form-check-input" type="checkbox" (change)="handleSelectQues(ques)">
+                    </td>
+                    <td scope="col trimText" *ngIf="ques.checked== true">
+                      <input checked [(ngModel)]="ques.checked" [ngModelOptions]="{standalone: true}" name="checkbox_ques_{{ques.index}}" class="form-check-input" type="checkbox" (change)="handleSelectQues(ques)">
+                    </td>
+                    <td scope="col trimText">{{ ques.index }}</td>
+                    <td scope="col">
+                      <p class="trimText" style="width: 15%;">{{ques.quesNm != null ? ques.quesNm : ''}}</p>
+                    </td>
+                    <td scope="col"><p class="trimText" >{{ques.quesCategory != null ? ques.quesCategory : ''}}</p>
+                    </td>
+                    <td scope="col"><p class="trimText" >{{ques.quesType != null ? ques.quesType : ''}}</p>
+                    </td>
+                    <td scope="col" *ngIf="ques.status == true">
+                      <p class="trimText" >
+                        <i class="ri-checkbox-circle-line align-middle text-success"></i>{{'sys.sys0103.status.active' | translate}}
+                      </p>
+                    </td>
+                    <td scope="col" *ngIf="ques.status == false">
+                      <p class="trimText" >
+                        <i class="ri-close-circle-line align-middle text-danger"></i> {{'sys.sys0103.status.blocked' |translate}}
+                      </p>
+                    </td>
+                    <td>
+                      <div class="hstack gap-3 fs-15">
+                        <!-- <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                          pTooltip="{{ 'button.edit.title' | translate }}" (click)="showUpdateForm(ques.key, $event)">
+                          <i class="ri-edit-line fs-4 fs-4"></i></a> -->
+                        <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                          pTooltip="{{ 'button.delete.title' | translate }}" (click)="delete(ques, $event)">
+                          <i class="ri-delete-bin-6-line fs-4"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+
+
+                  <tr *ngIf="listQues.length == 0">
+                    <td colspan="10">
+                      <div class="text-center">
+                        {{ "table.noContentToDisplay" | translate }}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="listQues.length > 0" class="col-xxl-12">
+            <app-paginator [totalRecords]="totalQues" (onPageChange)="getPaging($event)">
+            </app-paginator>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end row-->
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!--end row-->
+<p-confirmDialog> </p-confirmDialog>

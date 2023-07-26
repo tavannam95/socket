@@ -1,0 +1,52 @@
+<!-- <app-breadcrumb></app-breadcrumb> -->
+
+<!--=====================================-->
+<!--=     Courses Details Area Start    =-->
+<!--=====================================-->
+<section class="edu-section-gap course-details-area">
+    <div class="container">
+        <div class="row row--30" style="justify-content: center;">
+            <div class="col-lg-8">
+                <div class="course-details-content">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                            <div class="course-tab-content">
+                                <div class="course-overview">
+                                    <!-- <h2 class="heading-title">{{'courses.detail.description' | translate}}</h2> -->
+                                    <h3 class="heading-title">{{event.title}}</h3>
+                                    <!-- <h5 class="title">{{'courses.detail.whatywlearn' | translate}}</h5> -->
+                                    <ul class="mb--60" [innerHTML]="event.content  | safeHtml">
+                                    </ul>
+                                  </div>
+                            </div>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="carriculam" role="tabpanel" aria-labelledby="carriculam-tab">
+                            <div class="course-tab-content">
+                                <div class="course-curriculam">
+                                    <h3 class="heading-title">{{'courses.detail.carriculam' | translate}}</h3>
+
+                                    <div *ngFor="let item of this.courseProgram" class="course-lesson">
+                                      <ng-container *ngIf="!item.deleteFlag" >
+                                        <h5 class="title">{{item.subjectNm}}</h5>
+                                        <ul *ngFor="let element of item.chapterModels">
+                                            <li *ngIf="element && !element.deleteFlag">
+                                                <div class="text"><i class="icon-65"></i> {{element.chapterNm}}</div>
+                                                <div class="icon"><i class="icon-68"></i></div>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                  </div>
+
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="input-group footer-subscription-form custom_center mt-3" >
+                          <button class="edu-btn btn-medium"  type="button" (click)="goToRegis()" >{{'common.menu.apply' | translate}}<i class="icon-4">  </i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,216 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0">
+            <div class="card-header align-items-center d-flex">
+                <h3 class="card-title mb-0 flex-grow-1">
+                    {{ "gen.gen0601.title"| translate }}
+                </h3>
+                <button type="button" class="btn-close" (click)="onCancel()"></button>
+            </div>
+
+            <div class="card-body form-steps">
+                <!-- <p-steps [model]="items"></p-steps>
+                <router-outlet></router-outlet> -->
+                <form #myForm="ngForm" class="vertical-navs-step">
+                    <div class="row gy-5">
+                        <div class="col-lg-4">
+                            <div class="nav flex-column custom-nav nav-pills">
+                                <button disabled class="nav-link" [ngClass]="{'active': activeIndex == 1, 'done': activeIndex > 1}">
+                                    <span class="step-title me-2">
+                                        <i class="ri-close-circle-fill step-icon me-2"></i> {{'gen.gen0601.step1' | translate}}
+                                    </span>
+                                    {{'gen.gen0601.extendsLicense'| translate}}
+                                </button>
+                                <button disabled class="nav-link" [ngClass]="{'active': activeIndex == 2, 'done': activeIndex > 2}">
+                                    <span class="step-title me-2">
+                                        <i class="ri-close-circle-fill step-icon me-2"></i> {{'gen.gen0601.step2' | translate}}
+                                    </span>
+                                    {{'gen.gen0601.billingInformation'| translate}}
+                                </button>
+                                <button disabled class="nav-link" [ngClass]="{'active': activeIndex == 3, 'done': activeIndex > 3}">
+                                    <span class="step-title me-2">
+                                        <i class="ri-close-circle-fill step-icon me-2"></i> {{'gen.gen0601.step3' | translate}}
+                                    </span>
+                                    {{'gen.gen0601.payment'| translate}}
+                                </button>
+                                <button disabled class="nav-link" [ngClass]="{'done': activeIndex == 4 }">
+                                    <span class="step-title me-2">
+                                        <i class="ri-close-circle-fill step-icon me-2"></i> {{'gen.gen0601.step4' | translate}}
+                                    </span>
+                                    {{'gen.gen0601.finish'| translate}}
+                                </button>
+                            </div>
+                            <!-- end nav -->
+                        </div> <!-- end col-->
+                        <div class="col-lg-8">
+                            <div class="px-lg-4">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" *ngIf="activeIndex == 1 ">
+                                        <form #myForm ="ngForm">
+                                            <div class="row g-3">
+                                                <div class="col-sm-12">
+                                                    <label for="firstName" class="form-label">{{'gen.gen0601.projectName' | translate}}</label>
+                                                    <p-dropdown [options]="projects" [(ngModel)]="request.projectId" optionLabel="projectName" optionValue="projectId" appendTo="body"
+                                                        name="project" #project="ngModel" placeholder="{{'gen.gen0601.placeholder.project' | translate}}" [required]="true"
+                                                        [ngClass]="{ 'ng-invalid ng-dirty': (project.invalid && submitted) || project.invalid && (project.dirty || project.touched)}">
+                                                    </p-dropdown>
+                                                    <div class="invalid-error" *ngIf="(project.invalid && submitted) || project.invalid && (project.dirty || project.touched)">
+                                                        <span *ngIf="project.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <label for="lastName" class="form-label">Extended Time</label>
+                                                    <div class="form-check form-radio-primary mb-3" *ngFor="let time of extendedTimes">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="request.extendedTime" name="extendedTime" value="{{time.value}}">
+                                                        <label class="form-check-label">{{time.name}}</label>
+                                                    </div>
+                                                    <!-- <div class="invalid-error" *ngIf="(extendedTime.invalid && projectId) || extendedTime.invalid && (extendedTime.dirty || extendedTime.touched)">
+                                                        <span *ngIf="projectId.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                                    </div> -->
+                                                </div>
+                                                <div class="d-flex align-items-start gap-3 mt-4">
+                                                    <!-- <button type="button" (click)="onBack()" class="btn btn-light waves-effect waves-light">Back</button> -->
+                                                    <button type="button" (click)="onSaveLicense(myForm.invalid)" class="btn btn-primary right ms-auto waves-effect waves-light">Next</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="tab-pane fade show active" *ngIf="activeIndex == 2 ">
+                                        <div>
+                                            <h2>Billing Info</h2>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <ul class="list-group mb-3">
+                                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h4 class="my-0">Product name</h4>
+                                                        <small class="text-muted">Brief description</small>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h4 class="">Extend package</h4>
+                                                        <small class="text-muted">6 month</small>
+                                                    </div>
+                                                    <span class="text-muted">$500</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h4 class="my-0">Event</h4>
+                                                        <small class="text-muted">Brief description</small>
+                                                    </div>
+                                                    <span class="text-muted">$5</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                                    <div class="text-success">
+                                                        <h4 class="my-0">Discount</h4>
+                                                        <small>−$5 Discount</small>
+                                                    </div>
+                                                    <span class="text-success">−$5</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Total (USD)</span>
+                                                    <strong>$20</strong>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="d-flex align-items-start gap-3 mt-4">
+                                            <button (click)="onBack()" type="button" class="btn btn-light waves-effect waves-light">Back</button>
+                                            <button (click)="onNext()" type="button" class="btn btn-primary right ms-auto waves-effect waves-light">Next</button>
+                                        </div>
+
+                                    </div>
+                                    <!-- end tab pane -->
+                                    <div class="tab-pane fade show active" *ngIf="activeIndex == 3 ">
+                                        <div>
+                                            <h5>Payment</h5>
+                                        </div>
+
+                                        <div>
+                                            <div class="my-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                                                    <label class="form-check-label" for="credit">Credit card</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                                                    <label class="form-check-label" for="debit">Debit card</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
+                                                    <label class="form-check-label" for="paypal">PayPal</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row gy-3">
+                                                <div class="col-md-12">
+                                                    <label for="cc-name" class="form-label">Name on card</label>
+                                                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                                                    <small class="text-muted">Full name as displayed on card</small>
+                                                    <div class="invalid-feedback">
+                                                        Name on card is required
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="cc-number" class="form-label">Credit card number</label>
+                                                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Credit card number is required
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="cc-expiration" class="form-label">Expiration</label>
+                                                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Expiration date required
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="cc-cvv" class="form-label">CVV</label>
+                                                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Security code required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex align-items-start gap-3 mt-4">
+                                            <button (click)="onBack()" type="button" class="btn btn-light waves-effect waves-light">Back</button>
+                                            <button (click)="onPayment()" type="button" class="btn btn-primary right ms-auto waves-effect waves-light">Payment confirmation</button>
+                                        </div>
+                                    </div>
+                                    <!-- end tab pane -->
+                                    <div class="tab-pane fade show active" *ngIf="activeIndex == 4 ">
+                                        <div class="text-center pt-4 pb-2">
+
+                                            <div class="mb-4">
+                                                <img src="assets/images/confetti-outline.gif" alt="" style="width: 200px;">
+                                            </div>
+                                            <h5>You have successfully renewed !</h5>
+                                            <button type="button" (click)="onCancel()" class="btn btn-success ms-auto waves-effect waves-light">Done</button>
+                                        </div>
+                                    </div>
+                                    <!-- end tab pane -->
+                                </div>
+                                <!-- end tab content -->
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

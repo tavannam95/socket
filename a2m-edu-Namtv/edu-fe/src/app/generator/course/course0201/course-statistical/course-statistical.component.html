@@ -1,0 +1,86 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+    <!-- <bar-my-course></bar-my-course> -->
+
+    <div class="row justify-content-center" #row style="padding-right: 1%;">
+    <!-- Start Left Content -->
+
+      <!-- <i *ngIf="showHideIcon==true"  #iconShowHide  (click)="handleShowHide()"class="ri-arrow-left-s-fill btn-showHide hiddenMobile" style="position: fixed;"></i >
+      <div class="col-lg-3 hiddenMobile" [style.display]="showHide" >
+        <app-sub-menu #subMenuTag [courseId]="this.courseId" [scroll]="true"  [data]="couSubjectLst"></app-sub-menu>
+      </div> -->
+
+
+    <!-- End Left Content -->
+    <!-- Start Right Content -->
+    <div class="col-xxl-9" #courseContent >
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h2 id="{{'course'+courseObj.key}}" #{{courseObj.key}} class="card-title mb-0 flex-grow-1">{{courseObj['courseNm']}}</h2>
+        </div>
+      </div>
+
+      <div *ngFor="let subject of courseObj.subjectModels; index as idx; count as total">
+        <ng-container *ngIf="subject.status && !subject.deleteFlag">
+          <div class="card"  id="{{'subject'+subject.key}}" >
+            <div class="card-header align-items-center d-flex">
+              <h3 id="{{'subject'+subject.key}}" #{{subject.key}} class="card-title mb-0 flex-grow-1">{{subject.subjectNm}}</h3>
+              <div class="flex-shrink-0 col-xxl-9" *ngIf="subject.documentTotal != 0">
+                <div class="d-flex align-items-center py-2">
+                  <div class="flex-grow-1">
+                      <div class="progress animated-progress custom-progress progress-label">
+                          <div class="progress-bar bg-success" role="progressbar" [style.width]="subject.percentDoc + '%'" [attr.aria-valuenow]="subject.percentDoc" aria-valuemin="0" aria-valuemax="100"><div class="label">{{subject.percentDoc}}%</div></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-header align-items-center">
+              <div class="row" id="{{'chapter'+chapter.key}}" *ngFor="let chapter of subject.chapterModels; index as chapterIdx; count as total">
+                <ng-container *ngIf="chapter.status && !chapter.deleteFlag">
+                  <div class="mb-3"  *ngIf="chapter.status && !chapter.deleteFlag">
+                    <mat-accordion>
+                      <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
+                        <mat-expansion-panel-header >
+                          <mat-panel-title  >
+                            &nbsp;
+                            <a  href="javascript:void(0);" (click)="handleChapterDetail(chapter.key)"> [Chapter - {{chapterIdx+1}}] {{chapter.chapterNm}}
+                              <i  class="ri-eye-fill label-icon align-middle fs-16 ms-2"></i>
+                            </a>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header >
+                        <ng-container *ngFor="let doc of chapter.listDocument">
+                          <div class="pb-3 row" *ngIf="doc.status && !doc.deleteFlag">
+                            <h3 class="mb-1 col-lg-11" *ngIf="doc.typeDocument == 'Quiz'">
+                              <img src="/assets/images/companies/img-9.png" style="height: 25px; margin-left: 25px;"> [Quiz]
+                              <a href="javascript:void(0);" [id]="doc.key" (click)="handleQuizDetail(doc.key)"> {{doc.quizNm}}</a>&nbsp;
+                              <a *ngIf="getStatisPer()" [routerLink]="['/course/course0104/quiz-statistical-result/'+doc.key]" [queryParams]="{courseId: courseId}" class="btn badge bg-light text-dark">{{ 'course0104.quiz.quizDetail.buttonStatistical' | translate }}</a>
+                            </h3>
+                            <h3 class="mb-1 col-lg-11" *ngIf="doc.typeDocument != 'Quiz'">
+                              <img src="/assets/images/companies/img-8.png" style="height: 25px; margin-left: 25px;"> [{{getTypeDocNm(doc.typeDocument)}}]
+                              <a href="javascript:void(0);" [id]="doc.key" (click)="handleLectureDetail(doc.key)" > {{doc.lectureNm}}</a>
+                            </h3>
+                            <div class="col-lg-1">
+                              <input class="form-check-input" type="checkbox" [checked]="doc.checked" disabled>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+    <!-- End Right Content -->
+    </div>
+    <!-- <p-panel header="Header 123" [toggleable]="true">
+
+    </p-panel> -->
+  </div>
+</div>

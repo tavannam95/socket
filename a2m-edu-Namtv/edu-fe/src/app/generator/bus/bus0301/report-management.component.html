@@ -1,0 +1,269 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xxl-9">
+          <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0">Report</h4>
+
+<!--                    <div class="page-title-right">-->
+<!--                        <ol class="breadcrumb m-0">-->
+<!--                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>-->
+<!--                            <li class="breadcrumb-item active">Projects</li>-->
+<!--                        </ol>-->
+<!--                    </div>-->
+
+          </div>
+      </div>
+  </div>
+    <div class="row">
+      <div class="col-xxl-9">
+          <div class="card ">
+              <div class="card-header ">
+                  <div class="row">
+                      <div class="col-xxl-2 col-md-2">
+                          <h2 class="card-title mb-0 flex-grow-1">Search</h2>
+                      </div>
+                      <!--end col-->
+                      <div class="col-xxl-3 col-md-4">
+                          <div class="input-group">
+                              <span class="input-group-text">Start Date</span>
+                              <div class="form-icon right form-control-2">
+                                  <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="request.startDate" name="dateAndTime"
+                                      dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body">
+                                  </p-calendar>
+                                  <i class="ri-calendar-2-fill"></i>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-xxl-3 col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text">End Date</span>
+                            <div class="form-icon right form-control-2">
+                                <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="request.EndDate" name="dateAndTime"
+                                    dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body">
+                                </p-calendar>
+                                <i class="ri-calendar-2-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                      <!--end col-->
+                      <div class="col-xxl-3 col-md-4">
+                          <div class="input-group">
+                              <span class="input-group-text">Status</span>
+                              <div class="form-control-2">
+                                  <p-dropdown [options]="statusList" [(ngModel)]="request.status" optionLabel="label" optionValue="value" appendTo="body"
+                                      name="status" ></p-dropdown>
+                              </div>
+                              
+                          </div>
+                      </div>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="onSearch()">
+                          <i class="ri-search-line"></i>
+                      </button>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="onReset()">
+                          <i class="ri-refresh-line"></i>
+                      </button>
+                      <!-- <button type="button" class="btn btn-primary position-relative p-0 avatar-xs rounded-circle ms-lg-2">
+                          <span class="avatar-title bg-transparent text-reset">
+                              <i class="ri-search-line"></i>
+                          </span>
+                      </button>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-xs rounded-circle ms-lg-2">
+                          <span class="avatar-title bg-transparent text-reset">
+                              <i class="ri-refresh-line"></i>
+                          </span>
+                      </button> -->
+
+                  </div>
+                  <!--end row-->
+              </div>
+          </div>
+      </div>
+  </div>
+      <!-- start page title -->
+  
+      <!-- end page title -->
+
+      <div class="row project-wrapper">
+          <div class="col-xxl-8">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="card">
+                        
+                          <div class="card-header border-0 align-items-center d-flex">
+                           
+                              <h4 class="card-title mb-0 flex-grow-1">Subscriber</h4>
+
+                            
+
+                          </div><!-- end card header -->
+
+                          <div class="card-body p-0 pb-2 chart1" >
+                            
+                            <p-chart type="line" height="200" width="100"  [data]="basicData" [options]="basicOptions"></p-chart>
+                          </div><!-- end card body -->
+                      </div><!-- end card -->
+                  </div><!-- end col -->
+              </div><!-- end row -->
+              <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0 align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
+
+                        </div><!-- end card header -->
+
+                        <div class="card-header p-0 border-0 bg-soft-light">
+
+                        </div><!-- end card header -->
+                        <div class="card-body p-0 pb-2 chart1" >
+                          <p-chart type="line" height="200" width="100"  [data]="basicData2" [options]="basicOptions"></p-chart>
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+            </div>
+          </div><!-- end col -->
+
+          <div class="col-xxl-4">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1 py-1">Projects</h4>
+              </div><!-- end card header -->
+              <div class="card-body">
+                <div class="table-responsive table-card">
+                  <table class="table table-borderless table-nowrap table-centered align-middle mb-0">
+                    <thead class="table-light text-muted">
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Client</th>
+                    </tr>
+                    </thead><!-- end thead -->
+                    <tbody>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            Create new Admin Template
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">03 Nov 2021</td>
+                      <td><span class="badge badge-soft-success">Completed</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Mary Stoner">
+                          <img src="assets/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr><!-- end -->
+                    <!-- <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            Marketing Coordinator
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">17 Nov 2021</td>
+                      <td><span class="badge badge-soft-warning">Progress</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Den Davis">
+                          <img src="assets/images/users/avatar-7.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            Administrative Analyst
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">26 Nov 2021</td>
+                      <td><span class="badge badge-soft-success">Completed</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Alex Brown">
+                          <img src="assets/images/users/avatar-6.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            Administrative Analyst
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">26 Nov 2021</td>
+                      <td><span class="badge badge-soft-success">Completed</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Alex Brown">
+                          <img src="assets/images/users/avatar-6.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            E-commerce Landing Page
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">10 Dec 2021</td>
+                      <td><span class="badge badge-soft-danger">Pending</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Prezy Morin">
+                          <img src="assets/images/users/avatar-5.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            UI/UX Design
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">22 Dec 2021</td>
+                      <td><span class="badge badge-soft-warning">Progress</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Stine Nielsen">
+                          <img src="assets/images/users/client.png" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label ms-1">
+                            Projects Design
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-muted">31 Dec 2021</td>
+                      <td><span class="badge badge-soft-danger">Pending</span></td>
+                      <td>
+                        <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Jansh William">
+                          <img src="assets/images/users/avatar-4.jpg" alt="" class="rounded-circle avatar-xxs shadow">
+                        </a>
+                      </td>
+                    </tr> -->
+                    </tbody><!-- end tbody -->
+                  </table><!-- end table -->
+                </div>
+                <div class="mt-3 text-center">
+                  <a href="javascript:void(0);" class="text-muted text-decoration-underline">Load
+                    More</a>
+                </div>
+              </div><!-- end cardbody -->
+            </div><!-- end card -->
+          </div><!-- end col -->
+      </div><!-- end row -->
+  </div>
+  <!-- container-fluid -->
+</div>

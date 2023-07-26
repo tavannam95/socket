@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Mar 12 15:27:16 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a2m.auth.dao.UserDao">
+
+	<insert id="saveTsstUser" parameterType="com.a2m.auth.model.request.TsstUserRequest" useGeneratedKeys="true">
+        INSERT INTO TSST_USER
+        (
+        	USER_UID,
+        	USER_ID,
+        	PWD,
+        	STATUS,
+        	CREATED_DATE,
+        	EMP_NO
+        )VALUES
+        (
+        	#{userUid},
+        	#{userId},
+        	#{password},
+        	#{status},
+        	CURRENT_TIMESTAMP,
+        	#{empNo} 
+        )
+    </insert>
+    
+    <insert id="saveUserRole" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO TSST_USER_ROLE
+        (
+        	USER_UID,
+        	ROLE_ID
+        )VALUES
+        <foreach collection="roles" item="element" index="index" separator=",">  
+    		( #{userUid}, #{element} )  
+		</foreach>  
+    </insert>
+    
+    <select id="getTsstUserByUserUid" parameterType="String" resultType="com.a2m.auth.model.response.UserResponse">
+        SELECT
+        	T1.USER_UID as userUid,
+        	T1.USER_ID as userId,
+        	T1.PWD as password,
+        	T1.STATUS as status,
+        	T1.CREATED_DATE as createdDate,
+        	T2.2FA_ENABLE as twoFactorAuthEnable,
+        	T2.2FA_KEY as twoFactorAuthKey,
+        	T2.EMAIL as email,
+        	T2.GENDER as gender,
+        	T2.ADDRESS as address,
+        	T2.DOB as dateOfBirth,
+        	T2.IMG_PATH  as imgPath,
+        	T2.EMAIL_VERIFY_KEY as emailVerifyKey
+        	<!-- (
+        		SELECT A3.ROLE_ID as roleId, A3.ROLE_NM as roleNm 
+        		FROM TSST_USER A1 
+        			INNER JOIN TSST_USER_ROLE A2 ON A1.USER_UID = A2.USER_UID
+        			INNER JOIN TSST_ROLE A3 on A2.ROLE_ID = A3.ROLE_ID
+        		WHERE T1.USER_UID = #{userUid}
+        	) as roles -->
+        FROM TSST_USER T1
+        	INNER JOIN TSST_USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID
+        WHERE T1.USER_UID = #{userUid}
+    </select>
+    
+    <select id="getTsstUserByUserId" parameterType="String" resultType="com.a2m.auth.model.response.UserResponse">
+        SELECT
+        	T1.USER_UID as userUid,
+        	T1.USER_ID as userId,
+        	T1.PWD as password,
+        	T1.STATUS as status,
+        	T1.CREATED_DATE as createdDate,
+        	T2.2FA_ENABLE as twoFactorAuthEnable,
+        	T2.2FA_KEY as twoFactorAuthKey,
+        	T2.EMAIL as email,
+        	T2.GENDER as gender,
+        	T2.ADDRESS as address,
+        	T2.DOB as dateOfBirth,
+        	T2.IMG_PATH  as imgPath,
+        	T2.EMAIL_VERIFY_KEY as emailVerifyKey
+        	
+        FROM TSST_USER T1
+        	INNER JOIN TSST_USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID AND T1.USER_TYPE = 'EMP'
+        WHERE T1.USER_ID = #{userId}
+        	UNION
+         SELECT
+        	T1.USER_UID as userUid,
+        	T1.USER_ID as userId,
+        	T1.PWD as password,
+        	T1.STATUS as status,
+        	T1.CREATED_DATE as createdDate,
+        	T2.2FA_ENABLE as twoFactorAuthEnable,
+        	T2.2FA_KEY as twoFactorAuthKey,
+        	T2.EMAIL as email,
+        	T2.GENDER as gender,
+        	T2.ADDRESS as address,
+        	T2.DOB as dateOfBirth,
+        	T2.IMG_PATH  as imgPath,
+        	T2.EMAIL_VERIFY_KEY as emailVerifyKey
+        	
+        FROM TSST_USER T1
+        INNER JOIN EAM_STUDENT_INFO T2 ON T1.USER_INFO_ID = T2.STUDENT_INFO_ID AND T1.USER_TYPE = 'STU'
+        WHERE T1.USER_ID = #{userId}
+        	UNION
+         SELECT
+        	T1.USER_UID as userUid,
+        	T1.USER_ID as userId,
+        	T1.PWD as password,
+        	T1.STATUS as status,
+        	T1.CREATED_DATE as createdDate,
+        	T2.2FA_ENABLE as twoFactorAuthEnable,
+        	T2.2FA_KEY as twoFactorAuthKey,
+        	T2.EMAIL as email,
+        	T2.GENDER as gender,
+        	T2.ADDRESS as address,
+        	T2.DOB as dateOfBirth,
+        	T2.IMG_PATH  as imgPath,
+        	T2.EMAIL_VERIFY_KEY as emailVerifyKey
+        	
+        FROM TSST_USER T1
+        INNER JOIN EAM_TEACHER_INFO T2 ON T1.USER_INFO_ID = T2.TEACHER_INFO_ID AND T1.USER_TYPE = 'TEA'
+        WHERE T1.USER_ID = #{userId}
+    </select>
+    
+    <select id="existsByUserId" parameterType="String" resultType="Integer">
+        SELECT
+        	COUNT(*)
+        FROM TSST_USER T1
+        	INNER JOIN TSST_USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID
+        WHERE T1.USER_ID = #{userId}
+    </select>
+    
+    <select id="existsByEmail" parameterType="String" resultType="Integer">
+        SELECT
+        	COUNT(*)
+        FROM TSST_USER T1
+        	INNER JOIN TSST_USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID
+        WHERE T2.EMAIL = #{email}
+    </select>
+    
+    <select id="getTsstUserByEmail" parameterType="map" resultType="com.a2m.auth.model.response.UserResponse">
+        SELECT
+        	T1.USER_UID as userUid,
+        	T1.USER_ID as userId,
+        	T1.PWD as password,
+        	T1.STATUS as status,
+        	T1.CREATED_DATE as createdDate,
+        	T2.2FA_ENABLE as twoFactorAuthEnable,
+        	T2.2FA_KEY as twoFactorAuthKey,
+        	T2.EMAIL as email,
+        	T2.GENDER as gender,
+        	T2.ADDRESS as address,
+        	T2.DOB as dateOfBirth,
+        	T2.IMG_PATH  as imgPath,
+        	T2.EMAIL_VERIFY_KEY as emailVerifyKey
+        	<!-- (
+        		SELECT A3.ROLE_ID as roleId, A3.ROLE_NM as roleNm 
+        		FROM TSST_USER A1 
+        			INNER JOIN TSST_USER_ROLE A2 ON A1.USER_UID = A2.USER_UID
+        			INNER JOIN TSST_ROLE A3 on A2.ROLE_ID = A3.ROLE_ID
+        		WHERE T1.USER_UID = #{userUid}
+        	) as roles -->
+        FROM TSST_USER T1
+        	INNER JOIN TSST_USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID
+        WHERE T2.EMAIL = #{email}
+    </select>
+    
+    <update id="updateByUserUid" parameterType="map">
+        UPDATE TSST_USER
+        <set>
+            UPDATED_DATE = CURRENT_TIMESTAMP,
+            <if test="fullName != null and fullName ='' ">
+            	FULL_NAME = #{fullName}
+            </if>
+            <if test="dateOfBirth != null and dateOfBirth ='' ">
+            	DOB = #{dateOfBirth}
+            </if>
+            <if test="cellPhone != null and cellPhone ='' ">
+            	CELL_PHONE = #{cellPhone}
+            </if>
+            <if test="gender != null and gender ='' ">
+            	GENDER = #{gender}
+            </if>
+            <if test="imgPath != null and imgPath ='' ">
+            	IMG_PATH = #{imgPath}
+            </if>
+            <if test="address != null and address ='' ">
+            	ADDRESS = #{address}
+            </if>
+            <if test="twoFactorAuthEnable != null and twoFactorAuthEnable ='' ">
+            	2FA_ENABLE = #{twoFactorAuthEnable}
+            </if>
+            <if test="twoFactorAuthKey != null and twoFactorAuthKey ='' ">
+            	2FA_KEY = #{twoFactorAuthKey}
+            </if>
+            <if test="emailVerifyKey != null and emailVerifyKey ='' ">
+            	EMAIL_VERIFY_KEY = #{emailVerifyKey}
+            </if>
+            <if test="status != null">
+            	STATUS = #{status}
+            </if>
+            <if test="email != null and email ='' ">
+            	EMAIL = #{email}
+            </if>
+        </set>
+        WHERE
+        	EMAIL = #{email}
+    </update>
+    
+</mapper>

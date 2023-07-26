@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+            [hidden]="checkView || typeView!='VIEW'"
+              (click)="showUpdateStandForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.edit.title" | translate }}
+            </button>
+          </div>
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView!='VIEW'">
+            <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+              {{ "course0102.standardDetail.buttonSave" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form #myForm="ngForm" style="padding-right: 2%;">
+          <ng-container *ngFor="let stand of listStandard; let index = index;">
+            <div class="col-xxl-12" *ngIf="!stand.deleteFlag">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title mb-8 flex-grow-1">{{ "course0102.standardDetail.standKnow" | translate }} {{stand.index}}</h3>
+                </div>
+                <div class="card-body">
+                  <div class="live-preview">
+                    <div class="row mb-3">
+                      <div class="col-lg-2" style="margin-top: 8px;">
+                        <label for="knowContent" class="form-label-inline">{{
+                          "course0102.standardDetail.standContent" | translate
+                          }}<span class="text-danger"> *</span></label>
+                      </div>
+                      <div class="col-lg-7">
+                        <app-inp-vc name="knowContent" [submitted]="submitted" [(inpValue)]="stand.standContent" [vc]="typeView" elmType="AREA" [required]="true"
+                        placeholder="{{'course0102.standardDetail.placeholderStandContent' | translate}}" [ngModelOptions]="{ standalone: true }"
+                        requiredMessage="{{ 'message.requiredStandContent' | translate }}"></app-inp-vc>
+                        <!-- <textarea class="form-control" rows="3" placeholder="{{'course0102.standardDetail.placeholderStandContent' | translate}}"
+                        [ngModelOptions]="{ standalone: true }" name="standContent" [(ngModel)]="stand.standContent" #standContent="ngModel" required
+                          [ngClass]="{ 'is-invalid': (standContent.invalid && submitted) || (standContent.invalid && (standContent.dirty || standContent.touched))}" ></textarea> -->
+                        <!-- <div class="invalid-error"
+                          *ngIf="(standContent.invalid && submitted) || standContent.invalid && (standContent.dirty || standContent.touched)">
+                          <span *ngIf="standContent.errors?.['required']">{{ 'message.requiredStandContent' | translate
+                            }}</span>
+                        </div> -->
+                      </div>
+                      <div class="col-lg-3" *ngIf="typeView != 'VIEW'" style="margin-top: 8px;">
+                        <button *ngIf="listStandard.length > 1" (click)="removeStand(index)" type="button"
+                          class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill">
+                          <i class="bx bx-trash label-icon align-middle rounded-pill fs-16 ms-2"></i>
+                          {{ "button.delete.title" | translate }}
+                        </button>
+                        <button (click)="addNewStand(0)" *ngIf="index == listStandard.length - 1" type="button"
+                          class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+                          <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                          {{ "button.add.title" | translate }}
+                        </button>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </form>
+      </div>
+      <!-- <div class="modal-footer"  *ngIf="typeView != 'VIEW'">
+        <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+          {{ "course0102.standardDetail.buttonSave" | translate }}
+        </button>
+
+      </div> -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

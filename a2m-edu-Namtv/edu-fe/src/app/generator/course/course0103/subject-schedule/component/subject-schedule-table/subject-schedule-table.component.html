@@ -1,0 +1,73 @@
+<!-- Bordered Tables -->
+<table class="table table-bordered table-nowrap">
+  <thead>
+      <tr>
+          <th scope="col" width="8%">{{
+            "course0102.columns.stt" | translate
+            }}</th>
+          <th scope="col" width="25%">
+            {{
+              "course0102.subjectDetail.content.content" | translate
+              }}
+          </th>
+          <th scope="col" width="8%" *ngFor="let std of organizationFormalStds">{{std.label}}</th>
+          <th scope="col" width="8%">
+            {{
+              "course0102.subjectDetail.content.count" | translate
+              }}
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let chapter of listChapterSchedule; index as chapterIndex">
+          <th scope="col">{{chapterIndex+1}}</th>
+
+          <td scope="col">
+            <p>{{chapter.chapterNm}}</p>
+            <!-- <div class="btn btn-sm" (click)="showUpdateForm(chapter.chapterId)"><i class="ri-arrow-right-line"></i></div>  -->
+          </td>
+
+          <td scope="col" *ngFor="let std of organizationFormalStds">
+            {{ chapter.organizationFormals[std.commCd] }}
+          </td>
+          <td scope="col" style="font-weight: bold;">{{ countRow(chapter) }}</td>
+          <!-- <td>
+              <div class="dropdown">
+                  <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="ri-more-2-fill"></i>
+                  </a>
+                
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <li><a class="dropdown-item" href="#">View</a></li>
+                      <li><a class="dropdown-item" href="#">Edit</a></li>
+                      <li><a class="dropdown-item" href="#">Delete</a></li>
+                  </ul>
+              </div>
+          </td> -->
+      </tr>
+      <tr>
+        <td colspan="2" style="font-weight: bold; text-align: center;">{{
+          "course0102.subjectDetail.content.countAll" | translate
+          }}</td>
+        <td style="font-weight: bold;" *ngFor="let std of organizationFormalStds">
+          {{ countCol(std.commCd) }}
+        </td>
+        <td style="font-weight: bold;">
+          {{ countAll() }}
+        </td>
+        <!-- <td>
+            <div class="dropdown">
+                <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="ri-more-2-fill"></i>
+                </a>
+              
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">View</a></li>
+                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                </ul>
+            </div>
+        </td> -->
+    </tr>
+  </tbody>
+</table>

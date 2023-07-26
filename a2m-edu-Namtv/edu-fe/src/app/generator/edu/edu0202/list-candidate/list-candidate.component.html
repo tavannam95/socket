@@ -1,0 +1,226 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <app-breadcrumb></app-breadcrumb>
+
+    <!-- end page title -->
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header">
+
+            <div class="row">
+              <div class="col-xxl-12 col-md-12">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  {{ "sys3.search" | translate }}
+                </h2>
+              </div>
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"edu.edu0202.Name" | translate}}</span>
+                  <input type="text" class="form-control" placeholder="{{'edu.edu0202.placeholderCandidateName' | translate}}"
+                    [(ngModel)]="pagingRequest.searchText" dataKey="Close" (keyup)="searchData()" />
+                </div>
+              </div>
+              <!--end col-->
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"edu.edu0202.Progress" | translate}}</span>
+                  <div  class="form-icon right form-control-1">
+                    <p-dropdown [options]="listStatus" [(ngModel)]="pagingRequest.progressType" (onChange)="searchData()" appendTo="body"
+                      optionLabel="label" optionValue="value" name="progressType">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"edu.edu0202.course" | translate}}</span>
+                  <div  class="form-icon right form-control-1">
+                    <p-dropdown [options]="listCourse" [(ngModel)]="pagingRequest.courseId" (onChange)="searchData()" appendTo="body" placeholder="{{'edu.edu0202.searchCourse' | translate}}"
+                      optionLabel="courseNm" optionValue="key" name="courseModel">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"edu.edu0202.event" | translate}}</span>
+                  <div  class="form-icon right form-control-1" style="max-width: 50px;">
+                    <p-dropdown [options]="listEvent" [(ngModel)]="pagingRequest.eventId" (onChange)="searchData()" appendTo="body" placeholder="{{'edu.edu0202.searchEvent' | translate}}"
+                      optionLabel="eventTitle" optionValue="key" name="eventModel" >
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xxl-3 col-md-3">
+                <div class="input-group">
+                  <div  class="form-icon right form-control-2">
+                    <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="pagingRequest.startTime" name="date" [required]="true" #date="ngModel"
+                    dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" ></p-calendar>
+                    <i  class="ri-calendar-2-fill"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div style="width: 1%;display: flex;justify-content: center;align-items: center;">
+                  <span >~</span>
+              </div>
+              <div class="col-xxl-3 col-md-3">
+                <div class="input-group">
+                  <div  class="form-icon right form-control-2">
+                    <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="pagingRequest.endTime" name="date" [required]="true" #date="ngModel"
+                    dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"></p-calendar>
+                    <i  class="ri-calendar-2-fill"></i>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- Buttons Group -->
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="searchData()">
+                <i class="ri-search-line"></i>
+              </button>
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearchReset()">
+                <i class="ri-refresh-line"></i>
+              </button>
+              <div class="d-flex flex-wrap gap-2">
+                <button (click)="exportExel(false)" type="button" class="btn btn-primary waves-effect waves-light">{{"edu.edu0202.ExportExcell" | translate}}</button>
+                <button (click)="exportExel(true)" type="button" class="btn btn-primary waves-effect waves-light">{{"edu.edu0202.ExportExcellAll" | translate}}</button>
+                <button (click)="changProgress()" type="button" class="btn btn-primary waves-effect waves-light">{{"edu.edu0202.changeProgress" | translate}}</button>
+                <button (click)="deletelistCheck()" type="button" class="btn btn-primary waves-effect waves-light">{{"edu.edu0202.deleteChange" | translate}}</button>
+              </div>
+            </div>
+            <!--end row-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
+                <div class="table-responsive mt-4 mt-xl-0">
+                  <table id="excel-table" class="table table-hover table-striped align-middle table-nowrap mb-0">
+                    <thead class="">
+                      <tr>
+                        <th scope="col" class="w-5">
+                          {{ "sys4.columns.stt" | translate }}
+                        </th>
+                        <th scope="col" class="w-5">
+                          <input #multiCheckBox class="form-check-input" type="checkbox" (change)="handleMultiSelect($event)" >
+                        </th>
+                        <th scope="col"  class="w-20">
+                          {{ "edu.edu0202.Name" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "edu.edu0202.courseEvent" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "edu.edu0202.Progress" | translate }}
+                        </th>
+                        <th scope="col" class="w-25">
+                          {{ "edu.edu0202.Email" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                         {{ "edu.edu0202.PhoneNumber" | translate }}
+                        </th>
+                        <th scope="col" class="w-5">
+                          {{ "sys3.columns.action" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let candidate of listCandidate" (click)="viewDetail(candidate.key, $event)" style="cursor: pointer;">
+                        <td scope="col trimText" >{{ candidate.index }}</td>
+                        <td  >
+                          <input class="form-check-input" type="checkbox" [checked]="checkCandidate(candidate)" (change)="handleListCheked(candidate)" >
+                        </td>
+                        <td scope="col" >
+                          <p class="trimText w-20" > {{candidate.candidateName != null ? candidate.candidateName : '-'}}</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.eventModel.key != null && (candidate.courseModel.key == null || candidate.courseModel.key != null)">
+                          <p class="trimText w-10" >{{candidate.eventModel.eventTitle != null ? candidate.eventModel.eventTitle : '-'}}</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.eventModel.key == null && candidate.courseModel.key != null">
+                          <p class="trimText w-10" >{{candidate.courseModel.courseNm != null ? candidate.courseModel.courseNm : '-'}}</p>
+                        </td>
+                        <td scope="col w-10" *ngIf="candidate.eventModel.key == null && candidate.courseModel.key == null">
+                          <p class="trimText" >-</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.candidateprogressType=='Chưa giải quyết' || candidate.candidateprogressType=='Pending'">
+                          <p class="trimText w-10" >{{candidate.candidateprogressType != null ? candidate.candidateprogressType : '-'}}</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.candidateprogressType=='Trong quá trình' || candidate.candidateprogressType=='In Progress'">
+                          <p class="trimText w-10" >{{candidate.candidateprogressType != null ? candidate.candidateprogressType : '-'}}</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.candidateprogressType=='Đã xác nhận' || candidate.candidateprogressType=='Confirm'">
+                          <p class="trimText w-10" >{{candidate.candidateprogressType != null ? candidate.candidateprogressType : '-'}}</p>
+                        </td>
+                        <td scope="col" *ngIf="candidate.candidateprogressType=='Đóng' || candidate.candidateprogressType=='close'">
+                          <p class="trimText w-10" >{{candidate.candidateprogressType != null ? candidate.candidateprogressType : '-'}}</p>
+                        </td>
+                        <td scope="col" >
+                          <p class="trimText w-25"  >{{candidate.candidateEmail != null ? candidate.candidateEmail : '-'}}</p>
+                        </td>
+                        <td scope="col"  >
+                          <p class="trimText w-10" >{{candidate.candidatePhone != null ? candidate.candidatePhone : '-'}}</p>
+                        </td>
+                        <td >
+                          <div class="hstack gap-3 fs-15">
+                            <!-- <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                              pTooltip="{{ 'button.edit.title' | translate }}" (click)="viewDetail(candidate.key, $event)">
+                              <i class="ri-edit-line fs-4 fs-4"></i></a> -->
+                            <a href="javascript:void(0);" class="link-primary" tooltipPosition="top" pTooltip="{{
+                                                              'button.delete.title' | translate
+                                                              }}" (click)="delete(candidate, $event)">
+                              <i class="ri-delete-bin-6-line fs-4"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="listCandidate.length == 0">
+                        <td colspan="10">
+                          <div class="text-center">
+                            {{ "table.noContentToDisplay" | translate }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="listCandidate.length > 0" candidate="col-xxl-12">
+                <app-paginator [totalRecords]="totalCandidate" (onPageChange)="getPaging($event)">
+                </app-paginator>
+              </div>
+              <!--end col-->
+            </div>
+            <!--end row-->
+          </div>
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!--end row-->
+  </div>
+  <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+<!-- </div> -->
+<p-confirmDialog> </p-confirmDialog>

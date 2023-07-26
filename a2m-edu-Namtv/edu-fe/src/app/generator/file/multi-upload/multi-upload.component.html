@@ -1,0 +1,98 @@
+
+<div class="row" *ngIf="isCanUpLoad">
+  <div class="col-8">
+    <label class="btn btn-default p-0">
+      <input #inputFile hidden type="file" multiple (change)="addNewFiles($event)" />
+    </label>
+  </div>
+
+  <div *ngIf="typeView!='VIEW'" class="col-8">
+    <button class="btn btn-success btn-sm" (click)="inputFile.click()">
+      {{ "button.chooseFile.title" | translate }}
+    </button>
+  </div>
+
+  <div *ngIf="typeView!='VIEW'" style="display: none;" class="col-4">
+    <button class="btn btn-success btn-sm" [disabled]="newFileSelected.length == 0" (click)="uploadFiles()">
+      {{ "common.file.file.uploaded" | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header">{{ "common.file.file.list" | translate }}</div>
+ <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+  <thead>
+    <tr>
+      <th scope="col">
+        {{ "common.file.file.name" | translate }}
+      </th>
+      <th scope="col">
+        {{ "common.file.file.action" | translate }}
+      </th>
+      <th scope="col">
+        {{ "common.file.file.status" | translate }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let file of listTccoFile; let i = index">
+      <tr *ngIf="file.crud == 'R' ">
+        <td scope="col">
+          {{file.fleNm}}
+        </td>
+        <td scope="col">
+          <div  class="hstack gap-3 fs-15">
+            <div *ngIf="isCanDelete" class="hstack gap-3 fs-15">
+              <a *ngIf="typeView!='VIEW'" href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                   pTooltip="Delete" (click)="deleteFileExist(file, $event, i)">
+                <i class="ri-delete-bin-6-line fs-4"></i></a>
+            </div>
+            <div *ngIf="isCanDownload" class="hstack gap-3 fs-15">
+              <!-- <a href="{{baseUrl}}/tcco-files/download?flePath={{file.flePath}}&fleNm={{file.fleNm}}" class="link-primary" tooltipPosition="top"
+                   pTooltip="Download" >
+                <i class="">Download</i></a> -->
+                <a  href="javascript:void(0);" (click)="downloadFile(file)" class="link-primary" tooltipPosition="top"
+                pTooltip="Download" >
+                <i class="ri-file-download-line fs-4"></i></a>
+            </div>
+          </div>
+        </td>
+        <td scope="col">
+          {{ "common.file.file.uploaded" | translate }}
+        </td>
+      </tr>
+    </ng-container>
+    <!-- <tr *ngFor="let tcco of listTccoFile; let i = index">
+      <td>
+        {{tcco.fleNm}}
+      </td>
+      <td>
+        <div class="hstack gap-3 fs-15">
+          <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+               pTooltip="Delete" (click)="deleteFileExist(tcco.atchFleSeq, $event, i)">
+            <i class="ri-delete-bin-6-line fs-4"></i></a>
+        </div>
+      </td>
+    </tr> -->
+  </tbody>
+  <tbody>
+    <tr *ngFor="let file of newFileSelected; let i = index">
+      <td scope="col">
+        {{file.name}}
+        <img src="{{file}}" alt="">
+      </td>
+      <td scope="col">
+        <div class="hstack gap-3 fs-15">
+          <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+               pTooltip="Delete" (click)="deleteFileNew(file, $event, i)">
+            <i class="ri-delete-bin-6-line fs-4"></i></a>
+        </div>
+      </td>
+      <td scope="col">
+        {{ "common.file.file.pending" | translate }}
+      </td>
+    </tr>
+  </tbody>
+ </table>
+</div>

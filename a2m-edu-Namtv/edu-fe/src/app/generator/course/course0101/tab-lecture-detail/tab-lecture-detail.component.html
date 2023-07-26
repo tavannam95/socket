@@ -1,0 +1,43 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+      <!-- start page title -->
+      <!-- <app-breadcrumb></app-breadcrumb> -->
+      <app-progress-bar></app-progress-bar>
+      <!-- end page title -->
+
+      <div class="row justify-content-center">
+          <div class="col-xxl-9">
+              <div class="card ">
+                  <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist" style="border-bottom: none;">
+                      <li class="nav-item">
+                          <a (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_LECTURE_DETAIL" role="tab">{{ "course0101.lectureDetail.title" | translate }}</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                          <a (click)="changeTab(2)" class="nav-link" data-bs-toggle="tab" href="#MENU_LIST_LECTURE_MGT" role="tab">{{'course.tab.lecture.list.title' | translate}}</a>
+                      </li> -->
+                  </ul>
+              </div>
+          </div>
+          <!--end col-->
+      </div>
+      <!--end row-->
+
+      <div class="row  justify-content-center">
+          <div class="col-xxl-9">
+              <div class="tab-content text-muted">
+                  <div class="tab-pane active" id="MENU_LECTURE_DETAIL" role="tabpanel">
+                      <app-lecture-form #lectureDetail></app-lecture-form>
+                  </div>
+                  <!-- <div class="tab-pane" id="MENU_LIST_LECTURE_MGT" role="tabpanel">
+                      <app-list-lecture #lectureList></app-list-lecture>
+                  </div> -->
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- container-fluid -->
+</div>
+
+<p-confirmDialog >
+</p-confirmDialog>

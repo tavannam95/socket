@@ -1,0 +1,34 @@
+<mat-form-field class="example-chip-list" appearance="fill">
+  <mat-label>{{ 'tags.tagsPerson.title' | translate }}</mat-label>
+  <mat-chip-list #chipList aria-label="Tag selection">
+    <!-- list selected -->
+    <mat-chip
+      *ngFor="let tag of tags"
+      (removed)="remove(tag)">
+      <img matChipAvatar src="{{apiUrl}}/tcco-files/getFile/{{tag?.imgPath}}?filePath={{tag?.imgPath}}" alt="Photo of a Shiba Inu"/>
+      {{tag.fullName}}-{{selectPosition(tag)}}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <!-- input search -->
+    <input
+      placeholder="{{ 'tags.newTagPerson.title' | translate }}"
+      #tagInput
+      [formControl]="tagCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+  <!-- list option -->
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+      <mat-chip>
+        <img matChipAvatar src="{{apiUrl}}/tcco-files/getFile/{{tag?.imgPath}}?filePath={{tag?.imgPath}}" alt="Photo of a Shiba Inu"/>
+        {{tag.fullName}}-{{selectPosition(tag)}}
+      </mat-chip>
+      
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

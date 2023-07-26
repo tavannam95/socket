@@ -1,0 +1,8 @@
+<div class="row mb-3" [style.display]="display">
+  <div class="col-lg-3">
+    <label for="lectureContent" class="form-label-inline">PDF<span class="text-danger"> *</span></label>
+    <button class="btn btn-sm btn-primary" (click)="getFileInNewWindow()">View File in New Window</button>
+  </div>
+  <div class="col-lg-9" style="height: 680px;"><object #pdfViewer type="application/pdf" width="100%"
+    height="100%"></object></div>
+</div>

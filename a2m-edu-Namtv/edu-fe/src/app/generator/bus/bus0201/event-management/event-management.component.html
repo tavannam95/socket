@@ -1,0 +1,105 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="row  justify-content-center">
+      <div class="col-xxl-9">
+          <div class="card ">
+              <div class="card-header ">
+                  <div class="row">
+                      <div class="col-xxl-2 col-md-2">
+                          <h2 class="card-title mb-0 flex-grow-1">Search</h2>
+                      </div>
+                      <div class="col-xxl-3 col-md-4">
+                          <div class="input-group">
+                              <span class="input-group-text">{{"bus.event.eventName.title" | translate}}</span>
+                              <input type="text" class="form-control" placeholder="{{'bus.event.eventName.title' | translate}}" [(ngModel)]="keySearch">
+                          </div>
+                      </div>
+                      <!--end col-->
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="getData(keySearch)">
+                          <i class="ri-search-line"></i>
+                      </button>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="refresh()">
+                          <i class="ri-refresh-line"></i>
+                      </button>
+                  </div>
+                  <!--end row-->
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row  justify-content-center">
+      <div class="col-xxl-9">
+          <div class="card">
+            <div class="card-header align-items-center d-flex">
+              <h2 class="card-title mb-0 flex-grow-1">{{"bus.event.title" | translate}}</h2>
+              <div class="flex-shrink-0">
+                  <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end;">
+                      <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light" (click)="addEvent()" >
+                          <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                          {{'button.add.title' | translate}}</button>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-xl-12 mb-3">
+                      <div class="table-responsive mt-4 mt-xl-0">
+                          <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                              <thead class="">
+                                  <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">{{"bus.event.eventName.title"| translate }}</th>
+                                    <th scope="col">{{"bus.subscribe.installDate.title"| translate }}</th>
+                                    <th scope="col">{{"bus.event.fromDate.title"| translate }}</th>
+                                    <th scope="col">{{"bus.event.toDate.title"| translate }}</th>
+                                    <th scope="col">{{"bus.event.discount.title"| translate }}</th>
+                                    <th scope="col">{{"bus.subscribe.updateDate.title"| translate }}</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let event of eventLst">
+                                  <td  class="fw-medium">{{event.index}}</td>
+                                  <td>{{event.EVENT_NM}}</td>
+                                  <td>{{langUtil.displayDate(event.FROM_DT)}}</td>
+                                  <td>{{langUtil.displayDate(event.TO_DT)}}</td>
+                                  <td>{{langUtil.displayDate(event.INS_DT)}}</td>
+                                  <td>{{event.DISCOUNT}}%</td>
+                                  <td *ngIf="event.UPDATE_DT">{{langUtil.displayDate(event.UPDATE_DT)}}</td>
+                                  <td *ngIf="!event.UPDATE_DT">----</td>
+                                  <td>
+                                    <div class="hstack gap-3 fs-15">
+                                        <a href="javascript:void(0);" class="link-primary" tooltipPosition="top" pTooltip="{{'button.edit.title' | translate}}" (click)="modifyEvent(event)"><i class="ri-edit-line fs-4"></i></a>
+                                        <a href="javascript:void(0);" class="link-danger" tooltipPosition="top" pTooltip="{{'button.delete.title' | translate}}" (click)="delEvent(event.EVENT_ID)"><i class="ri-delete-bin-6-line fs-4"></i></a>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="eventLst.length == 0">
+                                  <td colspan="10">
+                                    <div class="text-center">
+                                      {{ "table.noContentToDisplay" | translate }}
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="col-xxl-12" *ngIf="eventLst.length > 0">
+                      <app-paginator [totalRecords]="totalEvent" (onPageChange)="getPaging($event)"></app-paginator>
+                  </div>
+                  <!--end col-->
+              </div>
+              <!--end row-->
+            </div><!-- end card-body -->
+          </div><!-- end card -->
+      </div>
+      <!-- end col -->
+  </div>
+  </div>
+</div>
+<p-confirmDialog> </p-confirmDialog>

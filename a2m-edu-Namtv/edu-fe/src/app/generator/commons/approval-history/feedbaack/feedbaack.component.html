@@ -1,0 +1,91 @@
+<div
+  class="ng-tns-c168-32  p-dialog-mask p-component-overlay p-dialog-mask-scrollblocker"
+  ng-reflect-ng-class="[object Object]"
+  style="z-index: 1100"
+>
+  <div
+    class="ng-trigger ng-trigger-animation ng-tns-c168-32 p-dialog p-confirm-dialog p-component "
+    ng-reflect-ng-class="[object Object]"
+    pr_id_21=""
+    style="z-index: 1101"
+  >
+    <!--bindings={}-->
+    <div class="p-dialog-header ng-tns-c168-32 " style="">
+      <span class="p-dialog-title ng-tns-c168-32 "
+        >Bạn phải nhập feedback </span
+      ><!--bindings={
+  "ng-reflect-ng-if": "Cập nhật dữ liệu thành công!"
+}-->
+      <div class="p-dialog-header-icons ng-tns-c168-32">
+        <button
+          (click)="close()"
+          type="button"
+          class="ng-tns-c168-32 p-dialog-header-icon p-dialog-header-close p-link "
+          ng-reflect-ng-class="[object Object]"
+        >
+          <span class="pi pi-times ng-tns-c168-32"></span></button
+        ><!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+      </div>
+    </div>
+    <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+    <div class="p-dialog-content ng-tns-c168-32">
+      <!--bindings={}--><span class="p-confirm-dialog-message ng-tns-c168-32"
+        >{{ "feedback.title" | translate }}</span
+      >
+    </div>
+    <div class="p-dialog-content ng-tns-c168-32">
+      <input [style.width]="'100%'" [(ngModel)]="feedBack" name="feedBack" class="form-control " type="text">
+      <!-- <div class="col-lg-9">
+        <input type="text"  [ngModel]="this.tsstUser.eamStudentInfo.studentCode" class="form-control " id="studentCode" name="studentCode" readonly>
+      </div> -->
+    </div>
+    <!--bindings={}-->
+    <div class="p-dialog-footer ng-tns-c168-32 " style="">
+      <button
+      (click)="close()"
+        type="button"
+        pripple=""
+        pbutton=""
+        class="p-element p-ripple ng-tns-c168-32 p-confirm-dialog-reject p-button p-component "
+        ng-reflect-icon="pi pi-times"
+        ng-reflect-label="Huỷ bỏ"
+        ng-reflect-ng-class="p-confirm-dialog-reject"
+      >
+        <span
+          class="p-button-icon p-button-icon-left pi pi-times"
+          aria-hidden="true"
+        ></span
+        ><span class="p-button-label">Huỷ bỏ</span></button
+      ><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><button
+      (click)="close()"
+        type="button"
+        pripple=""
+        pbutton=""
+        class="p-element p-ripple ng-tns-c168-32 p-confirm-dialog-accept p-button p-component "
+        ng-reflect-icon="pi pi-check"
+        ng-reflect-label="Xác nhận"
+        ng-reflect-ng-class="p-confirm-dialog-accept"
+      >
+        <span
+          class="p-button-icon p-button-icon-left pi pi-check"
+          aria-hidden="true"
+        ></span
+        ><span class="p-button-label">Xác nhận</span></button
+      ><!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+    </div>
+    <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+  </div>
+  <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+</div>

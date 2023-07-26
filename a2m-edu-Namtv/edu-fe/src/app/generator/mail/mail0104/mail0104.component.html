@@ -1,0 +1,129 @@
+<app-loader></app-loader>
+<div class="card mt-2" style="box-shadow: none;">
+
+  <!-- Sidebar -->
+  <div class="row mb-4">
+
+    <!-- Button -->
+    <div class="col-md-4 d-flex">
+
+      <!-- Delete -->
+      <div class="btn-group btn-toolbar pb-3 mx-1">
+          <button [disabled]="!enableBtnDelete" type="button" class="btn btn-primary" (click)="doDelete()">
+            <i class="far fa-trash-alt"></i>
+          </button>
+      </div>
+
+      <!-- Restore mail -->
+      <div class="btn-group btn-toolbar pb-3 mx-1" ngbDropdown>
+        <button [disabled]="!enableBtnDelete" type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle data-toggle="dropdown" aria-expanded="false">
+          <i class="uil-redo"></i> <i class="mdi mdi-chevron-down ms-1"></i>
+        </button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <a class="dropdown-item" href="javascript: void(0);" (click)="restoreMail(1)">Inbox</a>
+          <!-- <a class="dropdown-item" href="javascript: void(0);" (click)="restoreMail(2)">Draft</a> -->
+          <a class="dropdown-item" href="javascript: void(0);" (click)="restoreMail(3)">Sent</a>
+        </div>
+      </div>
+
+      <!-- Read and unread -->
+      <div class="btn-group btn-toolbar pb-3 mx-1" ngbDropdown>
+        <button [disabled]="!enableBtnDelete" type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle data-toggle="dropdown" aria-expanded="false">
+          More<i class="mdi mdi-dots-vertical ms-2"></i>
+        </button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <a class="dropdown-item" (click)="markAsReadOrUnRead('MARK_AS_UNREAD')" href="javascript: void(0);">Mark as Unread</a>
+          <a class="dropdown-item" (click)="markAsReadOrUnRead('MARK_AS_READ')" href="javascript: void(0);">Mark as Read</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2"></div>
+
+    <!-- Input search -->
+    <div class="col-12 col-md-4 mb-2">
+      <input type="text" [(ngModel)]="request.SEARCH" (keyup.enter)="doSearch()" class="form-control" [placeholder]=" 'com.com0101.search.titlePlaceholder' | translate" />
+    </div>
+
+     <!-- Search and reset -->
+    <div class="col-12 col-md-2 mb-2">
+      <div class="d-flex justify-content-end" style="height: 100%">
+        <div class="p-6 p-md-6" style="margin-right: 5px">
+          <button type="button" class="btn btn-info btn-rounded" class="form-control" (click)="doSearch()">
+            <i class="fas fa-search "></i>
+          </button>
+        </div>
+        <div class="p-6 p-md-6">
+          <button type="button" class="btn btn-info btn-rounded" class="form-control" (click)="doReset()">
+            <i class="fas fa-undo "></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkbox all -->
+  <div class="write-cont">
+    <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll" [(ngModel)]="isCheckedAll"(change)="selectAll($event); onItemChange()">
+    <span style="margin-left: 5px">
+      <label class=" " for="selectAll">Select All</label>
+    </span>
+  </div>
+
+  <!-- List mail -->
+  <ul class="message-list">
+    <li class="" *ngFor="let item of lstMessage; let i = index; " [class]="chkReadOrUnRead(item['flags']) ? '' : 'unread'">
+
+      <!-- Checkbox and delete -->
+      <div class="col-mail col-mail-1">
+        <div class="checkbox-wrapper-mail">
+          <input type="checkbox" id="chk-{{i}}" [(ngModel)]="item['checked']" (change)="onItemChange()" />
+          <label for="chk-{{i}}"></label>
+        </div>
+
+        <!-- Recieve -->
+        <a class="title" style="cursor: pointer;" (click)="getDetailMessage(item)">{{ item["lst_recieve"] }}</a>
+        <span class="star-toggle far fa-trash-alt mx-1" style="cursor: pointer;" (click)="deleteFromTrash(item['uid'])"></span>
+        <!-- <span class="star-toggle far uil-redo mx-1" style="cursor: pointer;" (click)="restoreEmail(item)"></span> -->
+      </div>
+
+      <!-- Subject and date mail -->
+      <div class="col-mail col-mail-2">
+
+        <!-- Subject -->
+        <a class="subject" style="cursor: pointer;" (click)="getDetailMessage(item)">
+          <span *ngIf="!item.subject" >Untitled</span>
+          <span *ngIf="item.subject">
+            <span *ngIf="item.subject.length < size" >{{item.subject}}</span>
+            <span *ngIf="item.subject.length >= size">{{item.subject.slice(0,size-1)}}...</span>
+          </span>
+
+          <i *ngIf="item.hasAttachment" class="mdi mdi-paperclip me-2" style="color: #50a5f1"></i>
+        </a>
+
+        <!-- Date -->
+        <div class="title date1 p-0 text-end mail_active">{{ item["receivedDate"] | date: 'dd/MM/yyyy hh:mm a' }}</div>
+        <div class="title date1 p-0 text-end mail_dis">{{ item["receivedDate"] | date: 'mediumDate' }}</div>
+      </div>
+    </li>
+  </ul>
+
+  <ng-template [ngIf]="!request.REAL_COUNT">
+    <span class="text-center">
+      {{ "table.noContentToDisplay" | translate }}
+    </span>
+  </ng-template>
+
+  <!--Pagination-->
+  <div class="row justify-content-md-between align-items-md-center">
+    <div class="col-7">
+    </div>
+    <div class="col-5">
+      <div class="text-md-end float-md-end mt-2">
+        <!-- <app-pager class="pagination-rounded" (action)="searchByPage($event); enableBtnDelete = false"
+          (page)="currentPage" [totalRow]="request.REAL_COUNT">
+        </app-pager> -->
+      </div>
+    </div>
+  </div>
+</div>

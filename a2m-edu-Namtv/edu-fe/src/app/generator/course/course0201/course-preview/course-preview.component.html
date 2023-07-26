@@ -1,0 +1,174 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+    <bar-my-course></bar-my-course>
+
+    <div class="row justify-content-center"  style="padding-right: 1%;">
+    <!-- Start Left Content -->
+
+      <!-- <i *ngIf="showHideIcon==true"  #iconShowHide  (click)="handleShowHide()"class="ri-arrow-left-s-fill btn-showHide hiddenMobile" style="position: fixed;"></i >
+      <div class="col-lg-3 hiddenMobile" [style.display]="showHide" >
+        <app-sub-menu #subMenuTag [courseId]="this.courseId" [scroll]="true"  [data]="couSubjectLst"></app-sub-menu>
+      </div> -->
+
+
+    <!-- End Left Content -->
+    <!-- Start Right Content -->
+    <div class="col-xxl-9" #courseContent>
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h2 id="{{'course'+courseObj.key}}" #{{courseObj.key}} class="card-title mb-0 flex-grow-1">{{courseObj['courseNm']}}</h2>
+          <div class="flex-shrink-0">
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+              <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light" [hidden]="checkView"
+                (click)="showUpdateCourseForm(courseObj.key)">
+                <i class="ri-edit-line label-icon align-middle fs-16 ms-2"></i>
+                {{ "button.edit.course.title" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-header align-items-center">
+          <span>{{courseObj['courseGoal']}}</span>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-header align-items-center">
+          <h2 class="card-title mb-0 flex-grow-1">{{ "course0201.course.content" | translate }}</h2>
+          <p-panel [header]="courseObj.courseNm" [toggleable]="true" [collapsed]="true">
+            <div class="text-dark text-break editer-view-img" [innerHtml]="courseObj['courseContent'] | safeHtml"></div>
+          </p-panel>
+
+        </div>
+      </div>
+<!--
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1"></h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+              (click)="showAddSubjectForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.add.subject.title" | translate }}
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <div *ngFor="let subject of courseObj.subjectModels; index as idx; count as total">
+        <ng-container *ngIf="subject.status && !subject.deleteFlag">
+            <div class="card"  id="{{'subject'+subject.key}}">
+              <p-panel [header]="subject.subjectNm" [toggleable]="true" [collapsed]="subjectId == subject.key? false: true">
+                <div class="row" >
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <!-- <div class="card-header align-items-center d-flex"> -->
+                      <div class="card-header align-items-center">
+                        <h2 class="card-title mb-0 flex-grow-1">
+                          {{ "course0102.subjectDetail.subjectContent" | translate }}:</h2>
+                        <!-- <div class="flex-shrink-0">
+                          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                              (click)="showUpdateSubjectForm(subject.key)">
+                              <i class="ri-edit-line label-icon align-middle fs-16 ms-2"></i>
+                              {{ "button.edit.subject.title" | translate }}
+                            </button>
+                          </div>
+                        </div> -->
+                        <div class="text-dark text-break" [innerHtml]="subject.subjectContent | safeHtml"></div>
+                      </div>
+                      <!-- <div class="card-header align-items-center">
+                        <div class="text-dark text-break" [innerHtml]="subject.subjectContent | safeHtml"></div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="card-header align-items-center d-flex">
+                  <h2 class="card-title mb-0 flex-grow-1"></h2>
+                  <div class="flex-shrink-0">
+                    <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                      <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                        (click)="showAddChapterForm(subject.key)">
+                        <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                        {{ "button.add.chapter.title" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="row" id="{{'chapter'+chapter.key}}" *ngFor="let chapter of subject.chapterModels; index as chapterIdx; count as total">
+                  <div class=" mb-3"  *ngIf="chapter.status && !chapter.deleteFlag">
+                    <mat-accordion>
+                      <mat-expansion-panel [expanded]="chapterId == chapter.key? true: false" (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
+                        <mat-expansion-panel-header >
+                          <mat-panel-title  >
+                            &nbsp;
+                            <a href="javascript:void(0);" (click)="handleChapterDetail(chapter.key)"> [Chapter - {{chapterIdx+1}}] {{chapter.chapterNm}}
+                              <i class="ri-eye-fill label-icon align-middle fs-16 ms-2"></i>
+                            </a>
+
+                          </mat-panel-title>
+                          <!-- <mat-panel-description>
+                            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                              (click)="showUpdateChapterForm(chapter.key, subject)">
+                              <i class="ri-edit-line label-icon align-middle fs-16 ms-2"></i>
+                              {{ "button.edit.chapter.title" | translate }}
+                            </button>
+                          </mat-panel-description> -->
+                        </mat-expansion-panel-header >
+                        <!-- <h4>List Lecture</h4> -->
+                        <!-- <ng-container *ngFor="let lectureModel of chapter.lectureModels; index as lectureIdx; count as total"> -->
+                        <!-- <ng-container *ngFor="let lectureModel of chapter.lectureModels">
+
+                          <div class="pb-3" *ngIf="lectureModel.status && !lectureModel.deleteFlag">
+                            <h3 class="mb-1">
+                              <img src="/assets/images/companies/img-8.png" style="height: 25px; margin-left: 25px;"> [{{getTypeDocNm(lectureModel.typeDocument)}}]
+                              <a href="javascript:void(0);" [id]="lectureModel.key" (click)="handleLectureDetail(lectureModel.key)" > {{lectureModel.lectureNm}}</a>
+                            </h3>
+                          </div>
+                      </ng-container> -->
+                      <!-- <h4>List Quiz</h4> -->
+                      <!-- <ng-container *ngFor="let quizModel of chapter.listQuiz; index as quizIdx; count as total">
+                        <div class="pb-3" *ngIf="quizModel.status && !quizModel.deleteFlag">
+                          <h3 class="mb-1">
+                            <img src="/assets/images/companies/img-9.png" style="height: 25px; margin-left: 25px;"> [Quiz - {{quizIdx+1}}]
+                            <a href="javascript:void(0);" [id]="quizModel.key" (click)="handleQuizDetail(quizModel.key)"> {{quizModel.quizNm}}</a>&nbsp;
+                            <a *ngIf="getStatisPer()" [routerLink]="['/course/course0104/quiz-statistical-result/'+quizModel.key]" [queryParams]="{courseId: courseId}" class="btn badge bg-light text-dark">{{ 'course0104.quiz.quizDetail.buttonStatistical' | translate }}</a>
+                          </h3>
+                        </div>
+                      </ng-container> -->
+
+                      <ng-container *ngFor="let doc of chapter.listDocument">
+                        <div class="pb-3 row" *ngIf="doc.status && !doc.deleteFlag" id="{{'doc_'+doc.key}}">
+                          <h3 class="mb-1 col-lg-11" *ngIf="doc.typeDocument == 'Quiz'" (click)="checkReadDoc(doc)">
+                            <img src="/assets/images/companies/img-9.png" style="height: 25px; margin-left: 25px;"> [Quiz]
+                            <a href="javascript:void(0);" [id]="doc.key" (click)="handleQuizDetail(doc.key, chapter.key, subject.key)"> {{doc.quizNm}}</a>&nbsp;
+                            <!-- <a *ngIf="getStatisPer()" [routerLink]="['/course/course0104/quiz-statistical-result/'+doc.key]" [queryParams]="{courseId: courseId}" class="btn badge bg-light text-dark">{{ 'course0104.quiz.quizDetail.buttonStatistical' | translate }}</a> -->
+                          </h3>
+                          <h3 class="mb-1 col-lg-11" *ngIf="doc.typeDocument != 'Quiz'" (click)="checkReadDoc(doc)">
+                            <img src="/assets/images/companies/img-8.png" style="height: 25px; margin-left: 25px;"> [{{getTypeDocNm(doc.typeDocument)}}]
+                            <a href="javascript:void(0);" [id]="doc.key" (click)="handleLectureDetail(doc.key, chapter.key, subject.key, $event)" > {{doc.lectureNm}}</a>
+                          </h3>
+                          <div class="col-lg-1">
+                            <input class="form-check-input" type="checkbox" [checked]="doc.checked" (change)="handleListCheked(doc)" >
+                          </div>
+                        </div>
+                      </ng-container>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+    <!-- End Right Content -->
+    </div>
+    <!-- <p-panel header="Header 123" [toggleable]="true">
+
+    </p-panel> -->
+  </div>
+</div>

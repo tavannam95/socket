@@ -1,0 +1,103 @@
+<form #myForm="ngForm">
+  <div class="card">
+    <div class="card-header align-items-center d-flex">
+      <h2 class="card-title mb-0 flex-grow-1">
+        {{ "approver.status.censorship" | translate }}
+      </h2>
+      <div class="flex-shrink-0">
+        <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+          <ng-container  *ngIf="isApprover && approveHistory.approvalStatus == APPROVAL_STATUS_PENDING_COMM_CD">
+            <button (click)="onApproval(myForm.invalid)" type="button"
+            class="btn btn-success btn-label waves-effect waves-light rounded-pill"><i
+              class="ri-check-double-line label-icon align-middle rounded-pill fs-16 me-2"></i> {{
+            "approver.status.approval" | translate }}
+          </button>
+          <button (click)="onReject(myForm.invalid)" type="button"
+            class="btn btn-warning btn-label waves-effect waves-light rounded-pill"><i
+              class="ri-error-warning-line label-icon align-middle rounded-pill fs-16 me-2"></i> {{
+            "approver.status.reject" | translate }}
+          </button>
+          </ng-container>
+
+          <button  *ngIf="viewType != 'PUBLIC'" (click)="changeViewTypeFnc('PUBLIC')"  type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.title.viewPublic" | translate }}
+          </button>
+          <button *ngIf="viewType == 'PUBLIC'" (click)="changeViewTypeFnc('PRIVATE')"  type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.title.newVersion" | translate }}
+          </button>
+
+          <ng-container *ngIf="_HAS_PERM_MODIFY">
+            <button (click)="showApprovalForm()"
+            *ngIf="MODE ==_MODE_VIEW_DETAIL && approveHistory.approvalStatus != APPROVAL_STATUS_PENDING_COMM_CD"
+            type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.button.showSubmit" | translate }}
+          </button>
+          <button (click)="onCancelSubmit()"
+            *ngIf="MODE ==_MODE_VIEW_DETAIL && approveHistory.approvalStatus == APPROVAL_STATUS_PENDING_COMM_CD"
+            type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.button.cancelSubmit" | translate }}
+          </button>
+          <button (click)="hideApprovalForm()" *ngIf="MODE == _MODE_SUBMIT_FORM " type="button"
+            class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.button.hideSubmit" | translate }}
+          </button>
+          <button (click)="onSubmit()" *ngIf="MODE == _MODE_SUBMIT_FORM " type="button"
+            class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+            <i class="ri-sticky-note-line label-icon align-middle fs-16 ms-2"></i>
+            {{ "approver.button.submit" | translate }}
+          </button>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-lg-2">
+          <label for="teacher" class="form-label-inline">{{ "approver.status.approvalPerson" | translate }}</label>
+        </div>
+        <div class="col-lg-10" *ngIf="MODE == _MODE_SUBMIT_FORM ">
+          <p-dropdown name="approvalPerson" placeholder="Chọn người approve" [options]="listApprover" [(ngModel)]="approveHistory.empAprUid"
+            optionLabel="fullName" optionValue="userUid"></p-dropdown>
+        </div>
+        <div class="col-lg-10" *ngIf="MODE == _MODE_VIEW_DETAIL ">
+          <label class="form-label-inline" style="color: black;">
+            {{approverFullName}}
+          </label>
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-lg-2">
+          <label for="teacher" class="form-label-inline">{{ "common.status" | translate }}</label>
+        </div>
+        <div class="col-lg-10">
+          <label class="form-label-inline" style="color: black;">
+            {{ approvalStatus }}
+          </label>
+
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-lg-2">
+          <label for="teacher" class="form-label-inline">{{ "common.feedback" | translate }}</label>
+        </div>
+        <div class="col-lg-10" *ngIf="!isApprover || approveHistory.approvalStatus != APPROVAL_STATUS_PENDING_COMM_CD">
+          <label class="form-label-inline" style="color: black;">
+            {{ approveHistory.feedBack ? approveHistory.feedBack : "_" }}
+          </label>
+        </div>
+        <div class="col-lg-10" *ngIf="isApprover && approveHistory.approvalStatus == APPROVAL_STATUS_PENDING_COMM_CD">
+          <app-inp-vc name="feedBack" [submitted]="submitted" [(inpValue)]="approveHistory.feedBack" [vc]="'MODIFY'"  elmType="INP"
+             [required]="true" placeholder="phàn hồi" requiredMessage='{{ "You must enter feedback" | translate }}'></app-inp-vc>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

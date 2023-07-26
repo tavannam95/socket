@@ -1,0 +1,53 @@
+/* ul li:hover{
+    background-color: rgba(150, 153, 168, 0.05);
+    color: #9295a4;
+} */
+.unReadMess {
+    background-color: #ebeff9;
+    font-weight: bold;
+  }
+  
+  /* @media only screen and (min-width: 576px) {
+      div .date {
+          padding: 2rem !important;
+      }
+  } */
+  
+  .message-list li .col-mail-1 {
+    width: 230px;
+  }
+  
+  .message-list li .col-mail-2 {
+    left: 250px;
+  }
+  
+  .active{
+      display: block;
+    }
+    .none{
+      display: none;
+    }
+  
+  @media (max-width: 876.98px) {
+    .message-list li .col-mail-1 {
+      width: 150px;
+    }
+  
+    .message-list li .col-mail-2 {
+      left: 160px;
+    }
+  
+    .message-list li .col-mail-2 .subject{
+      right: 20px;
+    }
+  
+    .active{
+      display: none;
+    }
+  
+    .none{
+      display: block;
+    }
+  }
+  
+  

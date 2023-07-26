@@ -1,0 +1,79 @@
+variables:
+  IMAGE_NAME: haunguyen240800/edu-homepage
+  IMAGE_TAG: edu-homepage-1.0
+
+stages:
+  - dependencies
+  - test
+  - build
+  - deploy
+  
+install_dependencies:
+  image: node:latest
+  stage: dependencies
+  script:
+    - npm install
+  only:
+    - master
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+
+lint:
+  image: node:latest
+  stage: test
+  script:
+    - npm link @angular/cli@11.2.6
+    - ng lint
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+test:
+  image: markhobson/node-chrome:latest
+  stage: test
+  script:
+    - npm link @angular/cli@11.2.6
+    - npm test -- --browsers=ChromeHeadless --watch=false
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+
+.build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+  script:
+    - docker build -t $IMAGE_NAME:v1.0.0-$CI_COMMIT_SHA .
+    - docker push $IMAGE_NAME:v1.0.0-$CI_COMMIT_SHA
+
+build-dev:
+  extends: .build
+  only:
+    - main
+deploy:
+  stage: deploy
+  before_script:
+    - chmod 400 $SSH_KEY
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@35.247.145.253 "
+        docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
+        docker run -d -p 5000:5000 $IMAGE_NAME:$CI_COMMIT_SHA"
+

@@ -1,0 +1,127 @@
+<footer class="edu-footer footer-dark bg-image footer-style-2">
+    <div class="footer-top footer-top-2">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 col-md-6">
+                    <div class="edu-footer-widget">
+                        <div class="logo">
+                            <a href="/">
+                                <img class="logo-light" src="assets/images/logo/edu-logo-full.png" alt="Corporate Logo">
+<!--                                        <img   class="svg logo" src="assets/images/logo/edu-logo-full.svg" alt="Corporate Logo">-->
+                            </a>
+                        </div>
+                        <p class="description">Với định hướng nghiên cứu và phát triển mạnh mẽ, công nghệ là thứ chúng tôi luôn cập nhật và theo đuổi</p>
+                        <div class="widget-information">
+                            <ul class="information-list">
+                              <li><span><i class="ri-map-pin-fill"></i></span><a href="https://goo.gl/maps/5pkbbQH9vHqEy7UQ6" target="_blank">12 TT3A Khu Đô Thị Phùng Khoang, Nam Từ Liêm, Hà Nội</a></li>
+                              <li><span><i class="ri-phone-fill"></i></span><a href="tel:+84 (0) 98 946 7958">+84 (0) 98 946 7958</a></li>
+                              <li><span><i class="ri-mail-fill"></i></span><a href="mailto:tuyensinh@atwom.edu.vn" target="_blank">tuyensinh@atwom.edu.vn</a></li>
+                              <li><span><i class="ri-facebook-box-fill"></i></span><a href="https://fb.com/atwom.edu.vn" target="_blank">AtwoM Edu</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <ul class="social-share icon-transparent">
+                      <li><a href="https://www.facebook.com/a2mvn" class="color-fb"><i class="icon-facebook"></i></a></li>
+                      <li><a href="https://atwom.com.vn/" class="color-linkd"><i class="icon-share2"></i></a></li>
+                      <li><a href="#" class="color-ig"><i class="icon-star-full"></i></a></li>
+                      <li><a href="#" class="color-twitter"><i class="icon-73"></i></a></li>
+                      <li><a href="#" class="color-yt"><i class="icon-77"></i></a></li>
+                  </ul> -->
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <div class="edu-footer-widget explore-widget">
+                        <h4 class="widget-title">{{"home.footer.us"| translate}}</h4>
+                        <div class="inner">
+                            <ul class="footer-link link-hover">
+                                <li><a routerLink="/about-us">{{"common.menu.aboutUs"| translate}}</a></li>
+                                <li><a routerLink="/courses">{{"common.menu.courses"| translate}}</a></li>
+                                <!-- <li><a routerLink="/instructors">{{"common.menu.instructor"| translate}}</a></li> -->
+                                <!-- <li><a routerLink="/blog">{{"common.menu.news"| translate}}</a></li> -->
+<!--                                <li><a href="team-details.html">Lecturer Profile</a></li>-->
+<!--                                <li><a href="purchase-guide.html">Purchase Guide</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="col-lg-2 col-sm-6">-->
+<!--                    <div class="edu-footer-widget quick-link-widget">-->
+<!--                        <h4 class="widget-title">Links</h4>-->
+<!--                        <div class="inner">-->
+<!--                            <ul class="footer-link link-hover">-->
+<!--                                <li><a href="contact-us.html">Contact Us</a></li>-->
+<!--                                <li><a href="gallery-grid.html">Gallery</a></li>-->
+<!--                                <li><a href="blog-standard.html">News & Articles</a></li>-->
+<!--                                <li><a href="faq.html">FAQ's</a></li>-->
+<!--                                <li><a href="my-account.html">Sign In/Registration</a></li>-->
+<!--                                <li><a href="coming-soon.html">Coming Soon</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-lg-5 col-md-6">
+                    <div class="edu-footer-widget">
+                        <h4 class="widget-title">{{"common.menu.contact"| translate}}</h4>
+                        <div class="inner">
+                            <!-- <p class="description">Enter your email address to register to our newsletter subscription</p> -->
+                            <div>
+                              <form #myForm="ngForm">
+                                <div class="form-group">
+                                  <input type="text" required class="form-control " id="fullName" name="fullName"
+                                  placeholder="{{'apply.fullName.title' | translate}}"
+                                  [(ngModel)]="candidate.candidateName" #candidateName="ngModel"
+                                  [ngClass]="{ 'is-invalid': (candidateName.invalid && submitted) || (candidateName.invalid && (candidateName.dirty || candidateName.touched))}" />
+                                  <div class="invalid-error"
+                                    *ngIf="(candidateName.invalid && submitted) || candidateName.invalid && (candidateName.dirty || candidateName.touched)">
+                                    <span  class='err' *ngIf="candidateName.errors?.['required']">{{ 'message.requiredFullName' | translate}}</span>
+                                  </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                  <input [(ngModel)] = "candidate.candidatePhone" #phoneNumber="ngModel" required [pattern]="phonePattern"
+                                    type="text" name="phoneNumber" placeholder="{{'apply.phone.title' | translate}}"
+                                    [ngClass]="{ 'is-invalid': (phoneNumber.invalid && submitted) || phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)}">
+
+                                    <div class="invalid-error" *ngIf="(phoneNumber.invalid && submitted) || phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                                      <span class='err' *ngIf="phoneNumber.errors?.['required']">{{ 'message.requiredFormatPhone' | translate }}</span>
+                                      <span class='err' *ngIf="phoneNumber.errors?.['pattern']">{{ 'message.requiredFormatPhone' | translate }}</span>
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group">
+                                  <input type="text" required class="form-control " id="candidatePhone" name="candidatePhone" [pattern]="phonePattern" (keyup)="handleKeyupPhone($event)"
+                                  placeholder="{{'apply.phone.title' | translate}}"
+                                  [(ngModel)]="candidate.candidatePhone" #candidatePhone="ngModel"
+                                  [ngClass]="{ 'is-invalid': (candidatePhone.invalid && submitted) || (candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched))}" />
+                                  <div class="invalid-error"
+                                    *ngIf="(candidatePhone.invalid && submitted) || candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched)">
+                                    <span  class='err' *ngIf="candidatePhone.errors?.['required']">{{ 'message.requiredFormatPhone' | translate}}</span>
+                                    <span class='err' *ngIf="candidatePhone.errors?.['pattern']">{{ 'message.FormatPhone' | translate }}</span>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <input type="email" [(ngModel)]="candidate.candidateEmail" class="form-control" placeholder="{{'contact.email.title' | translate}}" name="candidateEmail">
+                                </div>
+                              </form>
+                            </div>
+                            <div class="input-group footer-subscription-form" style="padding-top: 20px !important;">
+                              <button class="edu-btn btn-medium" style="margin-left: 0px !important;" type="button" (click)="onSave(myForm.invalid,myForm)">{{'common.menu.apply' | translate}}<i class="icon-4"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner text-center">
+                        <p>Copyright 2022 <a href="https://atwom.com.vn/" target="_blank">AtwoM</a>. All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,30 @@
+<div [class.bg-soft-warning]="!noti.checked" class="text-reset notification-item d-block dropdown-item" *ngFor="let noti of listNotification">
+  <div tyle="width: 100%;" class="d-flex" (click)="goDocument(noti)">
+      <!-- <img src="assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic"> -->
+      <div style="width: 90%;" class="flex-1">
+          <a class="stretched-link">
+              <!-- <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6> -->
+          </a>
+          <div class="fs-13 text-muted"
+          style="
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;"  
+          >
+              <p class="mb-1"><b>{{noti.sender}}</b> {{
+                "header.notifications.postNoti" | translate
+                }}</p>
+                <h5>{{noti.postTitle}}</h5>
+          </div>
+          <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+              <span> {{noti.insDate | date : 'dd/MM/yyyy hh:mm:ss'}} </span>
+          </p>
+      </div>
+      <!-- <div class="px-2 fs-15">
+          <div class="form-check notification-check">
+              <input class="form-check-input" type="checkbox" value="" id="messages-notification-check03">
+              <label class="form-check-label" for="messages-notification-check03"></label>
+          </div>
+      </div> -->
+  </div>
+</div>

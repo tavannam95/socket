@@ -1,0 +1,341 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("assets/css/vendor/bootstrap.min.css");
+@import url("assets/css/vendor/icomoon.css");
+@import url("assets/css/vendor/remixicon.css");
+@import url("assets/css/vendor/magnifypopup.min.css");
+@import url("assets/css/vendor/odometer.min.css");
+@import url("assets/css/vendor/lightbox.min.css");
+@import url("assets/css/vendor/animation.min.css");
+@import url("assets/css/vendor/jqueru-ui-min.css");
+@import url("assets/css/vendor/swiper-bundle.min.css");
+@import url("assets/css/vendor/tipped.min.css");
+@import url("assets/css/app.css");
+
+.transparent .mat-dialog-container {
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.0);
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #3f51b5;
+}
+
+.content-hidden {
+    display: none;
+}
+
+@media (max-width: 576px) {
+    .d-lang-name {
+        display: none !important;
+    }
+}
+
+.header-mainnav-lang .mainmenu-nav .mainmenu > li > a {
+    padding: 0px !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .header-mainnav-lang .mainmenu-nav .mainmenu li.has-droupdown .submenu {
+        right: 0px !important;
+        left: unset;
+    }
+}
+
+
+.header-mainnav-lang .mainmenu-nav .mainmenu > li > a{
+    line-height: 90px !important;
+}
+
+.edu-search-popup-2 {
+    z-index: 10001 !important;
+}
+
+.edu-search-popup-2 .content-wrap {
+    align-items: unset !important;
+    overflow: scroll !important;
+}
+
+.cdk-overlay-container,
+.cdk-global-overlay-wrapper {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000
+}
+
+.cdk-overlay-container:empty {
+  display: none
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%
+}
+
+.cdk-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  opacity: 1
+}
+
+.cdk-high-contrast-active .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  opacity: .6
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, .32)
+}
+
+.cdk-overlay-transparent-backdrop {
+  transition: visibility 1ms linear, opacity 1ms linear;
+  visibility: hidden;
+  opacity: 1
+}
+
+.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
+  opacity: 0;
+  visibility: visible
+}
+
+.cdk-overlay-backdrop-noop-animation {
+  transition: none
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 1px;
+  min-height: 1px
+}
+.cdk-high-contrast-active .mat-ripple-element {
+  display: none
+}
+
+.cdk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  left: 0
+}
+
+[dir=rtl] .cdk-visually-hidden {
+  left: auto;
+  right: 0
+}
+
+.cdk-overlay-container,
+.cdk-global-overlay-wrapper {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000
+}
+
+.cdk-overlay-container:empty {
+  display: none
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%
+}
+
+.cdk-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  opacity: 1
+}
+
+.cdk-high-contrast-active .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  opacity: .6
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, .32)
+}
+
+.cdk-overlay-transparent-backdrop {
+  transition: visibility 1ms linear, opacity 1ms linear;
+  visibility: hidden;
+  opacity: 1
+}
+
+.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
+  opacity: 0;
+  visibility: visible
+}
+
+.cdk-overlay-backdrop-noop-animation {
+  transition: none
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 1px;
+  min-height: 1px
+}
+
+.cdk-global-scrollblock {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll
+}
+
+.mat-expansion-panel {
+  background: #fff;
+  color: rgba(0, 0, 0, .87)
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)
+}
+
+.mat-action-row {
+  border-top-color: rgba(0, 0, 0, .12)
+}
+
+.mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true]),
+.mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]),
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+  background: rgba(0, 0, 0, .04)
+}
+
+@media(hover: none) {
+  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+    background: #fff
+  }
+}
+
+.mat-expansion-panel-header-title {
+  color: rgba(0, 0, 0, .87)
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: rgba(0, 0, 0, .54)
+}
+
+.mat-expansion-panel-header[aria-disabled=true] {
+  color: rgba(0, 0, 0, .26)
+}
+
+.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,
+.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description {
+  color: inherit
+}
+
+.mat-expansion-panel-header {
+  height: 48px
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  height: 64px
+}
+
+
+.p-dropdown {
+  min-width: 150px !important;
+  width: 100% !important;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: #a59cd9;
+}
+
+.p-dropdown-label,
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  /* font-size: 0.8125rem; */
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 15px;
+  background-color: var(--color-white);
+  box-shadow: none;
+  padding: 0 25px;
+  padding-top: 12px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: var(--color-heading)
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none !important;
+  border-color: #a59cd9 !important;
+}
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

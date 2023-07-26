@@ -1,0 +1,300 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="position-relative mx-n4 mt-n4">
+        <div class="profile-wid-bg profile-setting-img">
+            <img src="assets/images/gen-data.png" class="profile-wid-img" alt="">
+            <div class="overlay-content">
+                <div class="text-end p-3">
+                    <!-- <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                        <input id="profile-foreground-img-file-input" type="file" class="profile-foreground-img-file-input">
+                        <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                            <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+                        </label>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-3">
+            <div class="card mt-n5">
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                            <!-- <img [src]="imgPath" class="rounded-circle avatar-xl img-thumbnail user-profile-image  shadow" alt="user-profile-image" > -->
+                            <img src="assets/images/users/client.png" class="rounded-circle avatar-xl img-thumbnail user-profile-image  shadow" alt="user-profile-image" >
+                            <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                                <input id="profile-img-file-input" type="file" class="profile-img-file-input" (change)="onSelectImg($event)" (ngModel)="img">
+                                <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                    <span class="avatar-title rounded-circle bg-light text-body shadow">
+                                        <i class="ri-camera-fill"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <h5 class="fs-16 mb-1">{{user?.fullName}}</h5>
+                        <p class="text-muted mb-0">{{user?.commNm}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--end card-->
+<!--            <div class="card">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="d-flex align-items-center mb-5">-->
+<!--                        <div class="flex-grow-1">-->
+<!--                            <h5 class="card-title mb-0">Complete Your Profile</h5>-->
+<!--                        </div>-->
+<!--                        <div class="flex-shrink-0">-->
+<!--                            <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i class="ri-edit-box-line align-bottom me-1"></i> Edit</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="progress animated-progress custom-progress progress-label">-->
+<!--                        <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">-->
+<!--                            <div class="label">30%</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="d-flex align-items-center mb-4">-->
+<!--                        <div class="flex-grow-1">-->
+<!--                            <h5 class="card-title mb-0">Portfolio</h5>-->
+<!--                        </div>-->
+<!--                        <div class="flex-shrink-0">-->
+<!--                            <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i class="ri-add-fill align-bottom me-1"></i> Add</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3 d-flex">-->
+<!--                        <div class="avatar-xs d-block flex-shrink-0 me-3">-->
+<!--                            <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow">-->
+<!--                                <i class="ri-github-fill"></i>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="@daveadame">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3 d-flex">-->
+<!--                        <div class="avatar-xs d-block flex-shrink-0 me-3">-->
+<!--                            <span class="avatar-title rounded-circle fs-16 bg-primary shadow">-->
+<!--                                <i class="ri-global-fill"></i>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <input type="text" class="form-control" id="websiteInput" placeholder="www.example.com" value="www.velzon.com">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3 d-flex">-->
+<!--                        <div class="avatar-xs d-block flex-shrink-0 me-3">-->
+<!--                            <span class="avatar-title rounded-circle fs-16 bg-success shadow">-->
+<!--                                <i class="ri-dribbble-fill"></i>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <input type="text" class="form-control" id="dribbleName" placeholder="Username" value="@dave_adame">-->
+<!--                    </div>-->
+<!--                    <div class="d-flex">-->
+<!--                        <div class="avatar-xs d-block flex-shrink-0 me-3">-->
+<!--                            <span class="avatar-title rounded-circle fs-16 bg-danger shadow">-->
+<!--                                <i class="ri-pinterest-fill"></i>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <input type="text" class="form-control" id="pinterestName" placeholder="Username" value="Advance Dave">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <!--end card-->
+        </div>
+        <!--end col-->
+        <div class="col-xxl-9">
+            <div class="card mt-xxl-n5">
+                <div class="card-header">
+                    <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab">
+                                <i class="fas fa-home"></i> {{"gen.infoTitle" | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#privacy" role="tab">
+                                <i class="far fa-envelope"></i> {{"gen.privacyTitle"| translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-4">
+                    <div class="tab-content">
+                        <div [ngClass]=" 'tab-pane active ' + (statusModify? '': 'disable-form') " id="personalDetails" role="tabpanel" *ngIf="userTemp">
+                            <form #myForm ="ngForm" class="" (ngSubmit)="modify()">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="userID" class="form-label">{{"sys.userId" | translate}}</label>
+                                    <input type="text" class="form-control" id="userID" name="userId"
+                                      [(ngModel)]="userTemp.userId" disabled>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="email" class="form-label">{{"sys.email" | translate}}</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                      [(ngModel)]="userTemp.email" disabled>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="fullName" class="form-label">{{"common.name" | translate}}</label>
+                                    <input type="text" minlength="4" class="form-control " placeholder="Enter your name" id="fullName" [(ngModel)]="userTemp.fullName" name="fullName"
+                                        #fullName="ngModel" [ngClass]="{ 'is-invalid': (fullName.invalid && submitted) || (fullName.invalid && (fullName.dirty || fullName.touched))}"
+                                        [disabled]="!statusModify"
+                                        required>
+                                    <div class="invalid-error" *ngIf="(fullName.invalid && submitted) || fullName.invalid && (fullName.dirty || fullName.touched)">
+                                        <span *ngIf="fullName.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                        <span *ngIf="fullName.errors?.['minlength']">Name must be at least 4 characters long.</span>
+                                    </div>
+                                  </div>
+                                  <!-- <div class="mb-3">
+                                    <label for="fullName" class="form-label">{{"common.name" | translate}}</label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your name"
+                                      [(ngModel)]="userTemp.fullName" [disabled] = "!statusModify" required>
+                                  </div> -->
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="organization" class="form-label">{{"gen.organization.title" | translate}}</label>
+                                    <input type="text" class="form-control" id="organization" name="organization" placeholder="Enter organization"
+                                      [(ngModel)]="userTemp.organization"
+                                      #organization="ngModel" [ngClass]="{ 'is-invalid': (organization.invalid && submitted) || (organization.invalid && (organization.dirty || organization.touched))}"
+                                      [disabled]="!statusModify"
+                                      required>
+                                    <div class="invalid-error" *ngIf="(organization.invalid && submitted) || organization.invalid && (organization.dirty || organization.touched)">
+                                      <span *ngIf="organization.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="phonenumberInput" class="form-label">{{"sys.cellPhone" | translate}}</label>
+                                    <input type="text" class="form-control" id="phonenumberInput" name="cellPhone"
+                                      placeholder="Enter your phone number" [(ngModel)]="userTemp.cellPhone" [disabled]="!statusModify"
+                                      #phoneNumber="ngModel" [ngClass]="{ 'is-invalid': (phoneNumber.invalid && submitted) || (phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched))}"
+                                      required>
+                                    <div class="invalid-error" *ngIf="(phoneNumber.invalid && submitted) || phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                                      <span *ngIf="phoneNumber.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="dob" class="form-label">{{"sys.user.dob" | translate}}</label>
+                                    <div class="form-icon right">
+                                      <p-calendar placeholder="" [(ngModel)]="userTemp.dob" id="dob" name="dob" [required]="true" #dobUser="ngModel"
+                                          dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" [disabled]="!statusModify"
+                                          [ngClass]="{ 'ng-invalid ng-dirty': (dobUser.invalid && submitted) || dobUser.invalid && (dobUser.dirty || dobUser.touched)}">
+                                      </p-calendar>
+                                      <i class="ri-calendar-2-fill"></i>
+                                    </div>
+                                    <div class="invalid-error" *ngIf="(dobUser.invalid && submitted) || dobUser.invalid && (dobUser.dirty || dobUser.touched)">
+                                      <span *ngIf="dobUser.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                  <div class="mb-3">
+                                    <label for="address" class="form-label">{{"sys.homeAddress" | translate}}</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Address" name="address" required
+                                      [(ngModel)]="userTemp.address" [disabled] = "!statusModify"
+                                      #address="ngModel" [ngClass]="{ 'is-invalid': (address.invalid && submitted) || (address.invalid && (address.dirty || address.touched))}"
+                                      [disabled]="!statusModify"
+                                      required>
+                                    <div class="invalid-error" *ngIf="(address.invalid && submitted) || address.invalid && (address.dirty || address.touched)">
+                                      <span *ngIf="address.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                  <div class="mb-3 select-gender">
+                                    <span [hidden]="!statusModify && userTemp.gender == false">
+                                      <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="male">
+                                        {{"sys.user.male" | translate}}
+                                        </label>
+                                        <input class="form-check-input" type="radio" name="gender" id="male" [checked]="userTemp.gender == true"
+                                         (change)="userTemp.gender = true" [disabled] = "!statusModify">
+                                      </div>
+                                    </span>
+                                    <span [hidden]="!statusModify && userTemp.gender == true">
+                                      <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="female">
+                                        {{"sys.user.female" | translate}}
+                                        </label>
+                                        <input class="form-check-input" type="radio" name="gender" id="female" [checked]="userTemp.gender == false"
+                                          (change)="userTemp.gender = false" [disabled] = "!statusModify">
+                                        </div>
+                                    </span>
+
+                                  </div>
+                                </div>
+                                <!--end col-->
+                              </div>
+                              <div class="hstack gap-2 mt-3">
+                                <button class="btn btn-primary" *ngIf="!statusModify" (click)="statusModify = !statusModify">{{"button.edit.title" | translate}}</button>
+                                <button class="btn btn-light" *ngIf="statusModify" (click)="cancelModify()">{{"button.cancel.title" | translate}}</button>
+                                <button class="btn btn-success" *ngIf="statusModify" type="submit" [disabled] = "myForm.invalid == true">{{"button.save.title" | translate}}</button>
+                              </div>
+                            </form>
+                        </div>
+                        <!--end tab-pane-->
+                        <div class="tab-pane" id="privacy" role="tabpanel">
+                            <div class="mb-4 pb-2">
+                                <!-- <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 border-bottom mt-1">
+                                    <div class="flex-grow-1">
+                                        <h6 class="fs-14 mb-1">{{"sys.user.twoFaEnable" | translate}}</h6>
+                                        <p class="text-muted">Two-factor authentication is an enhanced security meansur. Once enabled, you'll be required to give two types of identification when you log into Google Authentication are Supported.</p>
+                                    </div>
+                                    <div class="flex-shrink-0 ms-sm-3" >
+                                        <div class="form-switch form-switch-lg" dir="ltr" *ngIf="userTemp">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizemd" name="faEnable"
+                                            [(ngModel)] = "userTemp.twoFAEnable" (change)="change2FAEnable()">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-4 border-bottom">
+                                    <div class="flex-grow-1">
+                                        <h6 class="fs-14 mb-1">{{"sys.email" | translate}}</h6>
+                                        <h4 class="text-center">{{user?.email}}</h4>
+                                    </div>
+                                    <div class="flex-shrink-0 ms-sm-3">
+                                      <button type="button" class="btn btn-sm rounded-pill btn-primary btn-label waves-effect right waves-light" (click)="modifyEmail()">
+                                        <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                        {{"button.editEmail.title" | translate}}</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-4">
+                                  <div class="flex-grow-1">
+                                      <h6 class="fs-14 mb-4">{{"gen.password.title" | translate}}</h6>
+                                      <h4 class="text-center">********</h4>
+                                  </div>
+                                  <div class="flex-shrink-0 ms-sm-3">
+                                    <button type="button" class="btn btn-sm rounded-pill btn-success btn-label waves-effect right waves-light" (click)="changePassword()">
+                                    <i class="ri-pencil-fill label-icon align-middle fs-16 ms-2"></i>
+                                    {{"button.changePassword.title" | translate}}</button>
+                                          <!--end col-->
+                                      </div>
+                                      <!--end row-->
+                                </div>
+                              </div>
+                        </div>
+                        <!--end tab-pane-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+
+</div>
+<!-- container-fluid -->
+</div>
+<p-confirmDialog> </p-confirmDialog>

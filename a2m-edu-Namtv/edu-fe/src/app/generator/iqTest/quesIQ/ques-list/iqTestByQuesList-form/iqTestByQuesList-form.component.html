@@ -1,0 +1,96 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ "course0102.listSubjectTitle" | translate }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form #myForm="ngForm">
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="iqTestNm" class="form-label-inline">{{
+                        "iqTest.IqTest.columns.IqTestNm" | translate
+                        }}<span class="text-danger"> *</span></label>
+                    </div>
+                    <div class="col-lg-9">
+                      <input type="text" required class="form-control " id="iqTestNm" name="iqTestNm"
+                        placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestNm' | translate}}"
+                        [(ngModel)]="iqTest.iqTestNm" #iqTestNm="ngModel"
+                        [ngClass]="{ 'iqTest-invalid': (iqTestNm.invalid && submitted) || (iqTestNm.invalid && (iqTestNm.dirty || iqTestNm.touched))}" />
+                      <div class="invalid-error"
+                        *ngIf="(iqTestNm.invalid && submitted) || iqTestNm.invalid && (iqTestNm.dirty || iqTestNm.touched)">
+                        <span *ngIf="iqTestNm.errors?.['required']">{{ 'message.requiredIqTestName' | translate }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label for="iqTestTime" class="form-label-inline">{{
+                        "iqTest.IqTest.columns.IqTestTime" | translate
+                        }}<span class="text-danger"> *</span></label>
+                    </div>
+                    <div class="col-lg-3">
+                      <input type="number" required class="form-control " id="iqTestTime" name="iqTestTime"
+                        placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestTime' | translate}}"
+                        [(ngModel)]="iqTest.iqTestTime" #iqTestTime="ngModel"
+                        [ngClass]="{ 'iqTest-invalid': (iqTestTime.invalid && submitted) || (iqTestTime.invalid && (iqTestTime.dirty || iqTestTime.touched))}" />
+
+                      <div class="invalid-error"
+                        *ngIf="(iqTestTime.invalid && submitted) || iqTestTime.invalid && (iqTestTime.dirty || iqTestTime.touched)">
+                        <span *ngIf="iqTestTime.errors?.['required']">{{ 'message.requiredIqTestTime' | translate }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3" hidden>
+                    <div class="col-lg-3">
+                      <label for="status-user" class="form-label-inline">{{
+                        "sys3.userDetail.status" | translate
+                        }}<span class="text-danger"> *</span></label>
+                    </div>
+
+                    <div class="col-lg-9">
+                      <span class="form-check form-check-inline">
+                        <label class="form-check-label" for="active">
+                          {{"sys.sys0103.status.active" | translate }}
+                        </label>
+                        <input class="form-check-input" type="radio" name="status" id="active" (change)="iqTest.status=true"
+                          [checked]="iqTest.status == true">
+                      </span>
+                      <span class="form-check form-check-inline">
+                        <label class="form-check-label" for="disable">
+                          {{"sys.sys0103.status.blocked" | translate }}
+                        </label>
+                        <input class="form-check-input" type="radio" name="status" id="disable" (change)="iqTest.status=false"
+                          [checked]="iqTest.status == false">
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+                    {{ "sys3.userDetail.buttonCancel" | translate }}
+                </button>
+                <button *ngIf="!iqTest.cannotCRUD" type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+                  {{ "sys3.userDetail.buttonSave" | translate }}
+                </button>
+              </div>
+              <!-- end card-body -->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col -->
+        </div>
+      </div>
+      <!-- end card -->
+    </div>
+    <!-- end col -->
+  </div>

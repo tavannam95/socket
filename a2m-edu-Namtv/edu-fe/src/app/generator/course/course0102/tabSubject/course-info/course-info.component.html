@@ -1,0 +1,201 @@
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+          <!-- {{ "course0103.listchapterTitle" | translate }} -->
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+            [hidden]="checkView || typeView!='VIEW'"
+              (click)="showUpdateCourseInfoForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.edit.title" | translate }}
+            </button>
+          </div>
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView!='VIEW'">
+            <button type="button" class="btn btn-primary" (click)="saveAll(myForm.invalid)">
+              {{ "sys3.userDetail.buttonSave" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form #myForm="ngForm" (submit)="saveAll(myForm.invalid)" style="padding-right: 2%;" >
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="username" class="form-label-inline">{{ 'course.info.time.title' | translate }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="courseTime" [submitted]="submitted" [(inpValue)]="courseInfo.time" [vc]="typeView" elmType="INP" type="number"
+               [required]="true" placeholder="{{'course.info.time.placeholder' | translate}}"></app-inp-vc>
+              <!-- <input type="number" required class="form-control " id="courseTime" name="courseTime"
+                placeholder="{{ 'course.info.time.placeholder' | translate }}"
+                [(ngModel)]="courseInfo.time" #courseTime="ngModel"
+                [ngClass]="{ 'is-invalid': (courseTime.invalid && submitted) || (courseTime.invalid && (courseTime.dirty || courseTime.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(courseTime.invalid && submitted) || courseTime.invalid && (courseTime.dirty || courseTime.touched)">
+                <span *ngIf="courseTime.errors?.['required']">{{ 'course.info.time.required' | translate }}</span>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="discription" class="form-label-inline">{{ 'course.info.discription.title' | translate }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="courseDisciption" [submitted]="submitted" [(inpValue)]="courseInfo.courseDisciption" [vc]="typeView" elmType="AREA" type="text"
+               [required]="true" placeholder="{{'course.info.discription.placeholder' | translate}}"></app-inp-vc>
+              <!-- <textarea style="height: 150px" required class="form-control " id="discription" name="discription"
+                placeholder="{{ 'course.info.discription.placeholder' | translate }}"
+                [(ngModel)]="courseInfo.courseDisciption" #discription="ngModel"
+                [ngClass]="{ 'is-invalid': (discription.invalid && submitted) || (discription.invalid && (discription.dirty || discription.touched))}" ></textarea>
+              <div class="invalid-error"
+                *ngIf="(discription.invalid && submitted) || discription.invalid && (discription.dirty || discription.touched)">
+                <span *ngIf="discription.errors?.['required']">{{ 'course.info.discription.required' | translate }}</span>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- <div class="row mb-3" *ngFor="let goalItem of goal; let itemIndex= index">
+            <div class="col-lg-3">
+              <label for="nameInput" class="form-label-inline">{{ 'course.info.goal.title' | translate }} {{itemIndex+1}} <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-7">
+              <input id="goal{{itemIndex+1}}" [(ngModel)]="goalItem.content" [ngModelOptions]="{standalone: true}"  type="text" class="form-control"
+                id="nameInput" placeholder="{{ 'course.info.goal.placeholder' | translate }}">
+            </div>
+            <div class="col-lg-2">
+              <button (click)="remove(goal,itemIndex)" *ngIf="goal.length>1" type="button" class="btn btn-light waves-effect"><i class="ri-checkbox-indeterminate-line"></i></button>
+              <button (click)="add(goal,'discription')" type="button" *ngIf="itemIndex == goal.length -1" class="btn btn-light waves-effect"><i class="ri-add-box-line"></i></button>
+            </div>
+          </div> -->
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="nameInput" class="form-label-inline">{{ 'course.info.goal.title' | translate }}  <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'" >
+              <ckeditor name="couterContent" [(ngModel)]="courseInfo.courseGoal" [config]="configCkeditor" (change)="onEditorChange($event)">
+              </ckeditor>
+              <input type="text" hidden required class="form-control " id="courseGoalRequired" name="courseGoalRequired" [(ngModel)]="courseInfo.courseGoal" #courseGoalRequired="ngModel"
+              [ngClass]="{ 'is-invalid': (courseGoalRequired.invalid && submitted) || (courseGoalRequired.invalid && (courseGoalRequired.dirty || courseGoalRequired.touched))}" />
+            <div class="invalid-error"
+              *ngIf="(courseGoalRequired.invalid && submitted) || courseGoalRequired.invalid && (courseGoalRequired.dirty || courseGoalRequired.touched)">
+              <span *ngIf="courseGoalRequired.errors?.['required']">{{ 'course0201.course.content.required' | translate }}</span>
+            </div>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="mx-n3">
+                          <div data-simplebar style="max-height: 400px;" class="px-3 text-dark text-break">
+                            <div [innerHtml]="courseInfo.courseGoal?courseInfo.courseGoal:'' | safeHtml" data-simplebar>
+                            </div>
+                          </div>
+                      </div>
+                  </div><!-- end card-body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveInfo(myForm.invalid)" >
+          #COURSE{{ "sys3.userDetail.buttonSave" | translate }}
+        </button>
+      </div> -->
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+
+<!-- <div class="row justify-content-center">
+  <ng-container *ngFor="let program of courseProgram; let itemIndex= index" >
+    <div  class="col-12">
+      <div class="card">
+        <div class="card-header align-items-center">
+          <h4 class="card-title mb-0 flex-grow-1">{{ 'course.info.program' | translate }} {{itemIndex+1}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="live-preview">
+
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="meassageInput" class="form-label-inline">{{ 'course.info.program.title' | translate }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                  </div>
+                  <div class="col-lg-9">
+                    <textarea id="title{{itemIndex+1}}" [(ngModel)]="program.title" [ngModelOptions]="{standalone: true}" class="form-control"
+                       rows="3" placeholder="{{ 'course.info.program.title.placeholder' | translate }}"></textarea>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="meassageInput" class="form-label-inline">{{ 'course.info.program.shortDiscription' | translate }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input id="short{{itemIndex+1}}" [(ngModel)]="program.shortDiscription" [ngModelOptions]="{standalone: true}" class="form-control"
+                       rows="3" placeholder="{{ 'course.info.program.shortDipcription.placeholder' | translate }}">
+                  </div>
+                </div>
+
+                <div class="row mb-3"  *ngFor="let lecture of program.listLeatue; let lectureIndex = index">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label-inline">{{ 'course.info.program.lecture' | translate }} {{lectureIndex+1}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+                  </div>
+                  <div class="col-lg-7">
+                    <input  type="text" id="lecture{{lectureIndex+1}}program{{itemIndex+1}}"  class="form-control" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="lecture.content"  placeholder="{{ 'course.info.program.lecture.placeholder' | translate }}">
+                  </div>
+                  <div class="col-lg-2">
+                    <button  (click)="remove(program.listLeatue,lectureIndex)"  type="button" *ngIf="program.listLeatue.length>1" class="btn btn-light waves-effect"><i class="ri-checkbox-indeterminate-line"></i></button>
+                    <button  (click)="add(program.listLeatue,'program')" type="button" *ngIf="lectureIndex==program.listLeatue.length-1" class="btn btn-light waves-effect"><i class="ri-add-box-line"></i></button>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button  *ngIf="itemIndex == courseProgram.length-1"  type="button" (click)="add(courseProgram,'courseProgram')"
+                    class="btn rounded-pill btn-primary  waves-effect right waves-light rounded-pill">
+                    {{ 'button.add.title' | translate }}
+                  </button>
+                  <button *ngIf="courseProgram.length>1"   type="button" (click)="remove(courseProgram,itemIndex)"
+                    class="btn rounded-pill btn-primary  waves-effect right waves-light rounded-pill">
+                    {{ 'community.button.remove' | translate }}
+                  </button>
+                </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div> -->
+
+<!-- <div class="row justify-content-center"  *ngIf="typeView!='VIEW'">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="modal-footer">
+          <button  type="submit" class="btn btn-primary" (click)="saveAll(myForm.invalid)">
+            {{ "sys3.userDetail.buttonSave" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+

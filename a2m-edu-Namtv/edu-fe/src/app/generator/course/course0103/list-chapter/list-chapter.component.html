@@ -1,0 +1,159 @@
+
+    <!-- <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-xxl-2 col-md-2">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  {{ "sys3.search" | translate }}
+                </h2>
+              </div>
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{"course0103.chapterDetail.chapterNm" | translate}}</span>
+                  <input type="text" class="form-control" placeholder="{{'course0103.chapterDetail.chapterNm' | translate}}"
+                    [(ngModel)]="pageRequest.searchText" (keyup.enter)="onSearch()" />
+                </div>
+              </div>
+
+
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">{{
+                    "sys.sys0101.status" | translate
+                    }}</span>
+                  <p-dropdown [options]="listStatus" [(ngModel)]="pageRequest.searchStatus" appendTo="body"
+                    optionLabel="label" optionValue="value" name="status">
+                  </p-dropdown>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearch()">
+                <i class="ri-search-line"></i>
+              </button>
+              <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearchReset()">
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header align-items-center d-flex flex-row-reverse bd-highlight">
+            <!-- <h2 class="card-title mb-0 flex-grow-1">
+              {{ "course0103.listchapterTitle" | translate }}
+            </h2> -->
+            <div class="flex-shrink-0 bd-highlight">
+              <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                <!-- <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                  (click)="showChapterList()">
+                  <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                  {{ "button.chooseChapter.title" | translate }}
+                </button> -->
+                <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                  (click)="showAddForm()" [hidden]="checkView">
+                  <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                  {{ "button.add.title" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
+                <div class="table-responsive mt-4 mt-xl-0">
+                  <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                    <thead class="">
+                      <tr>
+                        <th scope="col" class="w-5">
+                          {{ "course0103.columns.stt" | translate }}
+                        </th>
+                        <th scope="col" class="w-30">
+                          {{ "course0103.columns.chapterNm" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "course0101.columns.totalLesson" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "common.title.type" | translate }}
+                        </th>
+                        <th scope="col" class="w-10">
+                          {{ "course0103.columns.status" | translate }}
+                        </th>
+                        <th scope="col" class="w-10" style="text-align: center;">
+                          {{ "course0103.columns.action" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let chapter of listChapter" (click)="showUpdateForm(chapter.key, $event)" style="cursor: pointer;">
+                        <td scope="col trimText">{{ chapter.index }}</td>
+                        <td scope="col" style=" width: 45%;">
+                          <p class="trimText w-30"  style="width: 80%;">
+                            {{chapter.chapterNm != null ? chapter.chapterNm : ''}}
+                          </p>
+                        </td>
+                        <td scope="col" class="justify-content-center" style="width: 8%;"  >
+                          <p class=" trimText w-10 justify-content-center"  >
+                            {{chapter.totalLesson?chapter.totalLesson:''}}
+                          </p>
+                        </td>
+                        <td scope="col" >
+                          <p class="trimText w-10 "  style="width: 8%;">
+                            {{getOrganiztionNm(chapter.organizationFormal) }}
+                          </p>
+                        </td>
+                        <td scope="col" *ngIf="chapter.status == true">
+                          <p class="trimText w-10" >
+                            <i class="ri-checkbox-circle-line align-middle text-success"></i>{{'sys.sys0103.status.active' | translate}}
+                          </p>
+                        </td>
+                        <td scope="col" *ngIf="chapter.status == false">
+                          <p class="trimText w-10" >
+                            <i class="ri-close-circle-line align-middle text-danger"></i> {{'sys.sys0103.status.blocked' |translate}}
+                          </p>
+                        </td>
+                        <td style="width: 3%;">
+                          <div class=" hstack gap-3 fs-15 justify-content-center" >
+                            <!-- <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                              pTooltip="{{ 'button.view.chapter.title' | translate }}" (click)="showUpdateForm(chapter.key, $event)">
+                              <i class="ri-eye-line fs-4 fs-4"></i></a> -->
+                          </div>
+                        </td>
+                      </tr>
+
+
+                      <tr *ngIf="listChapter.length == 0">
+                        <td colspan="10">
+                          <div class="text-center">
+                            {{ "table.noContentToDisplay" | translate }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div *ngIf="listChapter.length > 0" class="col-xxl-12">
+                <app-paginator [totalRecords]="totalChapter" (onPageChange)="getPaging($event)">
+                </app-paginator>
+              </div> -->
+              <!--end col-->
+            </div>
+            <!--end row-->
+          </div>
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!--end row-->

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Mar 12 15:27:16 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a2m.auth.dao.RoleDao">
+    
+    <select id="getRoleByUserUid" parameterType="map" resultType="com.a2m.auth.model.Role">
+        SELECT A3.ROLE_ID as roleId,
+        	A3.ROLE_NM as roleNm,
+        	A3.USE_YN as useYn,
+        	A3.DESCRIPTION as description,
+        	A3.CREATED_BY as createdBy,
+        	A3.CREATED_DATE as createdDate,
+        	A3.UPDATED_BY as updatedBy,
+        	A3.UPDATED_DATE as updatedDate
+        FROM TSST_USER A1 
+        	INNER JOIN TSST_USER_ROLE A2 ON A1.USER_UID = A2.USER_UID
+        	INNER JOIN TSST_ROLE A3 on A2.ROLE_ID = A3.ROLE_ID
+        WHERE A1.USER_UID = #{userUid}
+    </select>
+    
+</mapper>

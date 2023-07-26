@@ -1,0 +1,117 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 ">
+            <div class="modal-header p-3">
+                <h2 class="card-title mb-0">{{ 'form.menu.title.2' | translate }}</h2>
+                <span class="ms-2">(<em class="text-danger mx-1">* </em>{{ 'common.isRequired' | translate }}.)</span>
+                <button type="button" class="btn-close" (click)="onCancel()"></button>
+            </div>
+            <div class="modal-body">
+                <form #myForm ="ngForm">
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="url" class="form-label-inline">{{ 'sys.sys0101.urlPath' | translate }}</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control " id="url" name="url" placeholder="URL Path" [(ngModel)]="request.url">
+                            <!-- <div class="invalid-error" *ngIf="(url.invalid && submitted) || (url.invalid && (url.dirty || url.touched))">
+                                <span *ngIf="url.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="menuNm" class="form-label-inline">{{'sys.sys0101.menuName' | translate }}</label>
+                            <span class="ms-2">(*)</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="menuNm" name="menuNm" placeholder="{{'sys.sys0101.menuName' | translate }}" [(ngModel)]="request.menuNm" #menuNm="ngModel"
+                                [ngClass]="{ 'is-invalid': (menuNm.invalid && submitted) || (menuNm.invalid && (menuNm.dirty || menuNm.touched))}">
+                            <div class="invalid-error" *ngIf="(menuNm.invalid && submitted) || (menuNm.invalid && (menuNm.dirty || menuNm.touched))">
+                                <span *ngIf="menuNm.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="menuNmEn" class="form-label-inline">{{'sys.sys0101.menuNameEn' | translate}}</label>
+                            <span class="ms-2">(*)</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="menuNmEn" name="menuNmEn" placeholder="{{'sys.sys0101.menuNameEn' | translate}}" [(ngModel)]="request.menuNmEn" #menuNmEn="ngModel"
+                                [ngClass]="{ 'is-invalid': (menuNmEn.invalid && submitted) || (menuNmEn.invalid && (menuNmEn.dirty || menuNmEn.touched))}">
+                            <div class="invalid-error" *ngIf="(menuNmEn.invalid && submitted) || (menuNmEn.invalid && (menuNmEn.dirty || menuNmEn.touched))">
+                                <span *ngIf="menuNmEn.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="menuNmVi" class="form-label-inline">{{'sys.sys0101.menuNameVi' | translate}}</label>
+                            <span class="ms-2">(*)</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="menuNmVi" name="menuNmVi" placeholder="{{'sys.sys0101.menuNameVi' | translate}}" [(ngModel)]="request.menuNmVi" #menuNmVi="ngModel"
+                                [ngClass]="{ 'is-invalid': (menuNmVi.invalid && submitted) || (menuNmVi.invalid && (menuNmVi.dirty || menuNmVi.touched))}">
+                            <div class="invalid-error" *ngIf="(menuNmVi.invalid && submitted) || (menuNmVi.invalid && (menuNmVi.dirty || menuNmVi.touched))">
+                                <span *ngIf="menuNmVi.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="parentMenu" class="form-label-inline">{{ 'sys.sys0101.parentMenu' | translate }}</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <p-dropdown [options]="parents"  [(ngModel)]="request.upMenuId" optionLabel="label" optionValue="value" name="upMenuId"></p-dropdown>
+                            <!-- <select class="form-select rounded-pill mb-3" id="parentMenu" [(ngModel)]="request.upMenuId" name="upMenuId">
+                                <option selected value="">None</option>
+                                
+                                <option *ngFor="let menu of menus" value="{{menu.menuId}}" >{{menu.menuId}}_{{menu.menuNm}}</option>
+                            </select> -->
+                        </div>
+                    </div>
+
+                    <ng-template [ngIf]="this.menu.menuId">
+                    <div class="row mb-3">
+                      <div class="col-lg-3">
+                          <label for="ordNo" class="form-label-inline">{{'sys.sys0101.order' | translate}}</label>
+                          <span class="ms-2">(*)</span>
+                      </div>
+                      <div class="col-lg-8">
+                          <input type="text" required class="form-control " id="ordNo" name="ordNo" placeholder="{{'sys.sys0101.menuNameVi' | translate}}" [(ngModel)]="request.ordNo" #ordNo="ngModel"
+                              [ngClass]="{ 'is-invalid': (ordNo.invalid && submitted) || (ordNo.invalid && (ordNo.dirty || ordNo.touched))}">
+                          <div class="invalid-error" *ngIf="(ordNo.invalid && submitted) || (ordNo.invalid && (ordNo.dirty || ordNo.touched))">
+                              <span *ngIf="ordNo.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                          </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                    <div class="row mb-3" *ngIf="menu.menuId != null">
+                        <div class="col-lg-3">
+                            <label for="parentMenu" class="form-label">{{ 'sys.sys0101.status' | translate }}</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="useYn" value="Y" [(ngModel)]="request.useYn">
+                                <label class="form-check-label" for="useY">{{'sys.sys0101.status.active' | translate}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="useYn" value="N" [(ngModel)]="request.useYn">
+                                <label class="form-check-label" for="useN">{{'sys.sys0101.status.blocked' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

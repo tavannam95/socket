@@ -1,0 +1,160 @@
+<div [class]="pageContent">
+  <div class="container-fluid">
+
+    <app-breadcrumb *ngIf="type=='POST'"></app-breadcrumb>
+    <div class="row g-4 mb-3 justify-content-center">
+      <div class="col-xxl-3" *ngIf="type !='POST'"></div>
+    </div>
+
+    <!-- <div class="row g-4 mb-3 justify-content-center">
+
+      <div [class]="col">
+        <div class="d-flex justify-content-sm-start gap-2">
+          <div>
+            <a (click)="openPostDiaglog()" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i>{{'community.button.addNew' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="row g-4 mb-3 justify-content-center">
+
+      <div [class]="col">
+        <div class="d-flex justify-content-sm-start gap-2">
+          <!-- <div>
+            <a (click)="openPostDiaglog()" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i>{{'community.button.addNew' | translate }}</a>
+          </div> -->
+
+          <!-- <button type="button" pTooltip="{{ 'button.add.title' | translate }}" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"(click)="openPostDiaglog()"> -->
+          <button type="button"  class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"(click)="openPostDiaglog()">
+          <i class="ri-add-line"></i>
+          </button>
+
+          <div  class="search-box ms-2">
+            <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="{{'common.search' | translate}}" (keyup.enter)="search()">
+            <i class="ri-search-line search-icon"></i>
+          </div>
+
+
+          <!-- <span class="input-group-text">{{"edu.edu0202.period" | translate}}</span> -->
+          <div class="form-icon right">
+            <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="startTime" name="date"  #startDate="ngModel"
+            dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" ></p-calendar>
+            <i  class="ri-calendar-2-fill"></i>
+          </div>
+
+          <div class="col-xxl-3 col-md-4" style="width: 1%;display: flex;justify-content: center;align-items: center;">
+            <span >~</span>
+          </div>
+
+          <div class="form-icon right">
+            <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="endTime" name="date"  #endDate="ngModel"
+            dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body" ></p-calendar>
+            <i  class="ri-calendar-2-fill"></i>
+          </div>
+
+
+          <!-- <button (click)="search()" type="button" class="btn btn-light waves-effect"><i class="ri-search-line search-icon"></i></button> -->
+          <!-- Buttons Group -->
+          <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+          (click)="search()">
+          <i class="ri-search-line"></i>
+          </button>
+          <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+            (click)="onSearchReset()">
+            <i class="ri-refresh-line"></i>
+          </button>
+
+        </div>
+      </div>
+      <div class="col-xxl-3" *ngIf="type !='POST'"></div>
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div [class]="col">
+        <div class="card" *ngFor="let post of listPost">
+          <div class="card-body">
+            <div class="d-flex flex-column h-100">
+              <div class="d-flex mb-2">
+                <div class="flex-shrink-0 me-3">
+                  <div class="avatar-sm">
+                    <img *ngIf="post.userInfoCreate?.imgPath==null" src="assets/images/brands/slack.png" alt=""
+                      class="avatar-sm rounded-circle shadow">
+                    <img *ngIf="post.userInfoCreate?.imgPath!=null"
+                      src="{{apiUrl}}/tcco-files/getFile/{{post.userInfoCreate?.imgPath}}?filePath={{post.userInfoCreate?.imgPath}}"
+                      alt="" class="avatar-sm rounded-circle shadow">
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 fs-15"><a routerLink="/community/post/{{post.key}}"
+                      class="text-dark">{{post.postTitle}}</a></h5>
+                  <p  class="text-muted text-truncate-two-lines mb-3">
+
+                    <a class="trimText cursor-pointer" (click)="gotoOtherProfile(post.author)">{{post.userInfoCreate.fullName}}</a>
+                  </p>
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 shadow-none"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-more-horizontal icon-sm">
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="19" cy="12" r="1"></circle>
+                      <circle cx="5" cy="12" r="1"></circle>
+                    </svg>
+                  </button>
+
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a (click)="openPostDiaglog(post.key)" class="dropdown-item"><i
+                        class="ri-pencil-fill align-bottom me-2 text-muted"></i> {{ 'community.button.edit' | translate
+                      }}</a>
+                    <div class="dropdown-divider"></div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="mt-auto">
+                <div class="d-flex mb-2" style="max-height: 150px; overflow:hidden;" role="button" (click)="goPostDiscuss(post)">
+                  <div class="flex-grow-1">
+                    <div class="text-dark text-muted editer-view-img editer-view-hidden-img" [innerHTML]="post.postContent | safeHtml"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- end card body -->
+          <div class="card-footer bg-transparent border-top-dashed py-2">
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <div class="flex-grow-1 d-flex flex-wrap gap-2">
+                  <span *ngFor="let item of post.listTag" class="btn badge bg-light text-dark" (click)="badgeTagClick(item)" >{{item}}</span>
+                </div>
+              </div>
+
+              <div class="flex-shrink-0 align-self-center">
+                <div class="text-muted">
+                  <i class="ri-reply-line me-1 align-bottom"></i>{{post.countAnswer}}
+                  <i class="ri-reply-fill me-1 align-bottom"></i>{{post.countReply}}
+                  <i class="ri-calendar-event-fill me-1 align-bottom"></i>{{post.insDate | date: 'hh:mm dd/MM/yyyy'}}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- end card footer -->
+        </div>
+
+        <div *ngIf="listPost.length > 0" class="col-xxl-12">
+          <app-paginator [totalRecords]="totalPost" (onPageChange)="getPaging($event)">
+          </app-paginator>
+        </div>
+
+      </div>
+      <div class="col-xxl-3" *ngIf="type !='POST'"></div>
+    </div>
+  </div>
+</div>

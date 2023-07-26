@@ -1,0 +1,14 @@
+.box { 
+	float: right;
+	padding: 0 8px;
+	width: 50%;
+	text-align: left; 
+	box-sizing: border-box;
+}
+
+.box > div
+{
+	height: 100%;
+	font-size: 2rem;
+	font-weight: bold;
+}

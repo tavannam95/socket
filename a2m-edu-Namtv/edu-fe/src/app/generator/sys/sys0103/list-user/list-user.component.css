@@ -1,0 +1,11 @@
+.button-custom {
+    width: 160px !important;
+  }
+  .button-custom > button {
+    margin-right: 5px;
+  }
+  .row.list-user {
+    max-height: 645px;
+    min-height: 645px;
+  }
+  

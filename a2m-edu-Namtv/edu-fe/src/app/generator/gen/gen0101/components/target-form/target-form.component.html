@@ -1,0 +1,571 @@
+<div
+  id="addMenuModal"
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block"
+  aria-modal="true"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0">
+          {{ "gen.targetDetail.title" | translate }}
+        </h2>
+        <button type="button" class="btn-close" (click)="onCancel()"></button>
+      </div>
+
+      <div class="modal-body" style="max-height: 650px; overflow-y: scroll">
+        <form #myForm="ngForm">
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="projectName" class="form-label-inline">{{
+                "gen.targetDetail.projectName" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-8">
+              <p-dropdown
+                [options]="projects"
+                [required]="true"
+                [(ngModel)]="target.project.projectId"
+                optionLabel="projectName"
+                optionValue="projectId"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="{{
+                  'gen.targetDetail.placeholderProjectName' | translate
+                }}"
+                #projectName="ngModel"
+                [ngClass]="{
+                  'ng-invalid ng-dirty':
+                    (projectName.invalid && submitted) ||
+                    (projectName.invalid &&
+                      (projectName.dirty || projectName.touched))
+                }"
+              ></p-dropdown>
+              <div
+                class="invalid-error"
+                *ngIf="
+                  projectName.invalid &&
+                  (projectName.dirty || projectName.touched)
+                "
+              >
+                <span *ngIf="projectName.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <button
+                type="button"
+                class="btn btn-primary"
+                style="float: right; width: 100%"
+                (click)="addProject()"
+              >
+                {{ "gen.targetDetail.buttonAdd" | translate }}
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="targetName" class="form-label-inline">{{
+                "gen.targetDetail.targetName" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="targetName"
+                name="targetName"
+                placeholder="{{
+                  'gen.targetDetail.placeholderTargetName' | translate
+                }}"
+                [(ngModel)]="target.targetName"
+                #targetName="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (targetName.invalid && submitted) ||
+                    (targetName.invalid &&
+                      (targetName.dirty || targetName.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="
+                  targetName.invalid && (targetName.dirty || targetName.touched)
+                "
+              >
+                <span *ngIf="targetName.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="ip" class="form-label-inline">{{
+                "gen.targetDetail.ip" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="ip"
+                name="ip"
+                [(ngModel)]="target.ip"
+                placeholder="{{ 'gen.targetDetail.placeholderIp' | translate }}"
+                #ip="ngModel"
+                [pattern]="ipPattern"
+                [ngClass]="{
+                  'is-invalid':
+                    (ip.invalid && submitted) ||
+                    (ip.invalid && (ip.dirty || ip.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="ip.invalid && (ip.dirty || ip.touched)"
+              >
+                <span *ngIf="ip.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+                <span *ngIf="ip.errors?.['pattern']">{{
+                  "message.requiredFormatIp" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="port" class="form-label-inline">{{
+                "gen.targetDetail.port" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                type="number"
+                class="form-control"
+                required
+                id="port"
+                name="port"
+                placeholder="{{
+                  'gen.targetDetail.placeholderPort' | translate
+                }}"
+                [(ngModel)]="target.port"
+                #port="ngModel"
+                [pattern]="portPattern"
+                [ngClass]="{
+                  'is-invalid':
+                    (port.invalid && submitted) ||
+                    (port.invalid && (port.dirty || port.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="port.invalid && (port.dirty || port.touched)"
+              >
+                <span *ngIf="port.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+                <span *ngIf="port.errors?.['pattern']">{{
+                  "message.requiredFormatPort" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline">{{
+                "gen.targetDetail.username" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                type="text"
+                required
+                class="form-control"
+                id="username"
+                name="username"
+                placeholder="{{
+                  'gen.targetDetail.placeholderUsername' | translate
+                }}"
+                [(ngModel)]="target.username"
+                #username="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (username.invalid && submitted) ||
+                    (username.invalid && (username.dirty || username.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="username.invalid && (username.dirty || username.touched)"
+              >
+                <span *ngIf="username.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="password" class="form-label-inline">{{
+                "gen.targetDetail.password" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                type="text"
+                required
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="{{
+                  'gen.targetDetail.placeholderPassword' | translate
+                }}"
+                [(ngModel)]="target.password"
+                #password="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (password.invalid && submitted) ||
+                    (password.invalid && (password.dirty || password.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+              >
+                <span *ngIf="password.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="connectType" class="form-label-inline">{{
+                "gen.targetDetail.connectType" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <p-dropdown
+                appendTo="body"
+                placeholder="{{
+                  'gen.targetDetail.placeholderConnectType' | translate
+                }}"
+                [required]="true"
+                [options]="connectTypes"
+                [(ngModel)]="target.connectType.commCd"
+                optionLabel="commNm"
+                optionValue="commCd"
+                [ngModelOptions]="{ standalone: true }"
+                #connectType="ngModel"
+                [ngClass]="{
+                  'ng-invalid ng-dirty':
+                    (connectType.invalid && submitted) ||
+                    (connectType.invalid &&
+                      (connectType.dirty || connectType.touched))
+                }"
+              ></p-dropdown>
+              <div
+                class="invalid-error"
+                *ngIf="
+                  connectType.invalid &&
+                  (connectType.dirty || connectType.touched)
+                "
+              >
+                <span *ngIf="connectType.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ng-container
+            *ngIf="
+              target.connectType.commCd !== undefined &&
+              target.connectType.commCd !== '01-07'
+            "
+          >
+            <div class="row mb-3">
+              <div class="col-lg-2">
+                <label for="databaseName" class="form-label-inline">{{
+                  "gen.targetDetail.databaseName" | translate
+                }}</label>
+              </div>
+              <div class="col-lg-10">
+                <input
+                  type="text"
+                  required
+                  class="form-control"
+                  id="databaseName"
+                  name="databaseName"
+                  placeholder="{{
+                    'gen.targetDetail.placeholderDatabaseName' | translate
+                  }}"
+                  [(ngModel)]="target.databaseName"
+                  #databaseName="ngModel"
+                  [ngClass]="{
+                    'is-invalid':
+                      (databaseName.invalid && submitted) ||
+                      (databaseName.invalid &&
+                        (databaseName.dirty || databaseName.touched))
+                  }"
+                />
+                <div
+                  class="invalid-error"
+                  *ngIf="
+                    databaseName.invalid &&
+                    (databaseName.dirty || databaseName.touched)
+                  "
+                >
+                  <span *ngIf="databaseName.errors?.['required']">{{
+                    "message.requiredMessage" | translate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="target.connectType.commCd === '01-07'">
+            <div class="row mb-3">
+              <div class="col-lg-2">
+                <label for="fileSavePath" class="form-label-inline">{{
+                  "gen.targetDetail.fileSavePath" | translate
+                }}</label>
+              </div>
+              <div class="col-lg-10">
+                <input
+                  type="text"
+                  required
+                  class="form-control"
+                  id="fileSavePath"
+                  name="fileSavePath"
+                  placeholder="{{
+                    'gen.targetDetail.placeholderFileSavePath' | translate
+                  }}"
+                  [(ngModel)]="target.fileSavePath"
+                  #fileSavePath="ngModel"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fileSavePath.invalid && submitted) ||
+                      (fileSavePath.invalid &&
+                        (fileSavePath.dirty || fileSavePath.touched))
+                  }"
+                />
+                <div
+                  class="invalid-error"
+                  *ngIf="
+                    fileSavePath.invalid &&
+                    (fileSavePath.dirty || fileSavePath.touched)
+                  "
+                >
+                  <span *ngIf="fileSavePath.errors?.['required']">{{
+                    "message.requiredMessage" | translate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-2">
+                <label for="fileType" class="form-label-inline">{{
+                  "gen.targetDetail.fileType" | translate
+                }}</label>
+              </div>
+              <div class="col-lg-10">
+                <p-dropdown
+                  appendTo="body"
+                  [required]="true"
+                  [options]="typeFiles"
+                  [(ngModel)]="target.fileType"
+                  optionLabel="label"
+                  optionValue="value"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="{{
+                    'gen.targetDetail.placeholderFileType' | translate
+                  }}"
+                  #typeFile="ngModel"
+                  [ngClass]="{
+                    'ng-invalid ng-dirty':
+                      (typeFile.invalid && submitted) ||
+                      (typeFile.invalid && (typeFile.dirty || typeFile.touched))
+                  }"
+                ></p-dropdown>
+                <div
+                  class="invalid-error"
+                  *ngIf="
+                    typeFile.invalid && (typeFile.dirty || typeFile.touched)
+                  "
+                >
+                  <span *ngIf="typeFile.errors?.['required']">{{
+                    "message.requiredMessage" | translate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="tableName" class="form-label-inline">{{
+                "gen.projectDetail.tableInfo" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <div
+                class="row mb-3"
+                *ngFor="let table of target.tableInfos; let index = index"
+              >
+                <div class="col-lg-10">
+                  <div class="row mb-3">
+                    <div class="col-lg-3">
+                      <label class="form-label-inline">{{
+                        "gen.projectDetail.tableName" | translate
+                      }}</label>
+                    </div>
+                    <div class="col-lg-9">
+                      <input
+                        type="text"
+                        required
+                        class="form-control"
+                        placeholder="{{
+                          'gen.targetDetail.placeholderTableName' | translate
+                        }}"
+                        [(ngModel)]="table.tableName"
+                        [ngModelOptions]="{ standalone: true }"
+                        #tableName="ngModel"
+                        [ngClass]="{
+                          'is-invalid':
+                            (tableName.invalid && submitted) ||
+                            (tableName.invalid &&
+                              (tableName.dirty || tableName.touched))
+                        }"
+                      />
+                      <div
+                        class="invalid-error"
+                        *ngIf="
+                          tableName.invalid &&
+                          (tableName.dirty || tableName.touched)
+                        "
+                      >
+                        <span *ngIf="tableName.errors?.['required']">{{
+                          "message.requiredMessage" | translate
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <label class="form-label-inline">{{
+                        "gen.projectDetail.listColumn" | translate
+                      }}</label>
+                    </div>
+                    <div class="col-lg-9">
+                      <input
+                        type="text"
+                        required
+                        class="form-control"
+                        placeholder="{{
+                          'gen.targetDetail.placeholderListColumn' | translate
+                        }}"
+                        [(ngModel)]="table.listColumn"
+                        [ngModelOptions]="{ standalone: true }"
+                        #listColumn="ngModel"
+                        [ngClass]="{
+                          'is-invalid':
+                            (listColumn.invalid && submitted) ||
+                            (listColumn.invalid &&
+                              (listColumn.dirty || listColumn.touched))
+                        }"
+                      />
+                      <div
+                        class="invalid-error"
+                        *ngIf="
+                          listColumn.invalid &&
+                          (listColumn.dirty || listColumn.touched)
+                        "
+                      >
+                        <span *ngIf="listColumn.errors?.['required']">{{
+                          "message.requiredMessage" | translate
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="row">
+                    <div *ngIf="target.tableInfos?.length > 1" class="col-lg-6">
+                      <button
+                        (click)="deleteTableInfo(index)"
+                        type="button"
+                        class="btn btn-light btn-icon waves-effect"
+                      >
+                        <i class="las la-minus"></i>
+                      </button>
+                    </div>
+                    <div
+                      class="col-lg-6"
+                      *ngIf="index == 0"
+                      (click)="addTableInfo()"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-light btn-icon waves-effect"
+                      >
+                        <i class="las la-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3" *ngIf="target.targetId != null">
+            <div class="col-lg-2">
+              <label for="status-target" class="form-label-inline">{{
+                "gen.targetDetail.status" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-10">
+              <p-dropdown
+                appendTo="body"
+                [options]="statusList"
+                [(ngModel)]="target.status"
+                optionLabel="label"
+                optionValue="value"
+                [ngModelOptions]="{ standalone: true }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSave(myForm.invalid)"
+        >
+          {{ "gen.targetDetail.buttonSave" | translate }}
+        </button>
+        <button type="button" class="btn btn-light" (click)="onCancel()">
+          {{ "gen.targetDetail.buttonCancel" | translate }}
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<app-spinner [visible]="spinner"></app-spinner>

@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+          {{ "course0102.standardSummary" | translate }}
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+            [hidden]="checkView || typeView!='VIEW' || disable"
+              (click)="showUpdateSyntheticForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.edit.title" | translate }}
+            </button>
+          </div>
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView!='VIEW'">
+            <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+              {{ "course0102.standardDetail.buttonSave" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-bordered table-nowrap">
+                <thead>
+                    <tr>
+                        <th scope="col" rowspan="2" width="{{widthNo}}%" style="text-align: center;">{{
+                          "course0102.columns.stt" | translate
+                          }}</th>
+                        <th scope="col" rowspan="2" width="{{widthContent}}%" style="text-align: center;">
+                          {{
+                            "course0102.subjectDetail.content.content" | translate
+                            }}
+                        </th>
+                        <th scope="col" width="{{widthStand*listKnowLength}}%" [colSpan]="listKnowLength" class="trim-text" style="text-align: center;" >{{'course.tab.standard.Know.title' | translate}}</th>
+
+                        <th scope="col" width="{{widthStand*listSkillLength}}%" [colSpan]="listSkillLength" class="trim-text" style="text-align: center;" >{{'course.tab.standard.Skill.title' | translate}}</th>
+
+                        <th scope="col" width="{{widthStand*listQuaLength}}%" [colSpan]="listQuaLength" class="trim-text" style="text-align: center;" >{{'course.tab.standard.Quality.title' | translate}}</th>
+
+                    </tr>
+                    <tr>
+                      <th scope="col" width="{{widthStand}}%" class="trim-text" *ngFor="let stand of listStandard let index = index" style="text-align: center;">{{stand.standCode}} {{index+1}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let chapter of listChapterSchedule; index as index">
+                      <th scope="col" style="text-align: center;">{{index+1}}</th>
+
+                      <td scope="col">
+                        <p>{{chapter.chapterNm}}</p>
+                      </td>
+                      <td scope="col" *ngFor="let stand of chapter.listStandNote" width="{{widthStand}}%" style="text-align: center;">
+                        <p-dropdown appendTo="body" *ngIf="typeView!='VIEW'"
+                        placeholder="Select result" [required]="true"
+                        [options]="listNote" [(ngModel)]="stand.standResult" optionLabel="commNm"
+                        optionValue="commCd" [ngModelOptions]="{ standalone: true }">
+                        </p-dropdown>
+                        <label *ngIf="typeView=='VIEW'">{{ stand.standResultNm?stand.standResultNm:"" }}</label>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div class="modal-footer col-lg-12" *ngIf="typeView != 'VIEW'">
+              <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+                {{ "course0102.standardDetail.buttonSave" | translate }}
+              </button>
+            </div> -->
+          </div>
+          <!--end col-->
+        </div>
+        <!--end row-->
+      </div>
+      <div class="card-footer">
+        <form #myForm="ngForm" style="padding-right: 2%;">
+          <div class="card-header align-items-center d-flex">
+            <h2 class="card-title mb-0 flex-grow-1">
+              {{ "course0102.standardDetail.standNote" | translate }}
+            </h2>
+            <div class="flex-shrink-0">
+              <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-8">
+                <ng-container *ngFor="let note of listNote; let index = index">
+                  <div class="row mb-3">
+                    <div class="col-lg-6"  >
+                      <label for="noteContent" class="form-label-inline">{{ "course0102.standardDetail.standRank" | translate }} {{index+1}}: {{note.noteContent}}</label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!--end row-->

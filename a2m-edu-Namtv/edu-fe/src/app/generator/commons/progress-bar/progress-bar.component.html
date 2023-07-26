@@ -1,0 +1,58 @@
+<!-- <div class="row breadcrumb-position">
+  <div class="col-12">
+    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+
+      <div class="page-title-left">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="#/dashboard"><i href="/" class="ri-home-2-line"></i></a>
+          </li>
+          <li class="breadcrumb-item " ><a href="#/edu/edu0102">{{'course.progress.bar.courseList' | translate}}</a></li>
+          <li class="breadcrumb-item " *ngIf="courseId" (click)="moveCourse()" style="cursor: pointer;">{{courseNm ? courseNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="subjectId" (click)="moveSubject()" style="cursor: pointer;">{{subjectNm ? subjectNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="chapterId" (click)="moveChapter()" style="cursor: pointer;">{{chapterNm ? chapterNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="lectureId"  (click)="moveLecture()"style="cursor: pointer;">{{lectureNm ? lectureNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="quizId"  (click)="moveQuiz()"style="cursor: pointer;">{{quizNm ? quizNm : ''}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row breadcrumb-position">
+  <div class="col-12">
+    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+
+      <div class="page-title-left">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="#/dashboard"><i href="/" class="ri-home-2-line" style="cursor: pointer;"></i></a>
+          </li>
+          <li class="breadcrumb-item" style="cursor: pointer;">
+            <a href="#/edu/edu0102">{{'course.progress.bar.courseList' | translate}}</a>
+          </li>
+          <!-- <li class="breadcrumb-item " ><a href="#/course/course0201">My Courses</a></li> -->
+          <li class="breadcrumb-item " *ngIf="courseId" (click)="moveCourse()" style="cursor: pointer;">
+            [{{'course0103.chapterDetail.course' | translate}}] {{courseNm ?
+            courseNm : ''}}</li>
+          <!-- <li class="breadcrumb-item " *ngIf="courseId" (click)="moveCourseByMyCourse()" style="cursor: pointer;">
+              [{{'course0103.chapterDetail.course' | translate}}] {{courseNm ?
+              courseNm : ''}}</li> -->
+          <li class="breadcrumb-item " *ngIf="subjectId" (click)="moveSubject()" style="cursor: pointer;">
+            [{{'course0104.quiz.quizDetail.subject' | translate}}] {{subjectNm ?
+            subjectNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="chapterId" (click)="moveChapter()" style="cursor: pointer;">
+            [{{'course0101.lectureDetail.chapter' | translate}}] {{chapterNm ?
+            chapterNm : ''}}</li>
+          <li class="breadcrumb-item " *ngIf="lectureId" (click)="moveLecture()" style="cursor: pointer;">
+            <img src="/assets/images/companies/img-8.png" style="height: 25px;">&nbsp;{{lectureNm ? lectureNm : ''}}
+          </li>
+
+          <li class="breadcrumb-item " *ngIf="quizId" (click)="moveQuiz()" style="cursor: pointer;">
+            <img src="/assets/images/companies/img-9.png" style="height: 25px;">&nbsp;{{quizNm ? quizNm : ''}}
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

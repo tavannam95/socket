@@ -1,0 +1,19 @@
+.body-title:hover{
+  background-color: rgb(232, 232, 232);
+}
+
+.select-gender > span{
+  margin-right: 40px;
+}
+.select-gender > span > input{
+  margin-left: 10px;
+}
+
+#personalDetails .form-label, #personalDetails .form-check-label{
+  padding-left: 15px;
+}
+
+#personalDetails.disable-form input{
+  background: #ffffff;
+  border: 1px solid #ffffff;
+}

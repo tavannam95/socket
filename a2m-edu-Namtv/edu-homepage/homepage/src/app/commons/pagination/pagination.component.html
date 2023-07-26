@@ -1,0 +1,9 @@
+<ul class="edu-pagination top-space-30 justify-content-start">
+    <li><a href="javascript:void(0)" aria-label="Previous" (click)="onPrevious()"><i class="icon-west"></i></a></li>
+    <li *ngFor="let page of [].constructor(totaPages); let idx = index" [ngClass]="{'active': currentPage == idx}" class="active"><a href="javascript:void(0)" (click)="onPagi(idx)">{{idx + 1}}</a></li>
+    <!-- <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li class="more-next"><a href="#"></a></li>
+    <li><a href="#">8</a></li> -->
+    <li><a href="javascript:void(0)" aria-label="Next" (click)="onNext()"><i class="icon-east"></i></a></li>
+</ul>

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card ">
+        <div class="card-header ">
+          <div class="row">
+            <div class="col-xxl-2 col-md-2">
+              <h2 class="card-title mb-0 flex-grow-1">Search</h2>
+            </div>
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-text ">{{'sys.user.userName' | translate}}</span>
+                    <input type="text" class="form-control" [(ngModel)]="userRequest.fullName" placeholder="{{'sys.user.userName' | translate}}" (keyup.enter)="onSearch()">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-text ">{{'sys.roleId' | translate}}</span>
+                    <input type="text" class="form-control" [(ngModel)]="roleRequest.roleId" placeholder="{{'sys.roleId' | translate}}" (keyup.enter)="onSearch()">
+                </div>
+            </div>
+            <!--end col-->
+
+            <button (click)="onSearch()" type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2">
+              <i class="ri-search-line"></i>
+            </button>
+            <button (click)="onSearchReset()" type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2">
+              <i class="ri-refresh-line"></i>
+            </button>
+
+          </div>
+          <!--end row-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h2 class="card-title mb-0 flex-grow-1">{{'sys0102.tab.user.role.title' | translate}}</h2>
+          <div class="flex-shrink-0">
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end;">
+              <button type="button" (click)="save()" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill"><i
+                class="ri-save-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> {{'button.save.title' | translate}}</button>
+            </div>
+          </div>
+        </div><!-- end card header -->
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-7 col-md-7 col-sm-12">
+                <p-table [value]="users" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedUser" [paginator]="true" class="ui-table-customers" [rows]="10" [resizableColumns]="true" styleClass="p-datatable-striped">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th class="text-center" style="width: 10%;">#</th>
+                            <th style="width: 30%;">{{ 'sys.userId' | translate }}</th>
+                            <th style="width: 30%;">{{ 'sys.user.userName' | translate }}</th>
+                            <!-- <th style="width: 30%;">{{ ('form.accessRight.common.username'
+                            |
+                            translate) + ' EN'
+                            }}</th> -->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                        <div *ngIf="users.length <= 0">{{'message.error.noRecord'|
+                            translate}}</div>
+                        <tr [pSelectableRow]="rowData" (click)="setCheckRole()">
+                            <td class="text-center">
+                                {{rowIndex+1}}
+                            </td>
+                            <td>{{rowData.userId}}</td>
+                            <td>{{rowData.tsstUserInfo != null ? rowData.tsstUserInfo.fullName : rowData.eamTeacherInfo.fullName}}</td>
+                            <!-- <td>{{rowData.NAME_KR}}<span *ngIf="rowData.DEPT_CODE == 'DEPT_0080'">({{rowData.DEPT_NM}})</span></td> -->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="3"><div class="text-center">{{'table.noContentToDisplay' | translate}}</div></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-xl-5 col-md-5 col-sm-12">
+                <p-table [value]="roles" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedRole" [paginator]="true" class="ui-table-customers" [rows]="10" [resizableColumns]="true" styleClass="p-datatable-striped">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th class="text-center" style="width: 10%;">#</th>
+                            <th>{{ 'sys.roleId' | translate }}</th>
+                            <th>{{ 'sys.roleName' | translate }}</th>
+                            <th style="width: 10%;" class="text-center">##</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                        <tr [pSelectableRow]="rowData">
+                            <td class="text-center">
+                                {{rowIndex+1}}
+                            </td>
+                            <td>{{rowData.roleId}}</td>
+                            <td>{{rowData.roleNm}}</td>
+                            <td class="text-center">
+                                <input class="form-check-input" type="checkbox" value="true" [checked]="rowData.checked" (change)="onClickCheck(rowIndex,rowData.checked)">
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="10"><div class="text-center">{{'table.noContentToDisplay' | translate}}</div></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+

@@ -1,0 +1,18 @@
+<div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body text-center p-5">
+              
+
+              <div class="mt-4">
+                  <h4 class="mb-3">{{ "course0104.quiz.quizDetail.congratulate" | translate }}</h4>
+                  <p class="text-muted mb-4">{{messages}}</p>
+                  <div class="hstack gap-2 justify-content-center">
+                      <a href="javascript:void(0);" (click)="leftButon()" class="btn btn-link shadow-none link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> {{nameLeft}}</a>
+                      <a href="javascript:void(0);" (click)="rightButon()" class="btn btn-success">{{nameRight}}</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

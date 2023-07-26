@@ -1,0 +1,135 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+          <div class="card ">
+              <div class="card-header ">
+                  <div class="row">
+                      <div class="col-xxl-2 col-md-2">
+                          <h2 class="card-title mb-0 flex-grow-1">Search</h2>
+                      </div>
+                      <div class="col-xxl-3 col-md-4">
+                          <div class="input-group">
+                              <span class="input-group-text">{{"bus.subscribe.clientName.title" | translate}}</span>
+                              <input type="text" class="form-control" placeholder="{{'bus.subscribe.clientName.title' | translate}}" [(ngModel)] = "keySearch">
+                          </div>
+                      </div>
+                      <!--end col-->
+                      <div class="col-xxl-3 col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text">{{"bus.subscribe.status.title"| translate }}</span>
+                            <p-dropdown [options]="statusList" [(ngModel)]="status" placeholder="{{'bus.subscribe.status.title' | translate}}" optionLabel="name" optionValue="value" appendTo="body"
+                                name="status" ></p-dropdown>
+                        </div>
+                    </div>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="getData(keySearch)">
+                          <i class="ri-search-line"></i>
+                      </button>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2" (click)="refresh()">
+                          <i class="ri-refresh-line"></i>
+                      </button>
+                      <!-- <button type="button" class="btn btn-primary position-relative p-0 avatar-xs rounded-circle ms-lg-2">
+                          <span class="avatar-title bg-transparent text-reset">
+                              <i class="ri-search-line"></i>
+                          </span>
+                      </button>
+                      <button type="button" class="btn btn-primary position-relative p-0 avatar-xs rounded-circle ms-lg-2">
+                          <span class="avatar-title bg-transparent text-reset">
+                              <i class="ri-refresh-line"></i>
+                          </span>
+                      </button> -->
+
+                  </div>
+                  <!--end row-->
+              </div>
+          </div>
+      </div>
+    </div>
+
+  <div class="row  justify-content-center">
+    <div class="col-xxl-9">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h2 class="card-title mb-0 flex-grow-1">{{"bus.subscribe.title" | translate}}</h2>
+                <div class="flex-shrink-0">
+                    <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end;">
+                        <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light" (click)="addLicense()" >
+                            <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                            {{'button.add.title' | translate}}</button>
+                    </div>
+                </div>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-12 mb-3">
+                        <div class="table-responsive mt-4 mt-xl-0">
+                            <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">{{"bus.subscribe.clientName.title"| translate }}</th>
+                                        <th scope="col">{{"bus.subscribe.installDate.title"| translate }}</th>
+                                        <th scope="col">{{"bus.subscribe.expiredDate.title"| translate }}</th>
+                                        <th scope="col">{{"bus.subscribe.updateDate.title"| translate }}</th>
+                                        <th scope="col">{{"bus.subscribe.totalPrice.title" | translate }}</th>
+                                        <th scope="col">{{"bus.subscribe.status.title"| translate }}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr  *ngFor="let license of licenseLst">
+                                    <td class="fw-medium">{{license.index}}</td>
+                                    <td>{{license.FULL_NAME}}</td>
+                                    <td>{{langUtil.displayDate(license.INS_DT) }}</td>
+                                    <td>{{langUtil.displayDate(license.EXPIRED_DT)}}</td>
+                                    <td *ngIf="license.UPDATE_DT">{{ langUtil.displayDate(license.UPDATE_DT)}}</td>
+                                    <td *ngIf="!license.UPDATE_DT">----</td>
+                                    <td >₩{{license.TOTAL_PRICE}}</td>
+                                    <td *ngIf="license.STATUS == 1"><i class="ri-checkbox-circle-line align-middle text-success"></i> {{"bus.subscribe.status.subscribed.title" | translate}}</td>
+                                    <td *ngIf="license.STATUS == 0"><i class="ri-close-circle-line align-middle text-danger"></i> {{"bus.subscribe.status.unSubscribed.title" | translate}}</td>
+
+                                    <td>
+                                      <div class="hstack flex-wrap gap-4">
+                                        <a href="javascript:void(0);" class="link-primary" (click)="modifyLicense(license)" tooltipPosition="top" pTooltip="{{'button.edit.title' | translate}}">
+                                            <i class="ri-edit-line fs-4 fs-4"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="link-danger" *ngIf="license.STATUS == 1" (click)="changeStatus(license)" tooltipPosition="top" pTooltip="{{'bus.subscribe.tooltip.unSubscribe.title' | translate}}">
+                                            <i class="mdi mdi-cancel fs-4"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="link-success" *ngIf="license.STATUS == 0" (click)="changeStatus(license)" tooltipPosition="top" pTooltip="{{'bus.subscribe.tooltip.subscribe.title' | translate}}">
+                                            <i class="ri-restart-line fs-4"></i>
+                                        </a>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="licenseLst.length == 0">
+                                  <td colspan="10">
+                                    <div class="text-center">
+                                      {{ "table.noContentToDisplay" | translate }}
+                                    </div>
+                                  </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf="licenseLst.length > 0" class="col-xxl-12">
+                        <app-paginator [totalRecords]="totalSubscribe" (onPageChange)="getPaging($event)"></app-paginator>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+
+            </div><!-- end card-body -->
+        </div><!-- end card -->
+      </div>
+    <!-- end col -->
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog> </p-confirmDialog>

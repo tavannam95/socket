@@ -1,0 +1,11 @@
+.is_disabled {
+  /*cursor: default;*/
+  /*text-decoration: none;*/
+  pointer-events: none;
+
+}
+
+.is_active {
+  pointer-events: auto;
+
+}

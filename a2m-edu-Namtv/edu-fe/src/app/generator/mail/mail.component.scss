@@ -1,0 +1,79 @@
+.attachments {
+  display: flex;
+  min-height: 100px;
+  border: solid thin;
+  border-radius: 10px;
+}
+.attach {
+  min-width: 45px;
+  border-right: solid thin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    color: white;
+    font-size: xx-large;
+  }
+}
+.list-attach {
+  width: 100%;
+  .row {
+    margin: 5px;
+    a {
+      color: white;
+    }
+    .col-lg-8 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 270px;
+      width: 270px;
+    }
+  }
+}
+:host {
+  ::ng-deep {
+    .ui-autocomplete {
+      .ui-inputtext {
+        background: #2f323f !important;
+      }
+    }
+  }
+}
+.show-menu{
+  display: flex;
+}
+.hide-menu{
+  display: none;
+}
+.menu-bar-mobile {
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 250px;
+  height: 100vh;
+  position: fixed;
+  z-index: 1500;
+  top: 0;
+  right: 0;
+  padding: 0;
+}
+.mail-menu-btn {
+  display: none;
+}
+@media screen and (max-width: 990px) {
+  .menu-bar {
+    display: none;
+  }
+  .mail-menu-btn {
+    display: block;
+  }
+}
+@media screen and (min-width: 990px) {
+  .menu-bar-mobile {
+    display: none;
+  }
+}
+
+.dropdown-toggle-split span{
+  margin-left: -5px;
+}

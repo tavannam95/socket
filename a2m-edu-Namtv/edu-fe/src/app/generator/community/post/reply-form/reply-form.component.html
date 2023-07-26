@@ -1,0 +1,11 @@
+<div class="row g-3">
+  <div class="col-12">
+    <ckeditor name="lectureContent" [(ngModel)]="reply.replyContent" [config]="configCkeditor"
+      (change)="onEditorChange($event)">
+    </ckeditor>
+  </div>
+  <div class="col-12 text-end" *ngIf="reply.replyContent.trim() != ''">
+    <button (click)="onSave()" type="button" class="btn btn-success">{{ 'community.button.reply' | translate }}</button>
+    
+  </div>
+</div>

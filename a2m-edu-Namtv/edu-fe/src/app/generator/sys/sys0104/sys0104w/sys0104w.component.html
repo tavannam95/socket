@@ -1,0 +1,91 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 ">
+            <div class="modal-header p-3">
+                <h2 class="card-title mb-0">{{ 'form.menu.title.2' | translate }}</h2>
+                    <span class="ms-2">(<em class="text-danger mx-1">* </em>{{ 'common.isRequired' | translate }}.)</span>
+                <button type="button" class="btn-close" (click)="onCancel()"></button>
+            </div>
+            <div class="modal-body">
+                <form #myForm ="ngForm">
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="commNm" class="form-label-inline">{{ 'sys.sys0104.commNm' | translate }}</label>
+                            <span class="text-danger ms-2">*</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <p-calendar [(ngModel)]="dateValue" name="dateValue" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-calendar>
+                            <!-- <input type="text" required class="form-control " id="commNm" name="commNm" placeholder="{{ 'sys.sys0104.commNm' | translate }}" [(ngModel)]="request.commNm" #commNm="ngModel"> -->
+                            <div class="invalid-error" *ngIf="commNm.invalid && (commNm.dirty || commNm.touched)">
+                                <span *ngIf="commNm.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="commNm" class="form-label-inline">{{ 'sys.sys0104.commNm' | translate }}</label>
+                            <span class="text-danger ms-2">*</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="commNm" name="commNm" placeholder="{{ 'sys.sys0104.commNm' | translate }}" [(ngModel)]="request.commNm" #commNm="ngModel">
+                            <div class="invalid-error" *ngIf="commNm.invalid && (commNm.dirty || commNm.touched)">
+                                <span *ngIf="commNm.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="commNmEn" class="form-label-inline">{{'sys.sys0104.commNmEn' | translate }}</label>
+                            <span class="text-danger ms-2">*</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="commNmEn" name="commNmEn" placeholder="{{'sys.sys0104.commNmEn' | translate }}" [(ngModel)]="request.commNmEn" #commNmEn="ngModel">
+                            <div class="invalid-error" *ngIf="commNmEn.invalid && (commNmEn.dirty || commNmEn.touched)">
+                                <span *ngIf="commNmEn.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="commNmVi" class="form-label-inline">{{'sys.sys0104.commNmVi' | translate}}</label>
+                            <span class="text-danger ms-2">*</span>      
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" required class="form-control " id="commNmVi" name="commNmVi" placeholder="{{'sys.sys0104.commNmVi' | translate}}" [(ngModel)]="request.commNmVi" #commNmVi="ngModel">
+                            <div class="invalid-error" *ngIf="commNmVi.invalid && (commNmVi.dirty || commNmVi.touched)">
+                                <span *ngIf="commNmVi.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="commDescription" class="form-label-inline">{{'sys.sys0104.description' | translate}}</label>
+                            <span class="text-danger ms-2">*</span>
+                        </div>
+                        <div class="col-lg-8">
+                            <textarea class="form-control " id="commDescription" name="commDescription" placeholder="{{'sys.sys0104.description' | translate}}" [(ngModel)]="request.description" #description="ngModel" rows="3"></textarea>
+                            <!-- <input type="" required class="form-control " id="commDescription" name="commDescription" placeholder="Menu name VI" [(ngModel)]="request.description" #description="ngModel"> -->
+                            <div class="invalid-error" *ngIf="description.invalid && (description.dirty || description.touched)">
+                                <span *ngIf="description.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="parentCommCd" class="form-label-inline">{{ 'sys.sys0104.parentCommCd' | translate }}</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <p-dropdown [options]="parents" class="prime-" [(ngModel)]="request.upCommCd" optionLabel="label" optionValue="value" name="upCommCd"></p-dropdown>
+                        </div>
+                    </div>
+                    
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

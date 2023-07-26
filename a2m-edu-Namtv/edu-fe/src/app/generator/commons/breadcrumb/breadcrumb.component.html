@@ -1,0 +1,20 @@
+<div class="row breadcrumb-position">
+  <div class="col-12">
+    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+      <h4 class="mb-sm-0">{{currentMenu ? currentMenu[language] : ''}}</h4>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="/"><i href="/" class="ri-home-2-line"></i></a>
+            <!--                    <a routerLink="/"><i class="ri-home-2-line"></i></a>-->
+          </li>
+
+          <li [hidden]="parentMenu != {}" class="breadcrumb-item"><a
+            href="javascript: void(0);">{{parentMenu ? parentMenu[language] : ''}}</a></li>
+          <li class="breadcrumb-item active">{{currentMenu ? currentMenu[language] : ''}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

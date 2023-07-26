@@ -1,0 +1,243 @@
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+          <!-- {{ "course0103.listchapterTitle" | translate }} -->
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+            *ngIf="commonService.permModify(course.insUid, true) && typeView=='VIEW'"
+              (click)="showUpdateCourseForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.edit.title" | translate }}
+            </button>
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+              <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+                {{ "sys3.userDetail.buttonCancel" | translate }}
+              </button>
+            </div>
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+              <button type="button" class="btn btn-primary" (click)="saveAll(myForm.invalid)">
+                {{ "sys3.userDetail.buttonSave" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form #myForm="ngForm" style="padding-right: 2%;">
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="displayStatus-user" class="form-label-inline">{{
+                "sys3.userDetail.displayStatus" | translate
+                }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+
+            <div class="col-lg-9"  *ngIf="typeView!='VIEW'">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="public">
+                  {{"sys.sys0103.status.public" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="displayStatus" id="public"
+                  (change)="course.displayStatus=true" [checked]="course.displayStatus == true">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="private">
+                  {{"sys.sys0103.status.private" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="displayStatus" id="private"
+                  (change)="course.displayStatus=false" [checked]="course.displayStatus == false">
+              </span>
+            </div>
+
+            <div class="col-lg-9"  *ngIf="typeView=='VIEW'">
+              <span class="text-dark text-break" *ngIf="course.displayStatus == true">
+                <label class="form-check-label" for="public">
+                  {{"sys.sys0103.status.public" | translate }}
+                </label>
+              </span>
+              <span class="text-dark text-break" *ngIf="course.displayStatus == false">
+                <label class="form-check-label" for="private">
+                  {{"sys.sys0103.status.private" | translate }}
+                </label>
+              </span>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="status-user" class="form-label-inline">{{
+                "common.title.status" | translate
+                }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+
+            <div class="col-lg-9"  *ngIf="typeView!='VIEW'">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="active"
+                  (change)="course.status=true;course.isComingSoon=false" [checked]="course.status == true" [disabled]="typeView=='VIEW'">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="disable"
+                  (change)="course.status=false;course.isComingSoon=false" [checked]="course.status == false"[disabled]="typeView=='VIEW'">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="comingSoon">
+                  {{"sys3.userDetail.isComingSoon" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="comingSoon"
+                  (change)="course.status=true;course.isComingSoon=true" [checked]="course.isComingSoon == true"[disabled]="typeView=='VIEW'">
+              </span>
+            </div>
+
+            <div class="col-lg-9"  *ngIf="typeView=='VIEW'">
+              <span class="text-dark text-break" *ngIf="course.status == true && course.isComingSoon == false">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+              </span>
+              <span class="text-dark text-break" *ngIf="course.status == false && course.isComingSoon == false">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+              </span>
+              <span class="text-dark text-break" *ngIf="course.isComingSoon == true">
+                <label class="form-check-label" for="comingSoon">
+                  {{"sys3.userDetail.isComingSoon" | translate }}
+                </label>
+              </span>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="username" class="form-label-inline">{{"common.title.name" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="courseNm" [submitted]="submitted" [(inpValue)]="course.courseNm" [vc]="typeView" elmType="INP" type="text"
+              [minlength]=4 [required]="true" placeholder="{{'course0201.course.plcCourseName' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div *ngIf="courseId" class="row mb-3">
+            <div class="col-lg-3">
+              <label for="username" class="form-label-inline">{{"common.title.code" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div  class="col-lg-9">
+              <app-inp-vc name="courseCode"  [submitted]="submitted" [(inpValue)]="course.courseCode" [vc]="typeView" elmType="DISABLE"
+              [required]="true" placeholder="{{'course0201.course.plcCourseCode' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="courseGoal" class="form-label-inline">{{
+                "edu.edu0102.courseGoal" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="courseGoal" [(inpValue)]="course.courseGoal" [vc]="typeView" elmType="AREA" style="height: 150px"
+              placeholder="{{'course0201.course.plcGoal' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="couterContent" class="form-label-inline">{{
+                "common.title.content" | translate
+                }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <ckeditor name="couterContent" [(ngModel)]="course.courseContent" [config]="configCkeditor" (change)="onEditorChange($event)">
+              </ckeditor>
+              <input type="text" hidden required class="form-control " id="courseContentRequired" name="courseContentRequired" [(ngModel)]="course.courseContent" #courseContentRequired="ngModel"
+                [ngClass]="{ 'is-invalid': (courseContentRequired.invalid && submitted) || (courseContentRequired.invalid && (courseContentRequired.dirty || courseContentRequired.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(courseContentRequired.invalid && submitted) || courseContentRequired.invalid && (courseContentRequired.dirty || courseContentRequired.touched)">
+                <span *ngIf="courseContentRequired.errors?.['required']">{{ 'course0201.course.content.required' | translate }}</span>
+              </div>
+
+            </div>
+            <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="mx-n3">
+                          <div data-simplebar style="max-height: 400px;" class="px-3 text-dark text-break">
+                            <div [innerHtml]="course.courseContent | safeHtml" data-simplebar>
+                            </div>
+                          </div>
+                      </div>
+                  </div><!-- end card-body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="courseEndDate" class="form-label-inline">{{
+                "edu.edu0102.thumb" | translate
+                }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+                    <div class="row justify-content-center">
+                      <div class="col-12 " *ngIf="typeView!='VIEW'">
+                        <input accept="image/*" #inputFile hidden type="file" (change)="onSelectImgFile($event)" (ngModel)="img" />
+                        <button class="btn btn-success btn-sm" (click)="inputFile.click()">{{"button.chooseFile.title" | translate }}</button>
+
+                        <input type="text" hidden required class="form-control " id="imgNm" name="imgNm" [(ngModel)]="course.imgNm" #imgNm="ngModel"
+                          [ngClass]="{ 'is-invalid': (imgNm.invalid && submitted) || (imgNm.invalid && (imgNm.dirty || imgNm.touched))}" />
+                        <div class="invalid-error"
+                          *ngIf="(imgNm.invalid && submitted) || imgNm.invalid && (imgNm.dirty || imgNm.touched)">
+                          <span *ngIf="imgNm.errors?.['required']">{{ 'course0201.course.thumbnail.required' | translate }}</span>
+                        </div>
+
+
+                      </div>
+                        <!-- <div class="col-9">
+                            <img #imgViewer width="100%" height="300" alt="thumbnail-image" [hidden]="disable">
+                        </div> -->
+                    </div>
+
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="courseEndDate" class="form-label-inline"></label>
+            </div>
+            <div class="col-lg-3">
+              <img #imgViewer width="100%" height="80%" alt="thumbnail-image" [hidden]="disable">
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+
+<p-confirmDialog #confirmDialog key="courseForm">
+</p-confirmDialog>

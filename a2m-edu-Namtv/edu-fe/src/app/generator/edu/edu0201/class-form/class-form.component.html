@@ -1,0 +1,343 @@
+<div class="modal-content border-0">
+  <div class="card-header align-items-center d-flex flex-row-reverse ">
+    <button *ngIf="classId" (click)="gotoCourse(class)" type="button"class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+      <i  class="ri-eye-fill label-icon align-middle fs-16 ms-2"></i> {{"edu.edu0201.viewCourse" | translate}}</button>
+    <button *ngIf="showStatistical" (click)="goToStatisticalCourse(class, tsstUser.userInfoId)" type="button"class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light justify-content-center">
+      <i  class="ri-pie-chart-2-fill label-icon align-middle fs-16 ms-2 "></i> {{"edu.edu0201.overviewCourse" | translate}}</button>
+    <button  *ngIf="classId && typeView == 'VIEW' && checkView" (click)="editClass()" type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+      <i  class="ri-settings-4-fill label-icon align-middle fs-16 ms-2"></i> {{"edu.edu0201.editClass" | translate}}
+    </button>
+    <button *ngIf="typeView == 'MODIF' || !classId" [disabled] = "myForm.invalid == true" (click)="onSave(myForm.invalid)"  type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+      <i  class="  ri-save-fill label-icon align-middle fs-16 ms-2"></i> {{ "sys3.userDetail.buttonSave" | translate }}
+    </button>
+    <button (click)="goBack()"  type="button"  class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light ">
+      <i  class="  ri-close-circle-fill label-icon alirgn-middle fs-16 ms-2"></i> {{ "sys3.userDetail.buttonCancel" | translate }}
+    </button>
+  </div>
+
+  <div class="card-body" style="min-height: 700px; ">
+    <form #myForm="ngForm">
+      <div class="row mb-3">
+        <div class="col-lg-3">
+          <label for="className" class="form-label-inline">{{"edu.edu0201.className" | translate}}<span
+              class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+        </div>
+        <div class="col-lg-9">
+
+          <app-inp-vc name="className" [submitted]="submitted" [(inpValue)]="class.className"
+            [vc]="typeView" elmType="INP" type="text" [minlength]=4
+            requiredMin="{{'message.requiredMin' |translate }}" [required]="true"
+            requiredMessage="{{ 'message.requiredClassName' | translate}}"
+            placeholder="{{'sys5.Detail.placeholderClassName' | translate}}"></app-inp-vc>
+
+        </div>
+      </div>
+
+      <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+      <div *ngIf="classId" class="row mb-3">
+        <div class="col-lg-3">
+          <label for="classCode" class="form-label-inline">{{"edu.edu0201.classCode" | translate}}<span
+              class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+        </div>
+        <div class="col-lg-9">
+
+          <app-inp-vc name="classCode" [submitted]="submitted" [(inpValue)]="class.classCode"
+            [vc]="typeView" elmType="DISABLE" type="text" [required]="true"
+            placeholder="# placeholder class code"></app-inp-vc>
+
+        </div>
+
+        <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+      </div>
+        <div class="row mb-3">
+          <div class="col-lg-3">
+            <label for="classType" class="form-label-inline">{{"edu.edu0201.classType" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+          </div>
+          <div class="col-lg-9">
+              <app-inp-vc name="classType"
+              [submitted]="submitted"
+              [(inpValue)]="class.classType"
+              [optionsDropDown]="classTypeList" optionLabel="label" optionValue="commCd"  [vc]="typeView" elmType="DROPDOWN" type="text"
+              [required]="true" requiredMessage="{{ 'message.requiredOrganizationFormal' | translate}}" placeholder="{{'sys4.classDetail.placeholderClassType' | translate}}"></app-inp-vc>
+          </div>
+        </div>
+
+        <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+        <div class="row mb-3">
+          <div class="col-lg-3">
+            <label for="organization" class="form-label-inline">{{"edu.edu0201.classStatus" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+          </div>
+          <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+            <span class="form-check form-check-inline">
+              <label class="form-check-label" for="happening">
+                {{"edu.edu0201.happening" | translate }}
+              </label>
+
+              <input class="form-check-input" type="radio" name="classStatus" id="happening"
+                (change)="class.classStatus  = true ; class.isStart = true; class.isFinish = false"
+                [checked]="class.isStart == true">
+            </span>
+            <span class="form-check form-check-inline">
+              <label class="form-check-label" for="noStart">
+                {{"edu.edu0201.noStart" | translate }}
+              </label>
+              <input class="form-check-input" type="radio" name="classStatus" id="noStart"
+                (change)="class.classStatus  = true ; class.isStart = false; class.isFinish = false"
+                [checked]="class.isStart == false">
+            </span>
+            <span class="form-check form-check-inline">
+              <label class="form-check-label" for="isFinish">
+                {{"sys.sys0103.status.finish" | translate }}
+              </label>
+              <input class="form-check-input" type="radio" name="classStatus" id="isFinish"
+                (change)="class.classStatus  = true ; class.isFinish = true; class.isStart = true"
+                [checked]="class.isFinish == true">
+            </span>
+            <span class="form-check form-check-inline">
+              <label class="form-check-label" for="blocked">
+                {{"sys.sys0103.status.blocked" | translate }}
+              </label>
+              <input class="form-check-input" type="radio" name="classStatus" id="blocked"
+                (change)="class.classStatus  = false ; class.isFinish = false; class.isStart = true"
+                [checked]="class.classStatus == false">
+            </span>
+          </div>
+          <div class="col-lg-9" *ngIf="typeView=='VIEW'">
+              <label class="form-label-inline" style="color: black;margin-top: 1%;" *ngIf="class.classStatus == true && class.isFinish != true && class.isStart == true" class="form-check-label" for="active">
+                {{"edu.edu0201.happening" | translate }}
+              </label>
+              <label class="form-label-inline" style="color: black;margin-top: 1%;" *ngIf="class.classStatus == true && class.isFinish != true && class.isStart != true" class="form-check-label" for="disable">
+                {{"edu.edu0201.noStart" | translate }}
+              </label>
+              <label class="form-label-inline" style="color: black;margin-top: 1%;" *ngIf="class.classStatus == true && class.isFinish == true && class.isStart == true" class="form-check-label" for="disable">
+                {{"sys.sys0103.status.finish" | translate }}
+              </label>
+              <label class="form-label-inline" style="color: black;margin-top: 1%;" *ngIf="class.classStatus != true && class.isFinish != true && class.isStart == true" class="form-check-label" for="disable">
+                {{"sys.sys0103.status.blocked" | translate }}
+              </label>
+
+          </div>
+        </div>
+
+        <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+        <div class="row mb-3">
+          <div class="col-lg-3">
+            <label for="Course" class="form-label-inline">{{"course0102.subjectDetail.course" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+          </div>
+          <div class="col-lg-9" >
+            <app-inp-vc name="Course"
+            [submitted]="submitted"
+            [(inpValue)]="class.courseId"
+            [optionsDropDown]="courseList" optionLabel="courseNm" optionValue="key" [inpLable]="class.courseModel ? class.courseModel.courseNm: ''" [vc]="typeView" elmType="DROPDOWN" type="text"
+            [required]="true" requiredMessage="{{ 'message.requiredCourse' | translate}}" placeholder="{{'course0102.subjectDetail.placeholderCourse' | translate}}"></app-inp-vc>
+          </div>
+        </div>
+
+        <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="startDate" class="form-label-inline">{{'edu.edu0201.startDate' | translate}}
+                <span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class=" col-lg-9">
+              <app-inp-vc name="startDate" [submitted]="submitted" [(inpValue)]="class.startDate"
+                [vc]="typeView" elmType="CALENDAR" type="text" [required]="true"
+                requiredMessage="{{ 'message.requiredStartDate' | translate}}"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="endDate" class="form-label-inline">{{'edu.edu0201.endDate' |translate}}</label>
+            </div>
+            <div class=" col-lg-9">
+              <app-inp-vc name="endDate" [submitted]="submitted" [(inpValue)]="class.endDate"
+                [vc]="typeView" elmType="CALENDAR" type="text"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="classType" class="form-label-inline">  {{ "edu.edu0201.ListStudent" | translate }} </label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <button type="button" (click)="showStudentForm()"class="btn rounded-pill btn-primary waves-effect waves-light"
+              style="position: absolute;right: 13px;">{{ "edu.edu0201.Students" | translate}}</button>
+            </div>
+          </div>
+          <div *ngIf="checkList.length!=0">
+            <table class="table table-hover table-striped align-middle table-nowrap mb30">
+              <thead class="">
+                <tr>
+                  <th scope="col">
+                    {{ "edu.edu0201.no" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.FullName" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.dateOfBirth" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.cellPhone" | translate }}
+                  </th>
+                  <th *ngIf="typeView!='VIEW'" scope="col">
+                    {{ "sys3.columns.action" | translate }}
+                  </th>
+                  <th scope="col" style="text-align: center;" [hidden]="showStatistical">
+                    {{ "edu.edu0201.statistic" | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of checkList">
+                  <td scope="col">{{ student.index }}</td>
+                  <td scope="col">
+                    <!-- {{ student.eamStudentInfo.position }} -->
+                    {{student.fullName != null ? student.fullName : ''}}
+                  </td>
+                  <td scope="col">
+                    <!-- {{ student.eamStudentInfo.organization }} -->
+                    {{(student.dob != null ? student.dob : '')| date: 'dd/MM/yyyy'}}
+                  </td>
+                  <td scope="col">{{student.cellPhone != null ? student.cellPhone : ''}}</td>
+                  <td *ngIf="typeView!='VIEW'">
+                    <button pButton pRipple type="button" icon="pi pi-times"
+                      class="p-button-rounded p-button-danger"
+                      (click)="removeClass(student.key)"></button>
+                  </td>
+                  <td scope="col" [hidden]="showStatistical">
+                    <div class=" hstack gap-3 fs-15 justify-content-center" [hidden]="student.showStatistical">
+                      <a href="javascript:void(0);" class="link-primary" tooltipPosition="top"
+                        pTooltip=" {{'edu.edu0201.overviewCourse' | translate}}" (click)="goToStatisticalCourse(class, student.key)">
+                        <i class="ri-pie-chart-2-fill label-icon align-middle fs-16 ms-2 "></i></a>
+                    </div>
+                    <!-- <div style="position: relative; left: 25%">
+                      <button   type="button"class="mr-10 btn rounded-pill btn-primary btn-label waves-effect right waves-light justify-content-center">
+                        <i class="ri-pie-chart-2-fill label-icon align-middle fs-16 ms-2 "></i></button>
+                    </div> -->
+
+                  </td>
+                <tr *ngIf="checkList.length == 0">
+                  <td colspan="10">
+                    <div class="text-center">
+                      {{ "table.noContentToDisplay" | translate }}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+            <div class="row mb-3" [hidden]="!disable">
+              <div class="col-lg-3">
+                <label class="form-label-inline" style="color: black;">
+                  {{"sys3.userDetail.status" | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-3">
+            <div class="col-lg-3" >
+              <label for="classType" class="form-label-inline"> {{ "edu.edu0201.ListTeacher" | translate }}  </label>
+            </div>
+            <div class="col-lg-9" *ngIf="typeView!='VIEW'">
+              <!-- <button type="button" (click)="showTeacherForm()" class="btn btn-icon btn-primary waves-effect waves-light shadow-none" style="position: absolute;right: 13px;" ><i class="ri-menu-2-line"></i></button> -->
+              <button type="button" (click)="showTeacherForm()"
+                class="btn rounded-pill btn-primary waves-effect waves-light"
+                style="position: absolute;right: 13px;">{{ "edu.edu0201.Teachers" | translate
+                }}</button>
+            </div>
+          </div>
+          <div *ngIf="checkTeacherList.length!=0">
+            <table class="table table-hover table-striped align-middle table-nowrap mb-0">
+              <thead class="">
+                <tr>
+                  <th scope="col">
+                    {{ "edu.edu0201.no" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.FullName" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.dateOfBirth" | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ "edu.edu0201.cellPhone" | translate }}
+                  </th>
+                  <th *ngIf="typeView!='VIEW'" scope="col">
+                    {{ "sys3.columns.action" | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let teacher of checkTeacherList">
+                  <td scope="col">{{ teacher.index }}</td>
+                  <td scope="col">
+                    <!-- {{ teacher.eamteacherInfo.position }} -->
+                    {{teacher.fullName != null ? teacher.fullName : ''}}
+                  </td>
+                  <td scope="col">
+                    <!-- {{ teacher.eamteacherInfo.organization }} -->
+                    {{(teacher.dob != null ? teacher.dob : '')| date: 'dd/MM/yyyy'}}
+                  </td>
+                  <td scope="col">{{teacher.cellPhone != null ? teacher.cellPhone : ''}}</td>
+                  <td *ngIf="typeView!='VIEW'">
+                    <button pButton pRipple type="button" icon="pi pi-times"
+                      class="p-button-rounded p-button-danger"
+                      (click)="removeTeacher(teacher.key)"></button>
+                  </td>
+                <tr *ngIf="checkTeacherList.length == 0">
+                  <td colspan="10">
+                    <div class="text-center">
+                      {{ "table.noContentToDisplay" | translate }}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-light" mat-button mat-dialog-close routerLink="/edu/edu0201">
+      {{ "sys3.userDetail.buttonCancel" | translate }}
+    </button> -->
+    <!-- <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+=======
+  <div class="modal-footer" *ngIf="typeView!='VIEW'">
+    <!-- <button type="button" class="btn btn-light" mat-button mat-dialog-close routerLink="/edu/edu0201">
+      {{ "sys3.userDetail.buttonCancel" | translate }}
+    </button> -->
+  <div class="modal-footer" *ngIf="typeView!='VIEW'">
+    <!-- <button type="button" class="btn btn-light" mat-button mat-dialog-close routerLink="/edu/edu0201">
+      {{ "sys3.userDetail.buttonCancel" | translate }}
+    </button> -->
+
+  <!-- <div class="modal-footer" *ngIf="typeView!='VIEW'"> -->
+    <!-- <button type="button" class="btn btn-light" mat-button mat-dialog-close routerLink="/edu/edu0201">
+      {{ "sys3.userDetail.buttonCancel" | translate }}
+    </button> -->
+    <!-- <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+
+      {{ "sys3.userDetail.buttonSave" | translate }}
+    </button> -->
+  </div>
+</div>

@@ -1,0 +1,315 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h2 class="card-title mb-0 flex-grow-1">
+          <!-- {{ "course0103.listchapterTitle" | translate }} -->
+        </h2>
+        <div class="flex-shrink-0">
+          <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+            <button type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+            [hidden]="checkView || typeView!='VIEW'"
+              (click)="showUpdateSubjectForm()">
+              <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "button.edit.title" | translate }}
+            </button>
+
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+              <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+                {{ "sys3.userDetail.buttonCancel" | translate }}
+              </button>
+            </div>
+            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end" *ngIf="typeView != 'VIEW'">
+              <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+                {{ "course0102.subjectDetail.buttonSave" | translate }}
+              </button>
+            </div>
+            <button (click)="exportPDF()" *ngIf="subjectId != ''" type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+              <i class="ri-file-ppt-line label-icon align-middle fs-16 ms-2"></i>
+              {{ "course0104.quiz.quizDetail.exportPDF" | translate }}
+            </button>
+            <button (click)="exportDoc(subjectId)" *ngIf="subjectId != ''" type="button"
+                class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+                <i class="ri-file-ppt-line label-icon align-middle fs-16 ms-2"></i>
+                {{ "course0104.quiz.quizDetail.exportDoc" | translate }}
+                <!-- exportDoc -->
+              </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <form #myForm="ngForm" style="padding-right: 2%;">
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="status-user" class="form-label-inline">{{
+                "common.title.status" | translate
+                }}</label>
+            </div>
+
+            <div class="col-lg-10" *ngIf="typeView!='VIEW'">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="active"
+                  (change)="subject.status  = true" [checked]="subject.status == true">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="disable"
+                  (change)="subject.status  = false" [checked]="subject.status == false">
+              </span>
+            </div>
+
+            <div class="col-lg-10" *ngIf="typeView=='VIEW'">
+              <span class="text-dark text-break" *ngIf="subject.status == true">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+              </span>
+              <span class="text-dark text-break" *ngIf="subject.status != true">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+              </span>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="subjectNm" class="form-label-inline">{{"common.title.name" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-10">
+              <!-- doan add -->
+              <app-inp-vc name="subjectNm" [submitted]="submitted" [(inpValue)]="subject.subjectNm" [vc]="typeView" elmType="INP"
+              [minlength]=4 [required]="true" placeholder="{{'course0102.subjectDetail.placeholderSubjectNm' | translate}}"></app-inp-vc>
+
+              <!-- <input type="text" required class="form-control " id="subjectNm" name="subjectNm" minlength="4"
+                placeholder="{{'course0102.subjectDetail.placeholderSubjectNm' | translate}}"
+                [(ngModel)]="subject.subjectNm" #subjectNm="ngModel"
+                [ngClass]="{ 'is-invalid': (subjectNm.invalid && submitted) || (subjectNm.invalid && (subjectNm.dirty || subjectNm.touched))}" /> -->
+
+              <!-- <div class="invalid-error"
+                *ngIf="(subjectNm.invalid && submitted) || subjectNm.invalid && (subjectNm.dirty || subjectNm.touched)">
+                <span *ngIf="subjectNm.errors?.['required']">{{ 'message.requiredFullName' | translate
+                  }}</span>
+                <span *ngIf="subjectNm.errors?.['minlength']">{{'message.requiredMin' |
+                  translate }}</span>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div *ngIf="subjectId" class="row mb-3">
+            <div class="col-lg-2">
+              <label for="subjectCode" class="form-label-inline">{{"common.title.code" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-10">
+              <app-inp-vc name="subjectCode" [submitted]="submitted" [(inpValue)]="subject.subjectCode" [vc]="typeView"  elmType="DISABLE"
+             [required]="true" placeholder="{{'course0102.subjectDetail.placeholderSubjectCode' | translate}}"></app-inp-vc>
+              <!-- <input type="text" required class="form-control " id="subjectCode" name="subjectCode"
+                placeholder="{{'course0102.subjectDetail.placeholderSubjectCode' | translate}}"
+                [(ngModel)]="subject.subjectCode" #subjectCode="ngModel"
+                [ngClass]="{ 'is-invalid': (subjectCode.invalid && submitted) || (subjectCode.invalid && (subjectCode.dirty || subjectCode.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(subjectCode.invalid && submitted) || subjectCode.invalid && (subjectCode.dirty || subjectCode.touched)">
+                <span *ngIf="subjectCode.errors?.['required']">{{ 'message.requiredSubjectCode' | translate
+                  }}</span>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="teacher" class="form-label-inline">{{"course0102.subjectDetail.tearcher" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView!='VIEW'">
+              <p-dropdown appendTo="body" placeholder="{{'course0102.subjectDetail.placeholderTeacher' | translate}}" [required]="true"
+              [ngClass]="{ 'ng-invalid ng-dirty': (teacherModel.invalid && submitted) || teacherModel.invalid && (teacherModel.dirty || teacherModel.touched)}"
+              name="teacherModel" #teacherModel="ngModel"
+              [required]="true" [options]="listTeacher" [(ngModel)]="subject.teacherModel"
+              optionLabel="fullName"  [ngModelOptions]="{ standalone: true }">
+              </p-dropdown>
+
+              <input type="text" hidden required class="form-control " id="teacher" name="teacher"
+              placeholder="{{'course0102.subjectDetail.placeholderCourse' | translate}}"
+              [(ngModel)]="subject.teacherModel" #teacher="ngModel"
+              [ngClass]="{ 'is-invalid': (teacher.invalid && submitted) || (teacher.invalid && (teacher.dirty || teacher.touched))}" />
+
+              <div class="invalid-error"
+                *ngIf="(teacher.invalid && submitted) || teacher.invalid && (teacher.dirty || teacher.touched)">
+                <span *ngIf="teacher.errors?.['required']">{{ 'message.requiredTeacher' | translate}}</span>
+              </div>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView=='VIEW'">
+              <label rows="3" class="form-label-inline text-dark text-break">{{ subject.teacherModel.fullName }}
+            </label>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3 align-items-center">
+            <div class="col-lg-2 align-items-center">
+              <label for="assist" class="form-label-inline">{{"course0102.subjectDetail.assisst" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView!='VIEW'">
+              <p-dropdown appendTo="body" placeholder="{{'course0102.subjectDetail.placeholderAssist' | translate}}" [required]="true"
+                [ngClass]="{ 'ng-invalid ng-dirty': (assistModel.invalid && submitted) || assistModel.invalid && (assistModel.dirty || assistModel.touched)}"
+                name="assistModel" #assistModel="ngModel"
+                [required]="true" [options]="listAssist" [(ngModel)]="subject.tsstUser"
+                optionLabel="tsstUserInfo.fullName"  [ngModelOptions]="{ standalone: true }">
+              </p-dropdown>
+
+              <input type="text" hidden required class="form-control " id="assist" name="assist"
+              placeholder="{{'course0102.subjectDetail.placeholderCourse' | translate}}"
+              [(ngModel)]="subject.tsstUser" #assist="ngModel"
+              [ngClass]="{ 'is-invalid': (assist.invalid && submitted) || (assist.invalid && (assist.dirty || assist.touched))}" />
+
+              <div class="invalid-error"
+                *ngIf="(assist.invalid && submitted) || assist.invalid && (assist.dirty || assist.touched)">
+                <span *ngIf="assist.errors?.['required']">{{ 'message.requiredAssist' | translate}}</span>
+              </div>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView=='VIEW'">
+              <label rows="3" class="form-label-inline text-dark text-break">{{ subject.tsstUser.tsstUserInfo.fullName }}
+            </label>
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="position" class="form-label-inline">{{
+                "course0102.subjectDetail.course" | translate
+                }}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+
+            <div class="col-lg-10" *ngIf="typeView=='VIEW'">
+              <label class="form-label-inline" style="color: black;">{{courseNm}}</label>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView!='VIEW'">
+              <p-multiSelect #listClassCheckedvalid="ngModel" [options]="courseList"
+                [(ngModel)]="subject.listCourse" name="Add for course" defaultLabel="Choose Course"
+                optionLabel="courseNm" [style]="{'width':'100%'}"></p-multiSelect>
+            </div>
+          </div>
+
+          <!-- <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="startDt" class="form-label-inline">{{ "course0102.subjectDetail.startDt" | translate }}</label>
+            </div>
+            <div class=" col-lg-10">
+              <div class="form-icon right ">
+                <p-calendar placeholder="{{'common.template.dateformat' | translate}}"
+                  [(ngModel)]="subject.startDt" name="startDt" #startDt="ngModel"
+                  dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body">
+                </p-calendar>
+                <i class="ri-calendar-2-fill"></i>
+              </div>
+            </div>
+
+          </div> -->
+
+          <!-- <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="endDt" class="form-label-inline">{{ "course0102.subjectDetail.endDt" | translate }}</label>
+            </div>
+            <div class=" col-lg-10">
+              <div class="form-icon right ">
+                <p-calendar placeholder="{{'common.template.dateformat' | translate}}"
+                  [(ngModel)]="subject.endDt" name="endDt" #endDt="ngModel"
+                  dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body">
+                </p-calendar>
+                <i class="ri-calendar-2-fill"></i>
+              </div>
+            </div>
+
+          </div> -->
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="subjectGoal" class="form-label-inline">{{
+                "course0102.subjectDetail.subjectGoal" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-10">
+              <app-inp-vc name="subjectGoal" [(inpValue)]="subject.subjectGoal" [vc]="typeView" elmType="AREA"
+              placeholder="{{'course0102.subjectDetail.placeholderSubjectGoal' | translate}}"></app-inp-vc>
+              <!-- <textarea class="form-control" rows="3" placeholder="{{'course0102.subjectDetail.placeholderSubjectGoal' | translate}}"
+                id="subjectGoal" name="subjectGoal" [(ngModel)]="subject.subjectGoal" #subjectGoal="ngModel"></textarea> -->
+            </div>
+          </div>
+
+          <div class="border border-dashed" *ngIf="typeView=='VIEW'"></div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="subjectContent" class="form-label-inline">{{"common.title.content" | translate}}<span class="text-danger" *ngIf="typeView!='VIEW'"> *</span></label>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView!='VIEW'">
+              <ckeditor name="subjectContent" [(ngModel)]="subject.subjectContent" [config]="configCkeditor" (change)="onEditorChange($event)">
+              </ckeditor>
+              <input type="text" hidden required class="form-control " id="subjectContentRequired" name="subjectContentRequired" [(ngModel)]="subject.subjectContent" #subjectContentRequired="ngModel"
+              [ngClass]="{ 'is-invalid': (subjectContentRequired.invalid && submitted) || (subjectContentRequired.invalid && (subjectContentRequired.dirty || subjectContentRequired.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(subjectContentRequired.invalid && submitted) || subjectContentRequired.invalid && (subjectContentRequired.dirty || subjectContentRequired.touched)">
+                <span *ngIf="subjectContentRequired.errors?.['required']">{{ 'course0102.subjectDetail.content.required' | translate }}</span>
+              </div>
+            </div>
+            <div class="col-lg-10" *ngIf="typeView=='VIEW'">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="mx-n3">
+                          <div data-simplebar style="max-height: 400px;" class="px-3 text-dark text-break">
+                            <div [innerHtml]="subject.subjectContent | safeHtml" data-simplebar>
+                            </div>
+                          </div>
+                      </div>
+                  </div><!-- end card-body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+          <!-- <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="ordNo" class="form-label-inline">{{
+                "course0102.subjectDetail.ordNo" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-10">
+              <input type="number" class="form-control " id="ordNo" name="ordNo"
+                placeholder="{{'course0102.subjectDetail.placeholderOrdNo' | translate}}"
+                [(ngModel)]="subject.ordNo" #url="ngModel" />
+            </div>
+          </div> -->
+<!--
+          <div class="row mb-3" [hidden]="!disable"> -->
+
+
+        </form>
+      </div>
+      <!-- <div class="modal-footer" *ngIf="typeView != 'VIEW'">
+        <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+          {{ "course0102.subjectDetail.buttonSave" | translate }}
+        </button>
+      </div> -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<p-confirmDialog key="subject-mgt-form"> </p-confirmDialog>

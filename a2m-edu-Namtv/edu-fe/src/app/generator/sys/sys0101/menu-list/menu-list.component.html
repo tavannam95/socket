@@ -1,0 +1,174 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <app-breadcrumb></app-breadcrumb>
+        <!-- end page title -->
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-xxl-2 col-md-2">
+                                <h2 class="card-title mb-0 flex-grow-1">{{'common.search' | translate}}</h2>
+                            </div>
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text ">{{'sys.sys0101.menuName' | translate}}</span>
+                                    <input type="text" class="form-control" [(ngModel)]="pageRequest.menuNm" placeholder="{{'sys.sys0101.menuName' | translate}}">
+                                </div>
+                            </div>
+                            <!--end col-->
+                            <div class="col-xxl-3 col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text ">{{'sys.sys0101.status' | translate}}</span>
+                                    <div class="form-control-2">
+                                        <p-dropdown [options]="listStatus" [(ngModel)]="pageRequest.useYn" optionLabel="label" optionValue="value"></p-dropdown>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <!--end col-->
+
+                            <button (click)="onSearch()" type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2">
+                                <i class="ri-search-line"></i>
+                            </button>
+                            <button (click)="onSearchReset()" type="button" class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2">
+                                <i class="ri-refresh-line"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </div><!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-9">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h2 class="card-title mb-0 flex-grow-1">{{"sys.sys0101.title" | translate}}</h2>
+                        <div class="flex-shrink-0">
+                            <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end;">
+                                <button (click)="openPopup()" type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+                                    <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                                    {{'button.add.title' | translate}}</button>
+
+                                <!-- <button (click)="save()" type="button" class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill"><i
+                                        class="ri-save-fill label-icon align-middle rounded-pill fs-16 ms-2"></i> {{'button.save.title' | translate}}</button>
+                                <button (click)="onDelete()" type="button"  class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill">
+                                    <i class="bx bx-trash label-icon align-middle rounded-pill fs-16 ms-2"></i> {{'button.delete.title' | translate}}</button> -->
+                            </div>
+                        </div>
+                    </div><!-- end card header -->
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12 mb-3">
+                                <p-treeTable [resizableColumns]="true" responsiveLayout="scroll" styleClass="p-datatable-striped" dataKey="menuId" [value]="menus" [scrollable]="true"
+                                    scrollHeight="25vw" selectionMode="single">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <!-- <th></th> -->
+                                            <th class="display-sm">{{'sys.sys0101.menuId' | translate}}</th>
+                                            <!-- <th>{{'sys.sys0101.state' | translate}}</th> -->
+                                            <th>{{'sys.sys0101.menuName' | translate}}</th>
+                                            <th class="display-sm">{{'sys.sys0101.menuNameEn' | translate}}</th>
+                                            <th class="display-sm">{{'sys.sys0101.menuNameVi' | translate}}</th>
+                                            <th class="display-sm">{{'sys.sys0101.urlPath' | translate}}</th>
+                                            <th>{{'sys.sys0101.status' | translate}}</th>
+                                            <th class="display-sm">{{'sys.sys0101.order' | translate}}</th>
+                                            <th style="width: 20%;">##</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-rowIndex="rowIndex">
+                                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                                            <td class="display-sm">
+                                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                                {{rowData.menuId}}
+                                            </td>
+                                            <!-- <td>
+                                                {{rowData.state}}
+                                            </td> -->
+                                            <td>
+                                                <span class="visibility-sm"><p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler></span>
+                                                {{rowData.menuNm}}
+                                            </td>
+                                            <td class="display-sm">
+                                                {{rowData.menuNmEn}}
+                                            </td>
+                                            <td class="display-sm">
+                                                {{rowData.menuNmVi}}
+                                            </td>
+                                            <td class="display-sm">
+                                                {{rowData.url}}
+                                            </td>
+                                            <td>
+                                                <span class="status-lbl user-status_Y" *ngIf="rowData.useYn == 'Y'">{{'sys.sys0101.status.active' | translate}}</span>
+                                                <span class="status-lbl user-status_N" *ngIf="rowData.useYn !== 'Y'">{{'sys.sys0101.status.blocked' | translate}}</span>
+                                            </td>
+                                            <td class="display-sm">
+                                                {{rowData.ordNo}}
+                                            </td>
+                                            <td style="width: 20%;">
+                                                <span class="visibility-sm">
+                                                    <div class="dropdown"><button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                class="ri-more-fill"></i></button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a class="dropdown-item edit-list" href="javacript:void(0)" (click)="openPopup(rowData)"><i
+                                                                        class="ri-pencil-fill align-bottom me-2 text-muted"></i> {{'button.edit.title' |translate}}</a></li>
+                                                            <li class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item remove-list" href="javacript:void(0)" (click)="onDelete(rowData)"><i
+                                                                        class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> {{'button.delete.title' |translate}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                                <!-- <div class="btn-group visibility-sm">
+                                                    <button type="button" class="btn btn-primary " id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                        style="border-radius: 8px;padding: 5px 9px;">
+                                                        <i class="ri-menu-line"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="javascript:void(0);" (click)="openPopup(rowData)">{{'button.edit.title' | translate}}</a>
+                                                        <a class="dropdown-item" href="javascript:void(0);" (click)="onDelete(rowData)">{{'button.delete.title' | translate}}</a>
+                                                    </div>
+                                                </div> -->
+
+                                                
+                                                <div class="hstack flex-wrap gap-4">
+                                                    <a href="javascript:void(0);" (click)="openPopup(rowData)" class="link-primary display-sm" tooltipPosition="top"
+                                                        pTooltip="{{'button.edit.title' | translate}}">
+                                                        <i class="ri-edit-line fs-4 fs-4"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0);" (click)="onDelete(rowData)" class="link-primary display-sm" tooltipPosition="top"
+                                                        pTooltip="{{'button.delete.title' | translate}}">
+                                                        <i class="ri-delete-bin-6-line fs-4"></i>
+                                                    </a>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="summary">
+                                        <div style="text-align: left">
+                                        </div>
+                                    </ng-template>
+                                </p-treeTable>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div><!-- end card-body -->
+                </div><!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
+    <!-- container-fluid -->
+</div>
+
+<p-confirmDialog>
+</p-confirmDialog>
+<!-- <app-spinner [visible]="spinner"></app-spinner> -->

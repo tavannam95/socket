@@ -1,0 +1,92 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <!-- start page title -->
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+    <app-progress-bar></app-progress-bar>
+    <!-- end page title -->
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="card ">
+              <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist"
+                style="border-bottom: none;">
+                <li class="nav-item">
+                  <a id="tabSubject1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_COURSE_FORM"
+                    role="tab">{{'course.tab.course.form.title' | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a id="tabSubject2" (click)="changeTab(2)" class="nav-link " data-bs-toggle="tab" href="#MENU_COURSE_INFO"
+                    role="tab">{{'course.tab.course.info.title' | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a id ="tabSubject3" (click)="changeTab(3)" class="nav-link" data-bs-toggle="tab" href="#MENU_LIST_SUBJECT_MGT"
+                    role="tab">{{'course.tab.subject.list.title' | translate}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end row-->
+
+        <div class="row">
+          <!--Start Right Content -->
+          <div class="col-xxl-12">
+            <div class="tab-content text-muted">
+              <div class="tab-pane active" id="MENU_COURSE_FORM" role="tabpanel">
+                <app-course-form (save)="afterSave($event)" #courseForm></app-course-form>
+              </div>
+              <div class="tab-pane" id="MENU_COURSE_INFO" role="tabpanel">
+                <app-course-info (afterSave)="afterSave($event)" #courseInfo></app-course-info>
+              </div>
+              <div class="tab-pane" id="MENU_LIST_SUBJECT_MGT" role="tabpanel">
+                <app-list-subject  #subjectList ></app-list-subject>
+              </div>
+            </div>
+          </div>
+          <!--End Right Content -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- container-fluid -->
+</div>
+<p-confirmDialog #confirmDialog key="tabSubject">
+  <p-footer *ngIf="isSavedCourse">
+    <button
+      type="button"
+      pButton
+      label='{{ "course0201.course.courseList" | translate }}'
+      value="Update"
+      class="p-button-tertiary"
+      (click)="redirectByType('ListCourse')"></button>
+      <button
+        type="button"
+        pButton
+        label="{{'course.tab.course.editInfo.title' | translate}}"
+        (click)="redirectByType('CourseInfo')"
+      ></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog #courseInfoDialog key="courseInfo">
+  <p-footer >
+    <button
+      type="button"
+      pButton
+      label='{{ "course0201.course.courseList" | translate }}'
+      value="Update"
+      class="p-button-tertiary"
+      (click)="redirectByType('ListCourse')"></button>
+      <button
+      type="button"
+      pButton
+      label="{{'course.tab.subject.list.title' | translate}}"
+      (click)="redirectByType('ListSubject')"
+    ></button>
+  </p-footer>
+</p-confirmDialog>

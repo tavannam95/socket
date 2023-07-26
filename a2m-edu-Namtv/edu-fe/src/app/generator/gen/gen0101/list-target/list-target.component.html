@@ -1,0 +1,194 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- end page title -->
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-xxl-2 col-md-2">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  {{ "common.search" | translate }}
+                </h2>
+              </div>
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                    >{{ "gen.targetNameSearch" | translate }}</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    [(ngModel)]="pagingRequest.targetName"
+                    (keyup.enter)="search()"
+                  />
+                </div>
+              </div>
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                    >{{ "gen.statusSearch" | translate }}</span
+                  >
+                  <div class="form-icon right">
+                    <p-dropdown
+                      [options]="targetStatus"
+                      [(ngModel)]="pagingRequest.status"
+                      optionLabel="label"
+                      optionValue="code"
+                      appendTo="body"
+                      name="status"
+                    ></p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="search()"
+              >
+                <i class="ri-search-line"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearchReset()"
+              >
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <h2 class="card-title mb-0 flex-grow-1">
+              {{ "gen.listTargetTitle" | translate }}
+            </h2>
+            <div class="flex-shrink-0">
+              <div
+                class="d-flex flex-wrap gap-2"
+                style="justify-content: flex-end"
+              >
+                <button
+                  type="button"
+                  class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                  (click)="addNewTarget()"
+                >
+                  <i
+                    class="ri-pencil-fill label-icon align-middle fs-16 ms-2"
+                  ></i>
+                  {{ "gen.addButton" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
+                <div class="table-responsive mt-4 mt-xl-0">
+                  <table
+                    class="table table-hover table-striped align-middle table-nowrap mb-0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>{{ "gen.columns.targetName" | translate }}</th>
+                        <th>{{ "gen.columns.ip" | translate }}</th>
+                        <th>{{ "gen.columns.port" | translate }}</th>
+                        <th>
+                          {{ "gen.columns.databaseName" | translate }}
+                        </th>
+                        <th>{{ "gen.columns.username" | translate }}</th>
+                        <th>{{ "gen.columns.status" | translate }}</th>
+                        <th>{{ "gen.columns.connectType" | translate }}</th>
+                        <th>
+                          {{ "gen.columns.fileSavePath" | translate }}
+                        </th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let target of listTarget">
+                        <td>{{ target.index }}</td>
+                        <td>{{ target.targetName }}</td>
+                        <td>{{ target.ip }}</td>
+                        <td>{{ target.port }}</td>
+                        <td>{{ target.databaseName }}</td>
+                        <td>{{ target.username }}</td>
+                        <td>{{ target.status ? "Active" : "Deactive" }}</td>
+                        <td>{{ target.connectType.commNm }}</td>
+                        <td>{{ target.fileSavePath }}</td>
+                        <td>
+                          <div class="hstack flex-wrap gap-4">
+                            <a
+                              href="javascript:void(0);"
+                              (click)="updateTarget(target)"
+                              class="link-primary"
+                              tooltipPosition="top"
+                              pTooltip="{{ 'button.edit.title' | translate }}"
+                            >
+                              <i class="ri-edit-line fs-4 fs-4"></i>
+                            </a>
+                            <a
+                              href="javascript:void(0);"
+                              (click)="deleteTarget(target, $event)"
+                              class="link-primary"
+                              tooltipPosition="top"
+                              pTooltip="{{ 'button.delete.title' | translate }}"
+                            >
+                              <i class="ri-delete-bin-6-line fs-4"></i>
+                            </a>
+                            <a
+                              href="javascript:void(0);"
+                              (click)="checkConnect(target)"
+                              class="link-primary"
+                              tooltipPosition="top"
+                              pTooltip="{{
+                                'button.connection.title' | translate
+                              }}"
+                            >
+                              <i class="mdi mdi-connection fs-4"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="listTarget.length == 0">
+                        <td colspan="10">
+                          <div class="text-center">
+                            {{ "table.noContentToDisplay" | translate }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="listTarget.length > 0" class="col-xxl-12">
+                <app-paginator
+                  [totalRecords]="totalTarget"
+                  (onPageChange)="getPaging($event)"
+                ></app-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog> </p-confirmDialog>
+<app-spinner [visible]="spinner"></app-spinner>

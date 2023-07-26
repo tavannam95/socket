@@ -1,0 +1,69 @@
+<app-loader></app-loader>
+<div class="col-xl-12 mt-3">
+    <div class="card" style="height: 100%; box-shadow: none;">
+        <div class="card-body " style="height: 100%">
+            <div class="d-flex flex-column justify-content-between" style="height: 100%;">
+
+                <!-- header -->
+                <div class="row mb-2">
+                    <div class="col-lg-6">
+                        <h3 class="heading1">
+                            {{'mail.merge.gen.list' | translate}}
+                        </h3>
+                    </div>
+
+                    <div class="col-lg-6 button-items" style="text-align: right">
+                        <button (click)="closePopup()" class="btn btn-light btn-rounded">
+                            <i class="uil uil-arrow-left me-2"></i>
+                            <span>{{ "button.close.title" | translate }}</span>
+                        </button>
+                        <button (click)="onSend()" class="btn btn-info btn-rounded">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>{{'mail.merge.gen.send' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- modal -->
+                <div class="modal-body" style="height: 100%; overflow: auto; ">
+                    <ul class=" mb-3" style="padding-left: 0px">
+                        <li style="margin-top: 10px">
+
+                            <!-- p-table -->
+                            <p-table #table [columns]="salaryMails" [value]="salaryMails" [paginator]="true" [rows]="1"
+                                [scrollable]="true" scrollHeight="600px">
+                                <ng-template pTemplate="body" let-data>
+                                    <tr>
+                                        <td>
+                                            <div class="p-col-12 p-md-1">
+                                                <span> {{'mail.merge.gen.sender' | translate}} : </span>
+                                                <span>{{data.from}}</span>
+                                            </div>
+                                            <div class="p-col-12 p-md-1">
+                                                <span> {{'mail.merge.gen.title' | translate}} : </span>
+                                                <span>{{data.subject}}</span>
+                                            </div>
+                                            <div class="p-col-12 p-md-1">
+                                                <span> {{'mail.merge.gen.Receiver' | translate}} : </span>
+                                                <span>{{data.to[0]}}</span>
+                                            </div>
+                                            <div class="p-col-12 p-md-1" *ngIf="data.attachListName !== ''">
+                                                <span> {{'mail.merge.gen.fileAttachment' | translate}} : </span>
+                                                <span>{{data.attachListName}}</span>
+                                            </div>
+
+                                            <!-- <ckeditor id="reviewMailEditor" [(ngModel)]="data.content"
+                                                [config]="editorConfig" [editor]="Editor" [disabled]="isDisabled"
+                                                #myEditor></ckeditor> -->
+
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

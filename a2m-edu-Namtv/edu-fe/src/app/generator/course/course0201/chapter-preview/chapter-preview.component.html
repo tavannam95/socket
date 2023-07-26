@@ -1,0 +1,124 @@
+<div class="page-content" *ngIf="MODE == 'DEFAULT'">
+  <div class="container-fluid">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+    <bar-my-course></bar-my-course>
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header align-items-center">
+            <h2 class="card-title mb-0 flex-grow-1">{{chapter.chapterNm}}</h2>
+          </div>
+
+          <div class="card-body">
+            <h3>{{chapter.chapterGoal}}</h3>
+          </div>
+        </div>
+
+        <div class="card" [style.display]="chapter.chapterType == 'default'? '':'none' ">
+          <div class="card-body">
+            <div class="text-dark editer-view-img" [innerHTML]="chapter.chapterContent | safeHtml"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3" [style.display]="chapter.chapterType == 'default'? '':'none' ">
+              <div class="col-lg-2">
+                <label for="lectureContent" class="form-label-inline">{{
+                  "course0101.lectureDetail.lectureFile" | translate
+                  }}<span class="text-danger"> *</span></label>
+              </div>
+              <div class="col-lg-10">
+                <app-multi-upload [isCanDelete]="false" [isCanUpLoad]="false" [listTccoFile]="listFile" #upload>
+                </app-multi-upload>
+              </div>
+            </div>
+            <app-document-view [filePath]="filePath" [display]="chapter.chapterType == 'document'? '':'none'"></app-document-view>
+          </div>
+        </div>
+
+        <!-- <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-lg-2">
+                <label for="lectureContent" class="form-label-inline">{{
+                  "course0101.lectureDetail.addNewPost" | translate
+                  }}</label>
+              </div>
+              <div class="col-lg-10">
+                <app-form-post-form (saveSuccess)="insertPostSuccess()" [onlyInsert]="true" [referenceId]="chapterId" [referenceType]="postChapterType" [tags]="chapter.tags"></app-form-post-form>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="card">
+          <div class="card-body">
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="isViewPost = !isViewPost">{{ 'community.post.btnQnA' | translate }}</button>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-xxl-3">
+        <app-card-view-tag [jsonTags]="chapter.tags"></app-card-view-tag>
+        <!-- end card -->
+      </div>
+    </div>
+
+
+    <!-- <app-list-post-in-course #listPost [referenceType]="postChapterType" [referenceId]="chapterId" *ngIf="isViewPost"></app-list-post-in-course> -->
+    <app-list-post #listPost [referenceType]="postChapterType" [referenceId]="chapterId" [type]="'CHAPTER'"></app-list-post>
+  </div>
+</div>
+
+
+<div *ngIf="MODE == 'DIAGLOG'" id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{chapter.chapterNm}}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+      <div class="card-body" style="min-height: 800px; overflow-y: scroll; ">
+        <div class="row justify-content-center">
+          <div class="col-xxl-12">
+            <!-- <div class="card">
+              <div class="card-header align-items-center">
+                <h2 class="card-title mb-0 flex-grow-1">{{chapter.chapterNm}}</h2>
+              </div>
+
+              <div class="card-body">
+                <h3>{{chapter.chapterGoal}}</h3>
+              </div>
+            </div> -->
+
+            <div class="card" [style.display]="chapter.chapterType == 'default'? '':'none' ">
+              <div class="card-body">
+                <div class="text-dark editer-view-img" [innerHTML]="chapter.chapterContent | safeHtml"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-3" [style.display]="chapter.chapterType == 'default'? '':'none' ">
+                  <div class="col-2-2">
+                    <label for="lectureContent" class="form-label-inline">{{
+                      "course0101.lectureDetail.lectureFile" | translate
+                      }}<span class="text-danger"> *</span></label>
+                  </div>
+                  <div class="col-10">
+                    <app-multi-upload [isCanDelete]="false" [isCanUpLoad]="false" [listTccoFile]="listFile" #upload>
+                    </app-multi-upload>
+                  </div>
+                </div>
+                <app-document-view [filePath]="filePath"
+                  [display]="chapter.chapterType == 'document'? '':'none'"></app-document-view>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

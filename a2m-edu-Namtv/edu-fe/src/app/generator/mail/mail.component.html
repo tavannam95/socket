@@ -1,0 +1,143 @@
+
+<div class="container-fluid mb-4">
+  <div class="row">
+    <div class="col-12 col-lg-2 menu-bar">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <h2 class="heading1">{{ "mail.title.heading" | translate }}</h2>
+
+            <!-- Signature setting -->
+            <i class="fas fa-cog" (click)="openMailSetting()" style="font-size: 20px" type="button"></i>
+          </div>
+
+          <!-- button -->
+          <div class="btn-group me-1 mt-2 w-100" ngbDropdown>
+
+            <!-- create mail -->
+            <button type="button" (click)="openCompose()" class="btn btn-danger" style="width: 85%">
+              {{ "mail.title.compose" | translate }}
+            </button>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="width: 15%"
+              ngbDropdownToggle>
+              <!-- <span><i class="mdi mdi-chevron-down"></i></span> -->
+            </button>
+
+            <!-- Merge mail -->
+            <div class="dropdown-menu w-100" ngbDropdownMenu>
+              <a class="dropdown-item" routerLink="/mail/mail0106" routerLinkActive="active">{{ "mail.title.mailMerge" | translate }}</a>
+            </div>
+          </div>
+
+          <!-- Menu mail -->
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0101" routerLinkActive="active">
+              <i class="mdi mdi-email-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.inbox" | translate }}
+              <span class="ms-1 float-end" id="countNewMail">({{ countNewMail }})</span>
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0103" routerLinkActive="active">
+              <i class="mdi mdi-file-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.draft" | translate }}
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0102" routerLinkActive="active">
+              <i class="mdi mdi-email-check-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.sent.mail" | translate }}
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0104" routerLinkActive="active">
+              <i class="mdi mdi-trash-can-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.trash" | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu mail -->
+    <div class="menu-bar-mobile" [class] = "isMenuMobile? 'show-menu': 'hide-menu'">
+      <div class="card h-100" style="margin-bottom: 0; border-radius: 0; min-width: 250px;">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <h2 class="heading1">{{ "mail.title.heading" | translate }}</h2>
+            <div class="text-end">
+              <i class="fas fa-cog mx-2" (click)="openMailSetting(); isMenuMobile = false" style="font-size: 20px" type="button"></i>
+              <i class="fas fa-close" (click)="isMenuMobile = false" style="font-size: 20px"></i>
+            </div>
+            <!-- Signature setting -->
+
+          </div>
+          <!-- <div class="tit-area d-flex">
+            <h2 class="heading1">{{ "mail.title.heading" | translate }}</h2>
+            <div class="text-end" style="margin-left: 100px">
+              <button href="" class="btn-close" (click)="isMenuMobile = false">
+                <span class="sr-only">닫기</span>
+              </button>
+            </div>
+          </div> -->
+
+          <div class="btn-group me-1 mt-2 w-100" ngbDropdown>
+            <button type="button" (click)="openCompose()" class="btn btn-danger" style="width: 85%">
+              {{ "mail.title.compose" | translate }}
+            </button>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="width: 15%"
+              ngbDropdownToggle>
+              <i class="mdi mdi-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu w-100" ngbDropdownMenu>
+              <a class="dropdown-item" routerLink="/mail/mail0106" routerLinkActive="active">{{ "mail.title.mailMerge" |
+                translate }}</a>
+            </div>
+          </div>
+
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0101" routerLinkActive="active">
+              <i class="mdi mdi-email-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.inbox" | translate }}
+              <span class="ms-1 float-end" id="countNewMail">({{ countNewMail }})</span>
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0103" routerLinkActive="active">
+              <i class="mdi mdi-file-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.draft" | translate }}
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0102" routerLinkActive="active">
+              <i class="mdi mdi-email-check-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.sent.mail" | translate }}
+            </a>
+          </div>
+          <div class="mail-list mt-4">
+            <a routerLink="/mail/mail0104" routerLinkActive="active">
+              <i class="mdi mdi-trash-can-outline font-size-16 align-middle me-2"></i>
+              {{ "mail.title.trash" | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right -->
+    <div class="col-12 col-lg-10">
+      <div class="card h-100">
+        <div class="card-body">
+
+          <!-- Button mobile show menu mail -->
+          <button type="button" class="btn btn-soft-success btn-icon btn-sm fs-16 mail-menu-btn mx-1"
+            (click)="isMenuMobile = true">
+            <i class="fa fa-fw fa-bars"></i>
+          </button>
+
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

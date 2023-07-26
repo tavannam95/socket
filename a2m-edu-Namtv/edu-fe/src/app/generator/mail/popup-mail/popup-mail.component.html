@@ -1,0 +1,265 @@
+<app-loader></app-loader>
+<div class="col-xl-12">
+  <div class="card">
+    <div class="card-body layerPopup-cus">
+
+      <div class="row">
+        <!-- tittle -->
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">
+            {{ "mail.popup.title" | translate }}
+          </h4>
+          <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+        </div>
+        <!-- <div class="mb-3">
+          <h4 class="modal-title">{{ "mail.popup.title" | translate }}</h4>
+          <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+        </div> -->
+
+        <!-- body -->
+        <div class="modal-content border-0" style="height: 100%">
+          <div class="modal-body" style=" overflow-y: scroll">
+            <!-- <div class="mb-3" style="max-height: 565px; overflow: auto"> -->
+
+            <!-- input title -->
+            <div class="mb-3 title-input">
+              <input id="title-mail-input" type="text" class="form-control"
+                placeholder="{{ 'mail.popup.titlePlaceholder' | translate }}" [(ngModel)]="smtpMessage.subject" />
+            </div>
+
+            <!-- form -->
+            <form [formGroup]="selectReceiverForm">
+              <div class="row mb-3">
+
+                <!-- mail to -->
+                <div class="col-lg-10">
+                  <!-- <ejs-multiselect #receiverSelect [dataSource]="filteredUsers" formControlName="receiverEmail"
+                    [allowCustomValue]="true" [fields]="fields" (focus)="onFocusMailSuggest()" placeholder="To"
+                    (select)="selectUser($event, 'TO')" (removed)="removeUser($event, 'TO')"></ejs-multiselect> -->
+                </div>
+
+                <!-- <p-autoComplete
+                [(ngModel)]="receiverEmail"
+                (onSelect)="selectUser($event, 'TO')"
+                [suggestions]="filteredUsers"
+                scrollHeight="190px"
+                [completeOnFocus]="true"
+                [autoHighlight]="true"
+                (completeMethod)="filterUser($event)"
+                [minLength]="1"
+                (keyup.enter)="selectUser($event, 'TO')"
+              >
+              </p-autoComplete> -->
+
+                <!-- recipient list -->
+                <div class="col-lg-1 d-flex align-items-center justify-content-end">
+                  <a (click)="openAttachReferer('toReceiver')" class="btn btn-info btn-rounded" style="float: right">
+                    <i class="fas fa-address-book"></i>
+                  </a>
+                </div>
+
+                <!-- CC and BCC -->
+                <div class="col-lg-1 d-flex align-items-center" *ngIf="!showCc && !showBcc">
+                  <a href="javascript:void(0)" (click)="onClickCc()"><span class="badge bg-info ms-1"
+                      style="font-size: 14px">CC</span></a>
+                  <a href="javascript:void(0)" (click)="onClickBcc()"><span class="badge bg-info ms-1"
+                      style="font-size: 14px">BCC</span></a>
+                </div>
+
+                <!-- <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                  <span
+                    class="badge rounded-pill bg-info ms-1"
+                    *ngFor="let item of listToReceiver; index as i"
+                  >
+                    {{ item.email
+                    }}<a href="javascript:void(0)" style="color: #2f323f"
+                      ><i
+                        class="fas fa-close"
+                        (click)="onDeleteReceiver(i, 'TO')"
+                      ></i
+                    ></a>
+                  </span>
+                </div>
+              </div> -->
+              </div>
+
+              <!-- show CC -->
+              <div class="row mb-3" *ngIf="showCc || listCcSelect.length != 0">
+                <div class="col-lg-10">
+                  <!-- <ejs-multiselect #ccSelect [dataSource]="filteredUsers" formControlName="ccEmail"
+                    [allowCustomValue]="true" [fields]="fields" (focus)="onFocusMailSuggest()" placeholder="CC"
+                    (select)="selectUser($event, 'CC')"></ejs-multiselect> -->
+
+                  <!-- <p-autoComplete
+                  [(ngModel)]="ccEmail"
+                  (onSelect)="selectUser($event, 'CC')"
+                  [suggestions]="filteredUsers"
+                  scrollHeight="190px"
+                  [completeOnFocus]="true"
+                  [autoHighlight]="true"
+                  (completeMethod)="filterUser($event)"
+                  [minLength]="1"
+                  (keyup.enter)="selectUser($event, 'CC')"
+                >
+                </p-autoComplete> -->
+                </div>
+                <div class="col-lg-1 d-flex align-items-center justify-content-end">
+                  <a (click)="openAttachReferer('toCc')" class="btn btn-info btn-rounded" style="float: right">
+                    <i class="fas fa-address-book"></i>
+                  </a>
+                </div>
+                <div class="col-lg-1 d-flex align-items-center" *ngIf="!showBcc">
+                  <a href="javascript:void(0)" (click)="onClickBcc()"><span class="badge bg-info ms-1"
+                      style="font-size: 14px">BCC</span></a>
+                </div>
+                <!-- <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                  <span
+                    class="badge rounded-pill bg-info ms-1"
+                    *ngFor="let item of listToCc; index as i"
+                  >
+                    {{ item.email
+                    }}<a href="javascript:void(0)" style="color: #2f323f"
+                      ><i
+                        class="fas fa-close"
+                        (click)="onDeleteReceiver(i, 'CC')"
+                      ></i
+                    ></a>
+                  </span>
+                </div>
+              </div> -->
+              </div>
+
+              <!-- show BCC -->
+              <div class="row mb-3" *ngIf="showBcc || listBccSelect.length != 0">
+                <div class="col-lg-10">
+                  <!-- <ejs-multiselect #bccSelect [dataSource]="filteredUsers" formControlName="bccEmail"
+                    [allowCustomValue]="true" [fields]="fields" (focus)="onFocusMailSuggest()" placeholder="BCC"
+                    (select)="selectUser($event, 'BCC')"></ejs-multiselect> -->
+                  <!-- <p-autoComplete
+                  [(ngModel)]="bccEmail"
+                  (onSelect)="selectUser($event, 'BCC')"
+                  [suggestions]="filteredUsers"
+                  scrollHeight="190px"
+                  [completeOnFocus]="true"
+                  [autoHighlight]="true"
+                  (completeMethod)="filterUser($event)"
+                  [minLength]="1"
+                  (keyup.enter)="selectUser($event, 'BCC')"
+                >
+                </p-autoComplete> -->
+                </div>
+                <div class="col-lg-1 d-flex align-items-center justify-content-end">
+                  <a (click)="openAttachReferer('toBcc')" class="btn btn-info btn-rounded" style="float: right">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sr-only">작성</span>
+                  </a>
+                </div>
+                <div class="col-lg-1 d-flex align-items-center" *ngIf="!showCc">
+                  <a href="javascript:void(0);" (click)="onClickCc()">
+                    <span class="badge bg-info ms-1" style="font-size: 14px">
+                      CC
+                    </span>
+                  </a>
+                </div>
+                <!-- <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                  <span
+                    class="badge rounded-pill bg-info ms-1"
+                    *ngFor="let item of listToBcc; index as i"
+                  >
+                    {{ item.email
+                    }}<a href="javascript:void(0)" style="color: #2f323f"
+                      ><i
+                        class="fas fa-close"
+                        (click)="onDeleteReceiver(i, 'BCC')"
+                      ></i
+                    ></a>
+                  </span>
+                </div>
+              </div> -->
+              </div>
+            </form>
+
+            <!-- ckeditor -->
+            <div class="mb-3">
+              <ckeditor id="editor" [(ngModel)]="smtpMessage.text" [config]="editorConfig" #myEditor
+                (ready)="onReady($event)"></ckeditor>
+            </div>
+
+            <!-- attachment -->
+            <div class="mb-3">
+              <div class="attachments">
+                <div class="attach">
+                  <a href="javascript:void(0);" (click)="clickBtnUpload()">
+                    <i class="mdi mdi-paperclip"></i>
+                  </a>
+                  <input type="file" name="file" class="form-control" id="attachment" multiple style="display: none"
+                    (change)="onSelectFile($event, 'SELECT')" />
+                  <!-- (change)="getFiles($event.target.files)" -->
+                </div>
+
+                <div class="list-attach">
+                  <div>
+                    <div class="row" *ngFor="let item of fileToUpload">
+                      <!-- <div *ngIf="item.size / 1000000 > 10" class="spinner-border text-primary m-1 " id="hideMe"></div> -->
+                      <div class="col-lg-8">
+                        <a href="javascript:void(0)" *ngIf="type === 'draft'"
+                          (click)="downloadAttachment(item)">
+                          <i class="fas fa-file-download me-2"></i>
+                          <strong style="margin-right: 5px">{{item.name}}</strong>
+                        </a>
+                        <a href="javascript:void(0)" *ngIf="type !== 'draft'">
+                          <i class="fas fa-file-download me-2"></i>
+                          <strong style="margin-right: 5px">{{item.name}}</strong>
+                        </a>
+                      </div>
+                      <div class="col-lg-1">
+                        <a href="javascript:void(0)">
+                          <strong>{{item.size / 1000000 | number: "1.2-2"}}
+                            Mb
+                          </strong>
+                        </a>
+                      </div>
+                      <div class="col-lg-1">
+                        <a href="javascript:void(0);" (click)="deleteAttachment(item.name)">
+                          <i class="fas fa-times"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- <ngb-progressbar class="m-3" *ngIf="spiner" [value]="uploadPer" showValue="true" height="15px" type="info"></ngb-progressbar> -->
+                  </div>
+                </div>
+              </div>
+              <!-- <ngb-progressbar [value]="50" showValue="true" height="15px" type="info"></ngb-progressbar> -->
+            </div>
+            <!-- </form> -->
+          </div>
+        </div>
+
+        <!-- button -->
+        <div class="button-items btn-wrap modal-footer">
+
+          <!-- save Draft -->
+          <button type="button" (click)="onSend('draft')" class="btn btn-secondary">
+            {{ "mail.popup.saveDraft" | translate }}
+          </button>
+
+          <!-- Send -->
+          <button type="button" (click)="onSend('submit')" class="btn btn-primary">
+            {{ "mail.popup.send" | translate }}
+            <i class="fab fa-telegram-plane ms-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- <a href="javascript:void(0);" (click)="onCancel()" class="btn-close">
+        <span class="sr-only">닫기</span>
+      </a> -->
+    </div>
+  </div>
+</div>

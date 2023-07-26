@@ -1,0 +1,59 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- <app-progress-bar></app-progress-bar> -->
+    <!-- end page title -->
+
+    <div class="row justify-content-center">
+      <!--Start Left Content -->
+      <!-- <i *ngIf="showHideIcon"   #iconShowHide  (click)="handleShowHide()"
+        class="ri-arrow-left-s-fill btn-showHide hiddenMobile"></i >
+      <div class="col-lg-3 hiddenMobile" [style.display]="showHide">
+        <app-sub-menu #subMenuTag [courseId]="this.courseId"  [data]="couSubjectLst"></app-sub-menu>
+      </div> -->
+      <!--End Left Content -->
+      <div class="col-xxl-9">
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="card ">
+              <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist"
+                style="border-bottom: none;">
+                <li class="nav-item">
+                  <a id="tabSubject1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#MENU_SCHUDLE_CALENDAR"
+                    role="tab">{{'edu.edu0204.schedule' | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a id="tabSubject2" (click)="changeTab(2)" class="nav-link " data-bs-toggle="tab" href="#MENU_LIST_SCHUDLE"
+                    role="tab">{{'edu.edu0204.listSchedule' | translate}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end row-->
+
+        <div class="row">
+          <!--Start Right Content -->
+          <div class="col-xxl-12">
+            <div class="tab-content text-muted">
+              <div class="tab-pane active" id="MENU_SCHUDLE_CALENDAR" role="tabpanel">
+                <app-schedule-calendar #ScheduleCalendar></app-schedule-calendar>
+              </div>
+              <div class="tab-pane" id="MENU_LIST_SCHUDLE" role="tabpanel">
+                <app-list-schedule #listSchedule></app-list-schedule>
+              </div>
+            </div>
+          </div>
+          <!--End Right Content -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- container-fluid -->
+</div>
+<!-- <p-confirmDialog>
+</p-confirmDialog> -->

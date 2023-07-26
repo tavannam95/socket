@@ -1,0 +1,37 @@
+<div class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content border-0 overflow-hidden">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0">{{'gen.editPopupEmail' | translate}}</h2>
+        <button type="button" class="btn-close" (click)="closePopup(0)"></button>
+      </div>
+      <form #form="ngForm" (ngSubmit)="onSave(form.invalid)">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="mb-3">
+                <label for="iconInput" class="form-label">{{"sys.email" | translate}}</label>
+                <div class="form-icon">
+                  <input type="email" class="form-control form-control-icon" id="iconInput" name="email" [email]="true"
+                    placeholder="example@gmail.com" [(ngModel)]="emailTmp"
+                    #email="ngModel" [ngClass]="{ 'is-invalid': (email.invalid && submitted) || (email.invalid && (email.dirty || email.touched))}"
+                    required>
+                  <i class="ri-mail-unread-line"></i>
+                </div>
+                <div class="invalid-error" *ngIf="(email.invalid && submitted) || email.invalid && (email.dirty || email.touched)">
+                    <span *ngIf="email.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="closePopup(0)">{{"button.cancel.title"| translate}}</button>
+          <button type="submit" class="btn btn-primary">{{"button.save.title"| translate }}</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

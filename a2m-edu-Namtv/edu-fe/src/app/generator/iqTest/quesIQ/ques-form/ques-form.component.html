@@ -1,0 +1,191 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- <app-progress-bar></app-progress-bar> -->
+    <!-- end page title -->
+
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-body">
+            <form #myForm="ngForm">
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="quesNm" class="form-label-inline">{{
+                    "iqTest.iqQues.columns.iqQuesNm" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+                <div class="col-lg-9">
+                  <input type="text" required class="form-control " id="quesNm" name="quesNm"
+                    placeholder="{{'iqTest.iqQues.iqQuesDetail.placeholderQuesNm' | translate}}"
+                    [(ngModel)]="ques.quesNm" #quesNm="ngModel"
+                    [ngClass]="{ 'is-invalid': (quesNm.invalid && submitted) || (quesNm.invalid && (quesNm.dirty || quesNm.touched))}" />
+                  <div class="invalid-error"
+                    *ngIf="(quesNm.invalid && submitted) || quesNm.invalid && (quesNm.dirty || quesNm.touched)">
+                    <span *ngIf="quesNm.errors?.['required']">{{ 'message.requiredIqQuesName' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="quesType" class="form-label-inline">{{
+                    "iqTest.iqQues.columns.iqQuesType" | translate
+                    }}</label>
+                </div>
+                <div class="col-lg-9">
+                  <p-dropdown appendTo="body"
+                    placeholder="{{'iqTest.iqQues.iqQuesDetail.placeholderIqQuesType' | translate}}" [required]="true"
+                    [options]="quesTypes" [(ngModel)]="ques.quesType" optionLabel="commNm"
+                    optionValue="commCd" [ngModelOptions]="{ standalone: true }" #quesType="ngModel"
+                    [ngClass]="{ 'ng-invalid ng-dirty': (quesType.invalid && submitted) || quesType.invalid && (quesType.dirty || quesType.touched)}">
+                  </p-dropdown>
+                  <div class="invalid-error"
+                    *ngIf="(quesType.invalid && submitted) || quesType.invalid && (quesType.dirty || quesType.touched)">
+                    <span *ngIf="quesType.errors?.['required']">{{ 'message.requiredIqQuesCategory' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="quesType" class="form-label-inline">{{
+                    "iqTest.iqQues.columns.iqQuesCategory" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+                <div class="col-lg-9">
+                  <p-dropdown appendTo="body"
+                    placeholder="{{'iqTest.iqQues.iqQuesDetail.placeholderIqQuesCategory' | translate}}" [required]="true"
+                    [options]="quesCategorys" [(ngModel)]="ques.quesCategory" optionLabel="commNm"
+                    optionValue="commCd" [ngModelOptions]="{ standalone: true }" #quesCategory="ngModel"
+                    [ngClass]="{ 'ng-invalid ng-dirty': (quesCategory.invalid && submitted) || quesCategory.invalid && (quesCategory.dirty || quesCategory.touched)}">
+                  </p-dropdown>
+                  <div class="invalid-error"
+                    *ngIf="(quesCategory.invalid && submitted) || quesCategory.invalid && (quesCategory.dirty || quesCategory.touched)">
+                    <span *ngIf="quesCategory.errors?.['required']">{{ 'message.requiredIqQuesCategory' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="lev" class="form-label-inline">{{
+                    "iqTest.iqQues.columns.iqQuesLevel" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+                <div class="col-lg-9">
+                  <p-dropdown appendTo="body"
+                    placeholder="{{'iqTest.iqQues.iqQuesDetail.placeholderIqQuesLevel' | translate}}" [required]="true"
+                    [options]="quesLevels" [(ngModel)]="ques.lev" optionLabel="commNm"
+                    optionValue="commCd" [ngModelOptions]="{ standalone: true }" #lev="ngModel"
+                    [ngClass]="{ 'ng-invalid ng-dirty': (lev.invalid && submitted) || lev.invalid && (lev.dirty || lev.touched)}">
+                  </p-dropdown>
+                  <div class="invalid-error"
+                    *ngIf="(lev.invalid && submitted) || lev.invalid && (lev.dirty || lev.touched)">
+                    <span *ngIf="lev.errors?.['required']">{{ 'message.requiredIqQuesLevel' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="ques.quesType == '09-02'">
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="meassageInput" class="form-label-inline">{{ "iqTest.iqQues.iqQuesDetail.questionContent" | translate }}</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <ckeditor name="quesContent" [(ngModel)]="ques.quesContent" [config]="configCkeditor">
+                    </ckeditor>
+                  </div>
+                </div>
+
+                <div class="row mb-3" *ngFor="let answer of ques.answerList; let answerIndex = index">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label-inline">{{ "iqTest.iqQues.iqQuesDetail.answerContent" | translate }} {{answerIndex+1}}</label>
+                  </div>
+                  <div class="col-lg-7">
+                      <input [(ngModel)]="answer.answerContent"  type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                      placeholder="Enter your content" #answerContent="ngModel"
+                      [ngClass]="{ 'is-invalid': (answerContent.invalid && submitted) || (answerContent.invalid && (answerContent.dirty || answerContent.touched))}" />
+                      <div class="invalid-error"
+                        *ngIf="(answerContent.invalid && submitted) || answerContent.invalid && (answerContent.dirty || answerContent.touched)">
+                        <span *ngIf="answerContent.errors?.['required']">{{ 'message.requiredIqQuesAnswer' | translate }}</span>
+                      </div>
+                    </div>
+                  <div class="col-lg-2">
+                    <button (click)="removeAnswer(ques.answerList, answerIndex, $event)" *ngIf="ques.answerList.length > 1" type="button" class="btn btn-light waves-effect"><i class="ri-checkbox-indeterminate-line"></i></button>
+                    <button (click)="addAnswer(ques.answerList)" *ngIf="answerIndex == ques.answerList.length - 1" type="button" class="btn btn-light waves-effect"><i class="ri-add-box-line"></i></button>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label-inline">{{ "iqTest.iqQues.iqQuesDetail.correctAnswer" | translate }}<span class="text-danger"> *</span></label>
+                  </div>
+                  <div class="col-lg-9">
+                    <p-multiSelect (onChange)="setCorrectAnswer(ques)" required #listClassCheckedvalid="ngModel" [options]="createMultiSelect(ques)"
+                      [(ngModel)]="ques.listAnswerCorrect" name="answerCorrectFlex" defaultLabel="Select Correct Answer"
+                      optionLabel="label" [style]="{'width':'100%'}"></p-multiSelect>
+                  </div>
+                </div>
+
+              </ng-container>
+              <ng-container *ngIf="ques.quesType == '09-01'">
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="meassageInput" class="form-label-inline">{{ "iqTest.iqQues.iqQuesDetail.questionContent" | translate }}</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <ckeditor name="quesContent" [(ngModel)]="ques.quesContent" [config]="configCkeditor">
+                    </ckeditor>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label-inline">{{ "iqTest.iqQues.iqQuesDetail.correctAnswer" | translate }}</label>
+                  </div>
+                  <div class="col-lg-9" >
+                    <input [(ngModel)]="ques.answerList[0].answerContent" name="answerCorrect" type="text" class="form-control"
+                    id="nameInput" placeholder="Enter your Answer Correct">
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="status-user" class="form-label-inline">{{
+                    "sys3.userDetail.status" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+
+                <div class="col-lg-9">
+                  <span class="form-check form-check-inline">
+                    <label class="form-check-label" for="active">
+                      {{"sys.sys0103.status.active" | translate }}
+                    </label>
+                    <input class="form-check-input" type="radio" name="status" id="active" (change)="ques.status=true"
+                      [checked]="ques.status == true">
+                  </span>
+                  <span class="form-check form-check-inline">
+                    <label class="form-check-label" for="disable">
+                      {{"sys.sys0103.status.blocked" | translate }}
+                    </label>
+                    <input class="form-check-input" type="radio" name="status" id="disable" (change)="ques.status=false"
+                      [checked]="ques.status == false">
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+              {{ "sys3.userDetail.buttonSave" | translate }}
+            </button>
+          </div>
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+  </div> <!-- container-fluid -->
+
+</div>

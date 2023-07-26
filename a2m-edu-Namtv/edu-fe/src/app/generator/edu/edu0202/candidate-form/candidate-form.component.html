@@ -1,0 +1,154 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ "sys3.userDetail.title" | translate }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll">
+        <form #myForm="ngForm">
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.PhoneNumber" | translate }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-10">
+              <span for="username" class="form-label-inline"> {{candidate.candidatePhone}}</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.Name" | translate }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-10">
+              <span for="username" class="form-label-inline"> {{candidate.candidateName==''?'':candidate.candidateName}}</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.Progress" | translate }}</label>
+            </div>
+
+            <div class="col-lg-10" style="margin-top: 15px;">
+              <span class="form-check form-check-inline">
+                <span class="form-check-label" for="Pending">
+                   {{ "edu.edu0202.Pending" | translate }}
+                </span>
+                <input class="form-check-input" type="radio" name="progress" id="Pending"
+                  (change)="candidate.candidateprogressType  = 'Chưa giải quyết'" [checked]="candidate.candidateprogressType == 'Chưa giải quyết'">
+              </span>
+              <span class="form-check form-check-inline">
+                <span class="form-check-label" for="InProgress">
+                   {{ "edu.edu0202.InProgress" | translate }}
+                </span>
+                <input class="form-check-input" type="radio" name="progress" id="InProgress"
+                  (change)="candidate.candidateprogressType  = 'Trong quá trình'" [checked]="candidate.candidateprogressType == 'Trong quá trình'">
+                </span>
+              <span class="form-check form-check-inline">
+                <span class="form-check-label" for="Confirm">
+                   {{ "edu.edu0202.Confirm" | translate }}
+                </span>
+                <input class="form-check-input" type="radio" name="progress" id="Confirm"
+                  (change)="candidate.candidateprogressType  = 'Đã xác nhận'" [checked]="candidate.candidateprogressType == 'Đã xác nhận'">
+                </span>
+              <span class="form-check form-check-inline">
+                <span class="form-check-label" for="Close">
+                  {{ "edu.edu0202.Close" | translate }}
+                </span>
+                <input class="form-check-input" type="radio" name="progress" id="Close"
+                  (change)="candidate.candidateprogressType  = 'Đóng'" [checked]="candidate.candidateprogressType == 'Đóng'">
+              </span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.Email" | translate }}</label>
+            </div>
+            <div class="col-lg-2">
+              <span for="username" class="form-label-inline"> {{candidate.candidateEmail==''||candidate.candidateEmail==null?'':candidate.candidateEmail}}</span>
+
+            </div>
+          </div>
+
+          <div class="row mb-3" *ngIf="candidate.courseModel.courseNm!=''||candidate.courseModel.courseNm!=null || candidate.courseModel.courseNm!=undefined">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.CourseReference" | translate }}</label>
+            </div>
+            <div class="col-lg-10">
+              <span for="username" class="form-label-inline"> {{candidate.courseModel.courseNm}}</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.Message" | translate }}<span class="text-danger"> </span></label>
+            </div>
+            <div class="col-lg-10">
+              <label for="username" class="form-label-inline"> {{candidate.candidateMessage==''||candidate.candidateMessage==null?'':candidate.candidateMessage}}<span class="text-danger"> </span></label>
+            </div>
+          </div>
+
+          <!-- <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.Status" | translate }}<span class="text-danger"> </span></label>
+            </div>
+            <div class="col-lg-10" *ngIf="candidate.candidateStatus == true">
+              {{'sys.sys0103.status.active' | translate}}
+            </div>
+            <div class="col-lg-10" *ngIf="candidate.candidateStatus == false">
+              {{'sys.sys0103.status.blocked' |
+                translate}}
+            </div>
+          </div> -->
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.InDt" | translate }}</label>
+            </div>
+            <div class="col-lg-10">
+              <span for="username" class="form-label-inline"> {{candidate.insDate | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline"> {{ "edu.edu0202.UpdateDate" | translate }}</label>
+            </div>
+            <div class="col-lg-10">
+              <span for="username" class="form-label-inline"> {{candidate.updDate | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="row mb-3" *ngIf="candidate.infoFile!=null || candidate.infoFile!= undefined">
+            <div class="col-lg-2">
+              <label for="username" class="form-label-inline">CV {{ "sys3.userDetail.title" | translate }}<span class="text-danger"> </span></label>
+            </div>
+            <div class="col-lg-10">
+              <button (click)="dowloadFile(candidate.infoFile)">{{candidate.infoFile.fleNm }}</button>
+            </div>
+          </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+                {{ "sys3.userDetail.buttonCancel" | translate }}
+              </button>
+              <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+                {{ "sys3.userDetail.buttonSave" | translate }}
+              </button>
+            </div>
+
+          </form>
+
+
+        </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

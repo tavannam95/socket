@@ -1,0 +1,141 @@
+
+<div class="row">
+
+    <!-- input search -->
+    <div class="col-12 col-lg-8">
+        <input class="form-control" #subject type="text" id="subject" [placeholder]=" 'mail.merge.placeholder.title' | translate"  [(ngModel)]="mailSalaryInfo.subject">
+    </div>
+
+    <!-- button send-->
+    <div class="col-12 col-lg-4 mt-1" style="text-align: end;">
+        <button type="button" class="btn btn-info btn-rounded" (click)="genExcelToMail()">
+            <i class="fas fa-pen me-2"></i> {{'mail.merge.genExcel' | translate}}
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3">
+
+    <!-- ckeditor -->
+    <div class="col-12 col-lg-8">
+        <!-- <ckeditor id="editor" [(ngModel)]="mailSalaryInfo.content" [config]="editorConfig" [editor]="Editor" #myEditor (ready)="onReady($event)"></ckeditor> -->
+    </div>
+
+    <!-- left -->
+    <div class="col-12 col-lg-4">
+
+        <!-- choose file merge -->
+        <div>
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.merge.uploadTemplate' | translate}} </h5>
+            </div>
+            <div>
+                <label for="salaryFile" class="custom-file-upload-mail" *ngIf="!isFileSalary">
+                    <i class="xi-cloud-upload-o"></i> {{'mail.merge.choose.file' | translate}}
+                </label>
+                <input type="file" name="salaryFile" id="salaryFile" accept=".xlsx, .xls" chooseLabel="Choose"(change)="uploadFileSalary($event)" *ngIf="!isFileSalary">
+                <span style="cursor: pointer;" *ngIf="isFileSalary">{{excelSalaryFileName}}</span>
+                <span class="btn-action text-danger" *ngIf="excelSalaryFileName" (click)="onRemoveFileSalary()" style="cursor: pointer;" title="Remove">
+                    {{'mail.merge.remove' | translate}}
+                </span>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- attachment -->
+        <div>
+            <div class="row">
+                <div class="col-6" style="font-size: 1.125rem; color: black;">{{'mail.merge.uploadFile' | translate}}</div>
+                <div class="col-6" style="text-align: end">
+                    <button type="button" class="btn btn-light btn-rounded" (click)="clickUlfSendAll()">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="document-info-lst-wrap mt-3">
+                <ul class="document-info-lst">
+                    <li *ngFor="let item of allSendFiles">
+                        <span class="d-flex justify-content-between align-items-center writer" style="margin-bottom: 5px; font-size: 14px;">
+                            <em class="team">{{item.name}}</em>
+                            <i class="xi-trash" (click)="deleteFileSendAll(item.name)" style="font-size: 1.5em; color: rgb(133, 133, 133);"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- <input type="file" style="display: none;" id="sendAllFiles" multiple (change)="getFilesSendAll($event.target.files)"> -->
+        </div>
+
+        <hr class="my-4">
+
+        <!-- column email -->
+        <div class="search-wrapper">
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.merge.column' | translate}}</h5>
+            </div>
+            <div class="input-wrap">
+                <input #gmailColumn type="text" [placeholder]=" 'mail.merge.placeholder.column' | translate"
+                 class="form-control" [(ngModel)]="mailSalaryInfo.gmailColumn">
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- start row -->
+        <div class="search-wrapper">
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.marge.startRow' | translate}}</h5>
+            </div>
+            <div class="input-wrap">
+                <input #startRow type="text"  [placeholder]=" 'mail.merge.placeholder.startRow' | translate" class="form-control"
+                    [(ngModel)]="mailSalaryInfo.startRow">
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- end row -->
+        <div class="search-wrapper">
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.merge.finishedRow' | translate}}</h5>
+            </div>
+            <div class="input-wrap">
+                <input #finishRow type="text" [placeholder]=" 'mail.merge.placeholder.finishRow' | translate" class="form-control"
+                    [(ngModel)]="mailSalaryInfo.finishRow">
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- attachment column -->
+        <div class="search-wrapper">
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.merge.attchmentColumn' | translate}}</h5>
+            </div>
+            <div class="input-wrap">
+                <input type="text" [placeholder]="'mail.merge.placeholder.attachment' | translate" class="form-control"
+                    [(ngModel)]="mailSalaryInfo.attachmentColumn">
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- choose folder -->
+        <div>
+            <div class="s-tit-wrap">
+                <h5 class="s-tit">{{'mail.merge.title.folder' | translate}} </h5>
+            </div>
+            <div>
+                <label for="folderPath" class="custom-file-upload-mail" *ngIf="!attachmentFolderName">
+                    <i class="xi-cloud-upload-o"></i> {{'mail.merge.choose.folder' | translate}}
+                </label>
+                <input type="file" name="folderPath" id="folderPath" chooseLabel="Choose"
+                    (change)="onFolderSelected($event)" webkitdirectory>
+                <span style="cursor: pointer;" *ngIf="attachmentFolderName">{{attachmentFolderName}}</span>
+                <span class="btn-action text-danger" *ngIf="attachmentFolderName" (click)="onRemoveFolder()" style="cursor: pointer;" title="Remove">
+                    {{'weekly-report.removefile' | translate}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

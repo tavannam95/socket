@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Mar 12 15:27:16 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a2m.mail.server.service.MailDraftDao">
+	<insert id="saveMailSggt" parameterType="map"
+		useGeneratedKeys="true" keyProperty="sggtId" keyColumn="SGGT_ID">
+		INSERT INTO
+		JAMES_MAIL_SGGT (
+		EMAIL,
+		CREATED_DATE,
+		USER_UID
+		) VALUES (
+		#{email},
+		CURRENT_TIMESTAMP,
+		#{userUid}
+		)
+	</insert>
+
+	<select id="getMailSggtList" parameterType="map"
+		resultType="map">
+		SELECT SGGT_ID as sggtId,
+		EMAIL as email,
+		CREATED_DATE as
+		createdDate
+		FROM JAMES_MAIL_SGGT
+		WHERE USER_UID = #{userUid}
+	</select>
+</mapper>

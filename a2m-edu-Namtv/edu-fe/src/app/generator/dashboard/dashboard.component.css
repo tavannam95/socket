@@ -1,0 +1,15 @@
+
+
+.row div.server.card{
+  min-height: 180px;
+}
+
+.card .card-body.chart1 {
+  padding: 2px 20px 20px 20px !important;
+  /*height: 300px;*/
+}
+
+
+.project-wrapper span.counter-value{
+  font-weight: 500;
+}

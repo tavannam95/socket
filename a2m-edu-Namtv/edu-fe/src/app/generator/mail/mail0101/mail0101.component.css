@@ -1,0 +1,39 @@
+
+
+.message-list li .col-mail-1 {
+  width: 230px;
+}
+
+.message-list li .col-mail-2 {
+  left: 250px;
+}
+
+.col-mail .col-mail-2 .active{
+    display: block;
+  }
+  .col-mail .col-mail-2 .none{
+    display: none;
+  }
+
+@media (max-width: 876.98px) {
+  .message-list li .col-mail-1 {
+    width: 150px;
+  }
+
+  .message-list li .col-mail-2 {
+    left: 160px;
+  }
+
+  .message-list li .col-mail-2 .subject{
+    right: 20px;
+  }
+
+  .col-mail .col-mail-2 .active{
+    display: none;
+  }
+
+  .col-mail .col-mail-2 .none{
+    display: block;
+  }
+}
+

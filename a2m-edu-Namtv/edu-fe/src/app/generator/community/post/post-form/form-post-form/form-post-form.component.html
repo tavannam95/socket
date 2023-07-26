@@ -1,0 +1,63 @@
+
+<div *ngIf="true" id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+      <div class="card-body" style="min-height: 800px; overflow-y: scroll; ">
+  <form #myForm="ngForm">
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label" for="project-title-input">{{ 'community.post.title' | translate }}</label>
+          <input type="text" required class="form-control " id="postTitle" name="postTitle" minlength="4" maxlength="80"
+            placeholder="{{ 'community.post.titlePlacehold' | translate }}"
+            [(ngModel)]="post.postTitle" #postTitle="ngModel"
+            [ngClass]="{ 'is-invalid': (postTitle.invalid && submitted) || (postTitle.invalid && (postTitle.dirty || postTitle.touched))}" />
+          <div class="invalid-error"
+            *ngIf="(postTitle.invalid && submitted) || postTitle.invalid && (postTitle.dirty || postTitle.touched)">
+            <span *ngIf="postTitle.errors?.['required']">{{ 'community.post.requiredTitle' | translate
+              }}</span>
+            <span *ngIf="postTitle.errors?.['minlength']">{{'message.requiredMin' |
+              translate }}</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">{{ 'community.post.content' | translate }}</label>
+          <ckeditor name="postContent" [(ngModel)]="post.postContent" [config]="configCkeditor"
+            (change)="onEditorChange($event)">
+          </ckeditor>
+          <input type="text" hidden required class="form-control " id="postContent" name="postContent"
+            [(ngModel)]="post.postContent" #postContent="ngModel"
+            [ngClass]="{ 'is-invalid': (postContent.invalid && submitted) || (postContent.invalid && (postContent.dirty || postContent.touched))}" />
+          <div class="invalid-error"
+            *ngIf="(postContent.invalid && submitted) || postContent.invalid && (postContent.dirty || postContent.touched)">
+            <span *ngIf="postContent.errors?.['required']">{{
+              'community.post.requiredContent' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <app-mat-chips-autocomplete-person [input]="post.listNotiModel" (response)="receiveArrUser($event)"></app-mat-chips-autocomplete-person>
+        </div>
+
+        <div class="mb-3">
+          <app-mat-chips-autocomplete [tagsJsonInput]="post.tags" (response)="receiveArrTag($event)"></app-mat-chips-autocomplete>
+        </div>
+
+      </div>
+      <!-- end card body -->
+    </div>
+  </form>
+  <!-- end card -->
+  <div class="text-end mb-4">
+    <button type="submit" class="btn btn-success w-sm" (click)="handleSave(myForm.invalid)">{{ 'community.button.save' | translate }}</button>
+  </div>
+</div>
+</div>
+</div>
+  <p-confirmDialog key="form-post-form"> </p-confirmDialog>

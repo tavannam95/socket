@@ -1,0 +1,279 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-xl">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ "edu.studentDetail.title" | translate }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+
+      <div class="card-body" style="max-height: 700px; min-height: 400px; overflow-y: scroll">
+        <form #myForm="ngForm">
+          <!-- <div class="row mb-3" [hidden]="excel"> -->
+          <div class="row mb-3">
+            <!-- <div class="col-lg-3">
+              <label for="username" class="form-label-inline">{{
+                "sys3.userDetail.userId" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div> -->
+            <div class="col-lg-2">
+              <a href="assets/file/templateSchedule.xls" type="button"
+                  class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+                  <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                  {{ "edu0101.downloadTemplateExcel" | translate }}
+              </a>
+            </div>
+            <div class="col-lg-2">
+              <input #inputFile hidden type="file"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              onclick="this.value = null" (change)="importExcel($event)" />
+
+              <button (click)="inputFile.click()" type="button"
+                class="btn rounded-pill btn-primary btn-label waves-effect right waves-light">
+                <i class="ri-file-add-line label-icon align-middle fs-16 ms-2"></i>
+                {{ "course0104.quiz.quizDetail.importExcel" | translate }}
+              </button>
+            </div>
+            <div class="col-lg-5">
+              <label class="">{{fileExcelNm}}</label>
+            </div>
+          </div>
+<!--
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{"sys3.userDetail.room" | translate}}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectRoom' | translate}}"
+                [ngClass]="{ 'ng-invalid ng-dirty': (room.invalid && submitted) || room.invalid && (room.dirty || room.touched)}"
+                name="roomChecked" #room="ngModel"
+                [required]="true" [options]="listRoom" [(ngModel)]="roomChecked"
+                optionLabel="roomNm"  [ngModelOptions]="{ standalone: true }">
+              </p-dropdown>
+
+              <input type="text" hidden required class="form-control " id="room" name="room"
+              placeholder="{{'sys3.userDetail.selectRoom' | translate}}"
+              [(ngModel)]="roomChecked" #room="ngModel"
+              [ngClass]="{ 'is-invalid': (room.invalid && submitted) || (room.invalid && (room.dirty || room.touched))}" />
+
+              <div class="invalid-error"
+                *ngIf="(room.invalid && submitted) || room.invalid && (room.dirty || room.touched)">
+                <span *ngIf="room.errors?.['required']">{{ 'message.requiredRoom' | translate}}</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{"sys3.userDetail.class" | translate}}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectClass' | translate}}" (onChange)="changeClass($event)"
+              [ngClass]="{ 'ng-invalid ng-dirty': (class.invalid && submitted) || class.invalid && (class.dirty || class.touched)}"
+              name="classChecked" #class="ngModel"
+              [required]="true" [options]="listClass" [(ngModel)]="classChecked"
+              optionLabel="className"  [ngModelOptions]="{ standalone: true }">
+            </p-dropdown>
+
+            <input type="text" hidden required class="form-control " id="class" name="class"
+            placeholder="{{'sys3.userDetail.selectClass' | translate}}"
+            [(ngModel)]="classChecked" #class="ngModel"
+            [ngClass]="{ 'is-invalid': (class.invalid && submitted) || (class.invalid && (class.dirty || class.touched))}" />
+
+            <div class="invalid-error"
+              *ngIf="(class.invalid && submitted) || class.invalid && (class.dirty || class.touched)">
+              <span *ngIf="class.errors?.['required']">{{ 'message.requiredClass' | translate}}</span>
+            </div>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{"sys3.userDetail.class" | translate}}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectClass' | translate}}" (onChange)="changeClass($event)"
+              [ngClass]="{ 'ng-invalid ng-dirty': (class.invalid && submitted) || class.invalid && (class.dirty || class.touched)}"
+              name="classChecked" #class="ngModel"
+              [required]="true" [options]="listClass" [(ngModel)]="classChecked"
+              optionLabel="className"  [ngModelOptions]="{ standalone: true }">
+            </p-dropdown>
+
+            <input type="text" hidden required class="form-control " id="class" name="class"
+            placeholder="{{'sys3.userDetail.selectClass' | translate}}"
+            [(ngModel)]="classChecked" #class="ngModel"
+            [ngClass]="{ 'is-invalid': (class.invalid && submitted) || (class.invalid && (class.dirty || class.touched))}" />
+
+            <div class="invalid-error"
+              *ngIf="(class.invalid && submitted) || class.invalid && (class.dirty || class.touched)">
+              <span *ngIf="class.errors?.['required']">{{ 'message.requiredClass' | translate}}</span>
+            </div>
+            </div>
+          </div>
+
+          <div class="row mb-3" [hidden]="hiddenSubject">
+            <div class="col-lg-3">
+              <label for="position" class="form-label-inline">{{"sys3.userDetail.subject" | translate}}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys3.userDetail.selectSubject' | translate}}"
+                [ngClass]="{ 'ng-invalid ng-dirty': (subject.invalid && submitted) || subject.invalid && (subject.dirty || subject.touched)}"
+                name="subjectChecked" #subject="ngModel"
+                [required]="true" [options]="listSubject" [(ngModel)]="subjectChecked"
+                optionLabel="subjectNm"  [ngModelOptions]="{ standalone: true }">
+              </p-dropdown>
+
+              <input type="text" hidden required class="form-control " id="subject" name="subject"
+              placeholder="{{'sys3.userDetail.selectSubject' | translate}}"
+              [(ngModel)]="subjectChecked" #subject="ngModel"
+              [ngClass]="{ 'is-invalid': (subject.invalid && submitted) || (subject.invalid && (subject.dirty || subject.touched))}" />
+
+              <div class="invalid-error"
+                *ngIf="(subject.invalid && submitted) || subject.invalid && (subject.dirty || subject.touched)">
+                <span *ngIf="subject.errors?.['required']">{{ 'message.requiredSubject' | translate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="startDate" class="form-label-inline">{{'edu.edu0201.startDate' | translate}}
+                <span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="startDate" [submitted]="submitted" [(inpValue)]="schedule.usageDate"
+                [vc]="typeView" elmType="CALENDAR" type="text" [required]="true" [minDate] = "minimumDate"
+                requiredMessage="{{ 'message.requiredStartDate' | translate}}"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="startDate" class="form-label-inline">{{'edu.edu0201.endDate' | translate}}
+                <span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <app-inp-vc name="startDate" [submitted]="submitted" [(inpValue)]="schedule.endDate"
+                [vc]="typeView" elmType="CALENDAR" type="text" [required]="true" [minDate] = "minimumDate"
+                requiredMessage="{{ 'message.requiredEndDate' | translate}}"
+                dateFormat="{{'common.template.dateformat' | translate}}"
+                placeholder="{{'common.template.dateformat' | translate}}"></app-inp-vc>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="startDate" class="form-label-inline"> {{'edu.edu0204.startEndTime' | translate }}
+                <span class="text-danger"> *</span>
+              </label>
+            </div>
+            <div class=" col-lg-9">
+              <div class="input-wrapper">
+                <div class="select-box">
+                    <p-calendar id="start_time" [(ngModel)]="schedule.startDate" name="start_time"
+                        [stepMinute]="10" [required]="true" [style]="{'width':'45%'}" [timeOnly]="true"
+                        [showTime]="true" [readonlyInput]="true" hourFormat="24"
+                        #start_time="ngModel" (onSelect)="onSelect($event, 'START_TIME')">
+                    </p-calendar>
+                    <span> ~ </span>
+                    <p-calendar id="end_time" [(ngModel)]="schedule.endDate" name="end_time"
+                        [stepMinute]="10" [required]="true" [style]="{'width':'45%'}" [timeOnly]="true"
+                        [showTime]="true" [readonlyInput]="true" hourFormat="24"
+                        #end_time="ngModel" (onSelect)="onSelect($event, 'END_TIME')">
+                    </p-calendar>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="modal-footer" [hidden]="disable">
+            <!-- <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+              {{ "sys3.userDetail.buttonCancel" | translate }}
+            </button> -->
+            <button type="button" class="btn btn-primary" (click)="onSaveAll(myForm.invalid)">
+              {{ "sys3.userDetail.buttonSave" | translate }}
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-xl-12 mb-3">
+                      <div class="table-responsive mt-4 mt-xl-0">
+                        <table id="excel-table" class="table table-hover table-striped align-middle table-nowrap mb-0">
+                          <thead class="">
+                            <tr>
+                              <th scope="col">
+                                {{ "sys4.columns.stt" | translate }}
+                              </th>
+                              <th scope="col">
+                                <input #multiCheckBox class="form-check-input" type="checkbox" (change)="handleMultiSelect($event)" >
+                              </th>
+                              <th scope="col">
+                                {{ "sys3.columns.fullName" | translate }}
+                              </th>
+                              <th scope="col">
+                                {{ "sys3.columns.dob" | translate }}
+                              </th>
+                              <th scope="col">
+                                {{ "sys3.columns.email" | translate }}
+                              </th>
+                              <th scope="col">
+                               {{ "sys3.columns.CellPhone" | translate }}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let student of listItemForExcel">
+                              <td scope="col" style="width: 3%;">{{ student.index }}</td>
+                              <td scope="col" style="width: 2%;">
+                                <input class="form-check-input" type="checkbox" [checked]="checkStudent(student)" (change)="handleListCheked(student)" >
+                              </td>
+                              <td scope="col" style="width: 20%;">
+                                <p class="trimText"> {{student.fullName != null ? student.fullName : '-'}}</p>
+                              </td>
+                              <td scope="col" style="width: 10%;">
+                                <p class="trimText" >{{(student.dob != null ? student.dob : '-') | date: 'dd/MM/yyyy'}}</p>
+                              </td>
+                              <td scope="col" class="col-xxl-2" style="width: 20%;">
+                                <p class="trimText">{{student.email != null ? student.email : '-'}}</p>
+                              </td>
+                              <td scope="col" style="width: 10%;" class="col-xxl-2">
+                                <p class="trimText" >{{student.cellPhone != null ? student.cellPhone : '-'}}</p>
+                              </td>
+                            </tr>
+
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!--end col-->
+                  </div>
+                  <!--end row-->
+                </div>
+                <!-- end card-body -->
+              </div>
+              <!-- end card -->
+            </div>
+            <!-- end col -->
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<p-confirmDialog>
+</p-confirmDialog>

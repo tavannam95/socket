@@ -1,0 +1,374 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- end page title -->
+
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-xxl-2 col-md-2">
+                <h2 class="card-title mb-0 flex-grow-1">
+                  {{ "common.search" | translate }}
+                </h2>
+              </div>
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                    >{{ "gen.projectNameSearch" | translate }}</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    (keyup.enter)="search()"
+                    [(ngModel)]="request.projectName"
+                  />
+                </div>
+              </div>
+              <div class="col-xxl-3 col-md-4">
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    id="inputGroup-sizing-default"
+                    >{{ "gen.statusSearch" | translate }}</span
+                  >
+                  <p-dropdown
+                    *ngIf="this.language == 'kr'"
+                    [options]="projectStatus"
+                    [(ngModel)]="request.status"
+                    optionLabel="commNm"
+                    optionValue="commCd"
+                  ></p-dropdown>
+                  <p-dropdown
+                    *ngIf="this.language == 'en'"
+                    [options]="projectStatus"
+                    [(ngModel)]="request.status"
+                    optionLabel="commNmEn"
+                    optionValue="commCd"
+                  ></p-dropdown>
+                  <p-dropdown
+                    *ngIf="this.language == 'vi'"
+                    [options]="projectStatus"
+                    [(ngModel)]="request.status"
+                    optionLabel="commNmVi"
+                    optionValue="commCd"
+                  ></p-dropdown>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="search()"
+                (keyup.enter)="search()"
+              >
+                <i class="ri-search-line"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary position-relative p-0 avatar-ssm rounded-circle ms-lg-2"
+                (click)="onSearchReset()"
+              >
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <div class="col-xl-6">
+              <h2 class="card-title mb-0 flex-grow-1">
+                {{ "gen.listProjectTitle" | translate }}
+              </h2>
+            </div>
+            <div class="col-xl-6">
+              <div class="flex-shrink-0">
+                <div
+                  class="d-flex flex-wrap gap-2"
+                  style="justify-content: flex-end"
+                >
+                  <button
+                    type="button"
+                    class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                    (click)="addNewProject()"
+                  >
+                    <i
+                      class="ri-pencil-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.addButton" | translate }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn rounded-pill btn-primary btn-label waves-effect right waves-light rounded-pill"
+                    (click)="deleteProject()"
+                  >
+                    <i
+                      class="bx bx-trash label-icon align-middle rounded-pill fs-16 ms-2"
+                    ></i>
+                    {{ "gen.deleteButton" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
+                <table
+                  class="table table-hover table-striped align-middle table-nowrap mb-0"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{{ "gen.columns.projectName" | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let project of listProject"
+                      (click)="onRowSelect(project)"
+                    >
+                      <td style="width: 10%">{{ project.index }}</td>
+                      <td>{{ project.projectName }}</td>
+                    </tr>
+                    <tr *ngIf="listProject.length == 0">
+                      <td colspan="10">
+                        <div class="text-center">
+                          {{ "table.noContentToDisplay" | translate }}
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="listProject.length > 0" class="col-xxl-12">
+                  <app-paginator
+                    [totalRecords]="totalRecords"
+                    (onPageChange)="onChangePagi($event)"
+                  ></app-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <div class="col-xl-6">
+              <h2 class="card-title mb-0 flex-grow-1">
+                {{ "gen.columns.projectDetail" | translate }}
+              </h2>
+            </div>
+            <div class="col-xl-6">
+              <div class="flex-shrink-0">
+                <div
+                  class="d-flex flex-wrap gap-2"
+                  style="justify-content: flex-end"
+                  *ngIf="selectedProject.projectId"
+                >
+                  <button
+                    *ngIf="this.selectedProject.status !== '02-01'"
+                    type="button"
+                    class="btn rounded-pill btn-light btn-label waves-effect right waves-light"
+                  >
+                    <i
+                      class="ri-checkbox-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.saveButton" | translate }}
+                  </button>
+                  <button
+                    *ngIf="this.selectedProject.status === '02-01'"
+                    type="button"
+                    class="btn rounded-pill btn-primary btn-label waves-effect right waves-light"
+                    (click)="updateProject()"
+                  >
+                    <i
+                      class="ri-checkbox-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.saveButton" | translate }}
+                  </button>
+                  <button
+                    *ngIf="this.selectedProject.status !== '02-02'"
+                    type="button"
+                    style="margin-right: 5px"
+                    class="btn rounded-pill btn-success btn-label waves-effect right waves-light"
+                    (click)="onStart()"
+                  >
+                    <i
+                      class="ri-play-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.startButton" | translate }}
+                  </button>
+                  <button
+                    *ngIf="this.selectedProject.status === '02-02'"
+                    type="button"
+                    style="margin-right: 5px"
+                    class="btn rounded-pill btn-light btn-label waves-effect right waves-light"
+                  >
+                    <i
+                      class="ri-play-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.startButton" | translate }}
+                  </button>
+                  <button
+                    *ngIf="
+                      this.selectedProject.status === '02-04' ||
+                      this.selectedProject.status === '02-01'
+                    "
+                    type="button"
+                    class="btn rounded-pill btn-light btn-label waves-effect right waves-light"
+                  >
+                    <i
+                      class="ri-stop-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.stopButton" | translate }}
+                  </button>
+                  <button
+                    *ngIf="this.selectedProject.status === '02-02'"
+                    type="button"
+                    class="btn rounded-pill btn-danger btn-label waves-effect right waves-light"
+                    (click)="onStop()"
+                  >
+                    <i
+                      class="ri-stop-circle-fill label-icon align-middle fs-16 ms-2"
+                    ></i>
+                    {{ "gen.stopButton" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 mb-3">
+              <form #myForm="ngForm" style="margin: 20px">
+                <div class="row mb-3">
+                  <div class="col-lg-2">
+                    <label for="projectName" class="form-label-inline">{{
+                      "gen.projectDetail.projectName" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-lg-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="projectName"
+                      name="projectName"
+                      [(ngModel)]="selectedProject.projectName"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-2">
+                    <label for="genCycle" class="form-label-inline">{{
+                      "gen.projectDetail.genCycle" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-lg-10">
+                    <cron-editor
+                      [formControl]="cronForm"
+                      (cronChange)="onChangeGenCycle(cronForm.value)"
+                      [options]="cronOptions"
+                      name="genCycle"
+                    ></cron-editor>
+                    <span>{{ cronString }}</span>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-2">
+                    <label for="projectName" class="form-label-inline">{{
+                      "gen.projectDetail.fileInput" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-lg-10">
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="formFile"
+                      accept=".xlsx,.csv"
+                      (change)="onSelectedFile($event)"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-2">
+                    <label for="listTarget" class="form-label-inline">{{
+                      "gen.projectDetail.listTarget" | translate
+                    }}</label>
+                  </div>
+                  <div *ngIf="listTarget.length != 0" class="col-lg-10">
+                    <div class="target" *ngFor="let target of listTarget">
+                      <label for="targetName" class="form-label-inline">{{
+                        "gen.columns.targetName" | translate
+                      }}</label>
+                      <span>: {{ target.targetName }}</span>
+                      <label for="ip" class="form-label-inline">{{
+                        "gen.columns.ip" | translate
+                      }}</label>
+                      <span>: {{ target.ip }}</span>
+                      <label for="connectType" class="form-label-inline">{{
+                        "gen.columns.connectType" | translate
+                      }}</label>
+                      <span>: {{ target.connectType.commNm }}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="listTarget.length == 0 && selectedProject.projectId" class="col-lg-10 target">
+                    <span>{{
+                      "message.requiredHaveTarget" | translate
+                    }}</span>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-2">
+                    <label for="status" class="form-label-inline">{{
+                      "gen.projectDetail.status" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-lg-10">
+                    <h2 *ngIf="selectedProject.status == '02-01'">
+                      <span class="badge rounded-pill bg-secondary">{{
+                        "common.project.status.new" | translate
+                      }}</span>
+                    </h2>
+                    <h2 *ngIf="selectedProject.status == '02-02'">
+                      <span class="badge rounded-pill bg-success">{{
+                        "common.project.status.running" | translate
+                      }}</span>
+                    </h2>
+                    <h2 *ngIf="selectedProject.status == '02-03'">
+                      <span class="badge rounded-pill bg-warning">{{
+                        "common.project.status.pause" | translate
+                      }}</span>
+                    </h2>
+                    <h2 *ngIf="selectedProject.status == '02-04'">
+                      <span class="badge rounded-pill bg-danger">{{
+                        "common.project.status.stop" | translate
+                      }}</span>
+                    </h2>
+                    <h2 *ngIf="selectedProject.status == '02-05'">
+                      <span class="badge rounded-pill bg-dark">{{
+                        "common.project.status.killed" | translate
+                      }}</span>
+                    </h2>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<app-spinner [visible]="spinner"></app-spinner>

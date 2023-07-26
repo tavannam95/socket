@@ -1,0 +1,48 @@
+<div class="page-content">
+  <div class="container-fluid">
+      <!-- <app-breadcrumb></app-breadcrumb> -->
+      <app-progress-bar></app-progress-bar>
+      <!-- end page title -->
+
+      <div class="row justify-content-center">
+        <div class="col-xxl-9">
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist" style="border-bottom: none;">
+                        <li class="nav-item">
+                            <a id="quizStatistical1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#STATISTICAL_RESULT_STUDENT" role="tab">{{'course0104.quiz.quizStatis.title' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="quizStatistical2" (click)="changeTab(2)" class="nav-link" data-bs-toggle="tab" href="#STATISTICAL_RESULT_QUESTION" role="tab">{{'iqTest.IqTest.listQuesTitle' | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-12">
+              <div class="tab-content text-muted">
+                  <div class="tab-pane active" id="STATISTICAL_RESULT_STUDENT" role="tabpanel">
+                    <app-statistical-result-student #resultStudent ></app-statistical-result-student>
+                      
+                  </div>
+                  <div class="tab-pane" id="STATISTICAL_RESULT_QUESTION" role="tabpanel" >
+                    <app-statistical-result-question #resultQuestion ></app-statistical-result-question>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!--end col-->
+      </div>
+      <!--end row-->
+
+
+  </div>
+  <!-- container-fluid -->
+</div>
+
+<p-confirmDialog >
+</p-confirmDialog>

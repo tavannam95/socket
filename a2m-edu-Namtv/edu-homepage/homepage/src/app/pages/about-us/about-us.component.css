@@ -1,0 +1,36 @@
+.about-us{
+  position: relative;
+}
+.about-us .shape-group li {
+  margin: 0;
+  position: absolute;
+  z-index: -1
+}
+
+.about-us .shape-group li.shape-1 {
+  top: -70px;
+  right: -70px;
+  left: auto;
+}
+
+.about-us .shape-group li.shape-2 {
+  top: -100px;
+  right: 15px;
+  z-index: 1;
+  left: auto;
+}
+
+.about-us .shape-group li.shape-3 {
+  top: 220px;
+  left: 100px;
+}
+
+.testimonial-slide .author-info .thumb img{
+  width: 70px;
+}
+@media only screen and (max-width: 575px){
+  .about-us{
+    padding: 0 30px;
+  }
+}
+

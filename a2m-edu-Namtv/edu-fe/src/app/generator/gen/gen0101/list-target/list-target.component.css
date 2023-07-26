@@ -1,0 +1,6 @@
+.button-custom {
+  width: 160px !important;
+}
+.button-custom > button {
+  margin-right: 5px;
+}

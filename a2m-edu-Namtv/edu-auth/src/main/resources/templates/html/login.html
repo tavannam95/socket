@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Atwom Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="css/images/icons/favicon.ico" />
+<link rel="stylesheet" type="text/css"
+	href="css/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="css/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="css/fonts/iconic/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" type="text/css" href="css/util.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100"
+			style="background-image: url('css/images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form">
+					<span class="login100-form-title p-b-49"> Login </span>
+
+					<div class="wrap-input100 validate-input m-b-23"
+						data-validate="Username is reauired">
+						<span class="label-input100">Username</span> <input
+							class="input100" type="text" id="USERNAME"
+							placeholder="Type your username"> <span
+							class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input"
+						data-validate="Password is required">
+						<span class="label-input100">Password</span> <input
+							class="input100" type="password" placeholder="Type your password"
+							id="PASSWORD"> <span class="focus-input100"
+							data-symbol="&#xf190;"></span>
+					</div>
+
+					<div class="text-right p-t-8 p-b-31">
+						<a href="#"> Forgot password? </a>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<a href="javascript:void(0)" class="login100-form-btn"
+								id="LOGIN_BTN"> Login </a>
+						</div>
+					</div>
+
+					<div class="txt1 text-center p-t-54 p-b-20" hidden>
+						<span> Or Sign Up Using </span>
+					</div>
+
+					<div class="flex-c-m" hidden>
+						<a href="javascript:void(0)" onclick="loginWithFacebook()"
+							class="login100-social-item bg1"> <i class="fa fa-facebook"></i>
+						</a> <a href="javascript:void(0)" onclick="loginWithGoogle()"
+							class="login100-social-item bg3"> <i class="fa fa-google"></i>
+						</a> <a href="javascript:void(0)" onclick="loginWithKakao()"
+							class="login100-social-item "> <img alt=""
+							src="css/images/icons/kakao-talk.png" width="100%">
+						</a> <a href="javascript:void(0)" class="login100-social-item"> <img
+							alt="" src="css/images/icons/naver_icon.png" width="100%">
+						</a>
+					</div>
+
+					<div class="flex-col-c p-t-155" hidden>
+						<span class="txt1 p-b-17"> Or Sign Up Using </span> <a href="#"
+							class="txt2"> Sign Up </a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="OTP_POPUP"></div>
+	<input class="input100" type="text" id="REDIRECT_DOMAIN"
+		th:value="${REDIRECT_DOMAIN}" style="display: none">
+	<input class="input100" type="text" id="PUBLIC_KEY"
+		th:value="${PUBLIC_KEY}" style="display: none">
+
+	<script src="css/vendor/jquery/jquery-3.6.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<!--/*<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#version=v14.0&appId=356380546572148&xfbml=true&autoLogAppEvents=true"></script>
+	<script src="js/social/gclient.js"></script>
+	<script src="js/social/kakao.js"></script>*/-->
+	<script src="js/main.js"></script>
+	<script src="js/common.js"></script>
+
+	<script type="text/javascript">
+		var client;
+    	var access_token;
+    	const GOOGLE_CLIENT_ID = "37831440986-423bqqvqh7iihnbgetekp2l3dgeqaa9k.apps.googleusercontent.com";
+    	const FACEBOOK_CLIENT_ID = "356380546572148";
+    	const KAKAO_CLIENT_ID = "fe742f1bab1389573bdf6544cae4c329";
+    	//Dev
+    	const baseUrl = "http://localhost:8112";
+    	//Deploy
+		//const baseUrl = "https://auth.atwom.edu.vn";
+		$(document).ready(function(){
+			/* initGoogleClient();*/
+			/* initFb(); */
+			/* initKakao();*/
+			 initEvent();
+		});
+		
+		function initEvent(){
+			$("button#POPUP_OTP_BTN").click(function(){
+	            $("#myModal").modal('show');
+	        });
+			$('a#LOGIN_BTN').css('cursor', 'pointer').click(login);
+			
+			$('input#USERNAME').keyup(function(event) {
+			    if (event.which === 13) {
+			    	login();
+			    }
+			});
+			$('input#PASSWORD').keyup(function(event) {
+			    if (event.which === 13) {
+			    	login();
+			    }
+			});
+		}
+		
+		
+		function initGoogleClient() {
+	        client = google.accounts.oauth2.initTokenClient({
+	        	client_id: GOOGLE_CLIENT_ID,
+	          	scope: 'https://www.googleapis.com/auth/userinfo.email',
+	          	callback: (tokenResponse) => {
+	            	/* access_token = tokenResponse.access_token; */
+	            	var request = {};
+	            	request.accessToken = tokenResponse.access_token;
+	            	var data = sys.mariaDB.ajax(baseUrl + '/api/auth/google/login', JSON.stringify(request), 'POST');
+	           	 	if (data.status == 'TRUE'){
+	           	 		redirectUrl(data.responseData.accessToken);
+	            	}else{
+	            		alert('Login failed')
+	            	}
+	          	},
+	        });
+		}
+		
+		function initFb(){
+			window.fbAsyncInit = function() {
+				FB.init({
+					  appId      : FACEBOOK_CLIENT_ID,
+					  status     : true,
+					  xfbml      : true,
+					  version    : 'v14.0'
+				});
+			};
+		}
+		
+		function initKakao(){
+			Kakao.init(KAKAO_CLIENT_ID);
+			Kakao.isInitialized();
+		}
+	      
+		function login(){
+			//debugger
+			if (validation()){
+				alert("The username or password is null!!!");
+				return;
+			}
+			var request = initParam();
+			var data = sys.mariaDB.ajax(baseUrl + '/api/auth/login', JSON.stringify(request), 'POST');
+			if (data.status == "NEED_OTP"){
+				open2FAPopup();
+			}else if (data.status == "TRUE"){
+				redirectUrl(data.responseData.accessToken);
+			}else {
+				alert("The username or password is wrong!!!");
+			}
+			
+		}
+		
+		function validation(){
+			var request = initParam();
+			if (isEmpty(request.username) || isEmpty(request.password)){
+				return 	true;
+			}
+			return false;
+		}
+		
+		function isEmpty(str){
+			if (str != null && str != undefined && str.trim().length != 0){
+				return false;
+			}
+			return true;
+		}
+		
+		function initParam(){
+			var loginRequest = {};
+			loginRequest.username = $('input#USERNAME').val();
+			loginRequest.password = $('input#PASSWORD').val();
+			return loginRequest;
+		}
+		 
+		function loginWithFacebook(){
+			FB.login(function(response) {
+				if (response.status === 'connected' && response.authResponse != null) {
+    				var request = {};
+			    	request.accessToken = response.authResponse.accessToken;
+			    	var data = sys.mariaDB.ajax(baseUrl + '/api/auth/facebook/login', JSON.stringify(request), 'POST');
+	            	if (data.status == 'TRUE'){
+	            		redirectUrl(data.responseData.accessToken);
+	            	}else{
+	            		alert('Login failed');
+	            	}
+  				} else {
+  					console.log('User cancelled login or did not fully authorize.');
+  				}
+			}, {scope: 'public_profile,email'});
+		}
+		 
+		function loginWithGoogle(){
+			client.requestAccessToken();
+		}
+		 
+		function loginWithKakao(){
+			Kakao.Auth.login({
+				success: function(response) {
+					var request = {};
+			    	request.accessToken = response.access_token;
+			    	var data = sys.mariaDB.ajax(baseUrl + '/api/auth/kakao/login', JSON.stringify(request), 'POST');
+	            	if (data.status == 'TRUE'){
+	            		redirectUrl(data.responseData.accessToken);
+	            	}else{
+	            		alert('Login failed');
+	            	}
+				},
+				fail: function(error) {
+					alert("Login with kakao talk failed")
+				},
+			});
+		}
+		 
+		function verifyOtp(){
+			var request = {};
+			request.TOTP = $("#OTP_CODE").val();
+			request.userId = $('input#USERNAME').val();
+			var params = sys.convertParam(request);
+			var data = sys.mariaDB.ajax('/api/auth/verifyOtp',params);
+			if (data.status = 'TRUE'){
+				$("#OTP_MODAL").modal('hide');
+				alert('Two factor authentication successfull');
+				redirectUrl(data.responseData.accessToken);
+			}else{
+				alert('Two factor authentication failed');
+			}
+		}
+		 
+		function open2FAPopup(){
+			makeOtpPopup();
+			$("#OTP_MODAL").modal('show');
+		}
+		
+		function makeOtpPopup(){
+			var sample = ''
+				+ '<div id="OTP_MODAL" class="modal fade" tabindex="-1">'
+				+ ' 	<div class="modal-dialog modal-dialog-centered">'
+				+ ' 		<div class="modal-content">'
+				+ ' 			<div class="modal-header">'
+				+ ' 				<h5 class="modal-title">Two Factor Authentication</h5>'
+				+ ' 				<button type="button" class="close" data-dismiss="modal">&times;</button>'
+				+ '				</div>'
+				+ ' 			<div class="modal-body">'
+				+ ' 				<form>'
+				+ ' 					<div class="form-group">'
+				+ ' 						<label for="recipient-name" class="col-form-label">OTP CODE:</label>'
+				+ ' 						<input type="text" class="form-control" id="OTP_CODE">'
+				+ ' 					</div>'
+				+ ' 				</form>'
+				+ ' 			</div>'
+				+ '				<div class="modal-footer">'
+				+ '					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>'
+				+ '					<button type="button" class="btn btn-primary" id="VERIFY_OTP_BTN">Submit</button>'
+				+ '				</div>'
+				+ '			</div>'
+				+ '		</div>'
+				+ '	</div>';
+				
+			$("#OTP_POPUP").append(sample);
+			$('button#VERIFY_OTP_BTN').css('cursor', 'pointer').click(verifyOtp);
+		}
+		
+		function createParams(){
+			var params = {};
+			params.username = $('input#USERNAME').val();
+			params.password = $('input#PASSWORD').val();
+			return params;
+		}
+		
+		function redirectUrl(accessToken){
+			//debugger
+			var domain = $("#REDIRECT_DOMAIN").val();
+			var publicKey = $("#PUBLIC_KEY").val();
+			//var tokenHash = hashAccessToken(accessToken,publicKey);
+			window.location.href = "http://" + domain + "?accessToken=" + accessToken;
+			//if (tokenHash != null){
+			//	window.location.href = "http://" + domain + "?accessToken=" + tokenHash.token;
+			//}else{
+			//	alert("Login failed!!!");
+			//}
+			
+		}
+		
+		function hashAccessToken(accessToken, publicKey){
+			var request = {};
+			request.accessToken = accessToken;
+			request.publicKey = publicKey;
+			var params = sys.convertParam(request);
+			var data = sys.mariaDB.ajax('/api/auth/hashAccessToken',params);
+			return data;
+		}
+	</script>
+
+</body>
+</html>

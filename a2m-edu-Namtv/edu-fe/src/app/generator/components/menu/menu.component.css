@@ -1,0 +1,74 @@
+#MNU_01 > i.mdi:before{
+  content: "\f056e";
+}
+#MNU_05 > i.mdi:before{
+  content: "\f056e";
+}
+#MNU_02 > i.mdi:before{
+  content: "\f06a9";
+}
+
+#MNU_03 > i.mdi:before{
+  content: "\f00d6";
+}
+
+#MNU_04 > i.mdi:before{
+  content: "\f0493";
+}
+#MNU_06 > i.mdi:before{
+  content: "\f0219";
+}
+
+#MNU_07 > i.mdi:before{
+  content: "\f0e10";
+}
+
+#MNU_08 > i.mdi:before{
+  content: "\f0e10";
+}
+
+#MNU_09 > i.mdi:before{
+  content: "\f0e10";
+}
+
+#MNU_18 > i.mdi:before{
+  content: "\f0e10";
+}
+
+
+.menu-dropdown > ul.nav > li.nav-item > a.nav-link:before{
+  display: none;
+}
+
+.white-color{
+  color: white !important;
+}
+
+.scrollable-element {
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #151529 !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #635c5c;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #635c5c;
+}
+
+

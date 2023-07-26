@@ -1,0 +1,11 @@
+.custom_center{
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .custom_center{
+    display: flex;
+    justify-content: center;
+  }
+}

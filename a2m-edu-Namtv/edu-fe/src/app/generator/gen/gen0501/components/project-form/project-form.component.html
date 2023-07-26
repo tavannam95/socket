@@ -1,0 +1,111 @@
+<div
+  id="addMenuModal"
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block"
+  aria-modal="true"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0">
+          {{ "gen.projectDetail.addProject" | translate }}
+        </h2>
+        <button type="button" class="btn-close" (click)="onCancel()"></button>
+      </div>
+      <div class="modal-body">
+        <form #myForm="ngForm">
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="projectName" class="form-label-inline">{{
+                "gen.projectDetail.projectName" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-9">
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="projectName"
+                name="projectName"
+                placeholder="{{
+                  'gen.projectDetail.placeholderProjectName' | translate
+                }}"
+                [(ngModel)]="project.projectName"
+                #projectName="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (projectName.invalid && submitted) ||
+                    (projectName.invalid &&
+                      (projectName.dirty || projectName.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="
+                  projectName.invalid &&
+                  (projectName.dirty || projectName.touched)
+                "
+              >
+                <span *ngIf="projectName.errors?.['required']">{{
+                  "message.requiredMessage" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="genCycle" class="form-label-inline">{{
+                "gen.projectDetail.genCycle" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-9">
+              <cron-editor
+                [formControl]="cronForm"
+                (cronChange)="onChangeGenCycle(cronForm.value)"
+                [options]="cronOptions"
+              ></cron-editor>
+              <span>{{ cronString }}</span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="target" class="form-label-inline">{{
+                "gen.projectDetail.fileInput" | translate
+              }}</label>
+            </div>
+            <div class="col-lg-9">
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                accept=".xlsx,.csv"
+                (change)="onSelectedFile($event)"
+              />
+              <div class="invalid-error" *ngIf="!requireField">
+                <span>{{ "message.requiredMessage" | translate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onSave(myForm.invalid)"
+            >
+              {{ "gen.targetDetail.buttonSave" | translate }}
+            </button>
+            <button type="button" class="btn btn-light" (click)="onCancel()">
+              {{ "gen.targetDetail.buttonCancel" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

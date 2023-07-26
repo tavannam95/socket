@@ -1,0 +1,88 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+    <bar-my-course></bar-my-course>
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <h2 class="card-title mb-0 flex-grow-1">{{lecture.lectureNm}}</h2>
+            <div class="flex-shrink-0">
+              <div class="d-flex flex-wrap gap-2" style="justify-content: flex-end">
+                <button type="button" class="btn rounded-pill btn-primary waves-effect right waves-light"
+                  (click)="backSubject()">
+                  {{ "button.back.title2" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body" [hidden]="disable">
+            <div>
+              <iframe width="800" height="500" [src]="videoUrl"></iframe>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card" *ngIf="lecture.lectureGoal != null">
+          <div class="card-body">
+            <h2>Mục tiêu</h2>
+            <h3>{{lecture.lectureGoal}}</h3>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div #tagDiv id="id_tag_content"></div>
+            <!-- <div [innerHtml]="contentLecture"> -->
+          </div>
+        </div>
+
+        <!-- <div class="card">
+          <div class="card-body">
+            <div class="row mb-3" [style.display]="lecture.lectureType == 'default'? '':'none' ">
+              <div class="col-lg-2">
+                <label for="lectureContent" class="form-label-inline">{{
+                  "course0101.lectureDetail.lectureFile" | translate
+                  }}<span class="text-danger"> *</span></label>
+              </div>
+              <div class="col-lg-10">
+                <app-multi-upload [isCanDelete]="false" [isCanUpLoad]="false" [listTccoFile]="listFile" #upload>
+                </app-multi-upload>
+              </div>
+            </div>
+            <app-document-view [filePath]="filePath" [display]="lecture.lectureType == 'document'? '':'none'"></app-document-view>
+          </div>
+        </div> -->
+        <!-- <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-lg-2">
+                <label for="lectureContent" class="form-label-inline">{{
+                  "course0101.lectureDetail.addNewPost" | translate
+                  }}</label>
+              </div>
+              <div class="col-lg-10">
+                <app-form-post-form (saveSuccess)="insertPostSuccess()" [onlyInsert]="true" [referenceId]="lectureId" [referenceType]="postLectureType" [tags]="lecture.tags"></app-form-post-form>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="card">
+          <div class="card-body">
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="isViewPost = !isViewPost">{{ 'community.post.btnQnA' | translate }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3">
+        <app-card-view-tag [jsonTags]="lecture.tags"></app-card-view-tag> -->
+        <!-- end card -->
+      <!-- </div>
+    </div>
+
+
+    <app-list-post-in-course #listPost [referenceType]="postLectureType" [referenceId]="lectureId" *ngIf="isViewPost"></app-list-post-in-course> -->
+   </div>
+</div>

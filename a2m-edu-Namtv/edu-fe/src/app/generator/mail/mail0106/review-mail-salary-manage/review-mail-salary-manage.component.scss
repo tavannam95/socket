@@ -1,0 +1,39 @@
+:host ::ng-deep .ck-editor__editable {
+    max-height: 450px;
+}
+
+
+@media screen and (max-height: 790px) {
+    // .modal-body {
+    //     max-height: 530px;
+    // }
+    :host ::ng-deep .ck-editor__editable {
+        max-height: 450px;
+    }
+}
+
+@media screen and (max-height: 750px) {
+    // .modal-body {
+    //     max-height: 500px;
+    // }
+    :host ::ng-deep .ck-editor__editable {
+        max-height: 400px;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    // .modal-body {
+    //     max-height: 450px;
+    // }
+    :host ::ng-deep .ck-editor__editable {
+        max-height: 350px;
+    }
+}
+@media screen and (max-height: 600px) {
+    // .modal-body {
+    //     max-height: 450px;
+    // }
+    :host ::ng-deep .ck-editor__editable {
+        max-height: 300px;
+    }
+}

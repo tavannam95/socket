@@ -1,0 +1,32 @@
+
+
+<div class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content border-0 overflow-hidden">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0">{{'gen.twoFaPopup.title' | translate}}</h2>
+        <button type="button" class="btn-close" (click)="closePopup()"></button>
+      </div>
+      <div class="scroll-wrap ">
+        <div class="detail-form-wrap scroll-wrap">
+          <div style="display: flex;justify-content: center;">
+            <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value"
+              cssClass="bshadow">
+            </ngx-qrcode>
+          </div>
+          <!-- Buttons Input -->
+          <form #form = "ngForm" (ngSubmit)="verifyCode(form.value)">
+            <div class = "card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" name="verifyCode" [(ngModel)]="code">
+                <button class="btn btn-primary" type="submit">{{"button.submit.title" | translate}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer p-3">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

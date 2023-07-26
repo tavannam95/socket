@@ -1,0 +1,90 @@
+<div class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content border-0 overflow-hidden">
+      <div class="modal-header p-3">
+        <h2 class="card-title mb-0" *ngIf="!data">{{"button.add.title" | translate}}</h2>
+        <h2 class="card-title mb-0" *ngIf="data">{{ "button.edit.title" | translate }}</h2>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="closePopup()"></button>
+      </div>
+
+      <form class="" #form="ngForm" (ngSubmit)="onSave(form.invalid)">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 mb-3">
+              <label class="form-label" for="id">{{"bus.subscribe.clientName.title" | translate }}</label>
+              <p-dropdown
+                [options]="customerLst"
+                [required]="true"
+                [(ngModel)]="clientData.CLIENT_ID"
+                optionLabel="FULL_NAME"
+                optionValue="CLIENT_ID"
+                name="id"
+                [readonly]="data"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Select one"
+                #client="ngModel"
+                appendTo="body"
+                [ngClass]="{'ng-invalid ng-dirty': (client.invalid && submitted) || (client.invalid && (client.dirty || client.touched)) }">
+              </p-dropdown>
+              <div class="invalid-error" *ngIf="client.invalid && (client.dirty || client.touched)">
+                <span *ngIf="client.errors?.['required']">{{"message.requiredMessage" | translate}}</span>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="mb-3">
+                  <label for="fromDate" class="form-label">{{"bus.event.fromDate.title" | translate}}</label>
+                  <div class="form-icon right">
+                      <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="clientData.INS_DT" id="fromDate" name="fromDate" [required]="true" #fromDate="ngModel"
+                          dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"
+                          [ngClass]="{ 'ng-invalid ng-dirty': (fromDate.invalid && submitted) || fromDate.invalid && (fromDate.dirty || fromDate.touched)}"></p-calendar>
+                      <i class="ri-calendar-2-fill"></i>
+                  </div>
+                  <div class="invalid-error" *ngIf="(fromDate.invalid && submitted) || fromDate.invalid && (fromDate.dirty || fromDate.touched)">
+                      <span *ngIf="fromDate.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                  </div>
+              </div>
+
+          </div>
+          <div class="col-lg-6">
+            <div class="mb-3">
+                <label for="toDate" class="form-label">{{"bus.event.toDate.title" | translate}}</label>
+                <div class="form-icon right">
+                    <p-calendar placeholder="{{'common.template.dateformat' | translate}}" [(ngModel)]="clientData.EXPIRED_DT" id = "toDate" name="toDate" [required]="true" #toDate="ngModel"
+                        dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"
+                        [ngClass]="{ 'ng-invalid ng-dirty': (clientData.EXPIRED_DT < clientData.INS_DT || toDate.invalid && submitted) || toDate.invalid && (toDate.dirty || toDate.touched)}"></p-calendar>
+                    <i class="ri-calendar-2-fill"></i>
+                </div>
+                <div class="invalid-error" *ngIf="(clientData.EXPIRED_DT < clientData.INS_DT || toDate.invalid && submitted) || toDate.invalid  && (toDate.dirty || toDate.touched)">
+                    <span *ngIf="toDate.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                    <span *ngIf="clientData.EXPIRED_DT < clientData.INS_DT">{{ 'message.requiredRangeDate' | translate }}</span>
+                </div>
+            </div>
+          </div>
+
+            <div class="col-md-12">
+              <div class="mb-3">
+                  <label for="price" class="form-label">{{"bus.subscribe.price.title" | translate}}</label>
+                  <input type="number" class="form-control" min="0" placeholder="Enter price" id="price" name="price" [(ngModel)]="clientData.PRICE"
+                      #price="ngModel" required
+                      [ngClass]="{ 'is-invalid': (price.invalid && submitted) || price.invalid && (price.dirty || price.touched)}">
+                  <div class="invalid-error" *ngIf="(price.invalid && submitted) || price.invalid && (price.dirty || price.touched)">
+                      <span *ngIf="price.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="closePopup()">{{"button.cancel.title"| translate
+            }}</button>
+          <button type="submit" class="btn btn-primary" >{{"button.save.title"|
+            translate }}</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

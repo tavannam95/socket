@@ -1,0 +1,150 @@
+<!-- <app-breadcrumb></app-breadcrumb> -->
+<section class="account-page-area section-gap-equal">
+  <div class="container position-relative">
+    <div class="row g-5 justify-content-center">
+      <div class="col-lg-7">
+        <div class="login-form-box registration-form">
+          <h3 class="title">{{ "apply.apply.title" | translate }}</h3>
+          <!-- <p>{{'apply.form.content.title' | translate}} </p> -->
+          <form #myForm="ngForm" (ngSubmit)="onSave(myForm.invalid, myForm)">
+            <div class="form-group">
+              <label>{{ "apply.fullName.title" | translate }} *</label>
+              <input
+                type="text"
+                required
+                class="form-control"
+                id="candidateName"
+                name="candidateName"
+                placeholder="{{ 'apply.fullName.title' | translate }}"
+                [(ngModel)]="candidate.candidateName"
+                #candidateName="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (candidateName.invalid && submitted) ||
+                    (candidateName.invalid &&
+                      (candidateName.dirty || candidateName.touched))
+                }"
+              />
+              <div
+                class="invalid-error"
+                *ngIf="
+                  (candidateName.invalid && submitted) ||
+                  (candidateName.invalid &&
+                    (candidateName.dirty || candidateName.touched))
+                "
+              >
+                <span class="err" *ngIf="candidateName.errors?.['required']">{{
+                  "message.requiredFullName" | translate
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{ "apply.email.title" | translate }} *</label>
+              <input
+                [(ngModel)]="candidate.candidateEmail" #email="ngModel" type="email" name="email"
+                placeholder="{{ 'apply.email.title' | translate }} " type="text" required [pattern]="emailPattern"
+                [ngClass]="{ 'is-invalid': (email.invalid && submitted) || (email.invalid && (email.dirty || email.touched))}"
+              />
+
+              <div class="invalid-error"
+                *ngIf="(email.invalid && submitted) || email.invalid && (email.dirty || email.touched)">
+                <span class='err' *ngIf="email.errors?.['required']">{{ 'message.requiredEmail' | translate }}</span>
+                <span class='err' *ngIf="email.errors?.['pattern']">{{'message.requiredFormatEmail' | translate }}</span>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+                            <label>{{'apply.phone.title' | translate}} *</label>
+                            <input [(ngModel)] = "candidate.candidatePhone" id="candidatePhone" #candidatePhone="ngModel" required [pattern]="phonePattern"
+                            type="text" name="candidatePhone" placeholder="{{'apply.phone.title' | translate}}"
+                            [ngClass]="{ 'is-invalid': (candidatePhone.invalid && submitted) || (candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched))}">
+
+                            <div class="invalid-error" *ngIf="(candidatePhone.invalid && submitted) || candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched)">
+                              <span class='err' *ngIf="candidatePhone.errors?.['required']">{{ 'message.requiredFormatPhone' | translate }}</span>
+                              <span class='err' *ngIf="candidatePhone.errors?.['pattern']">{{ 'message.requiredFormatPhone' | translate }}</span>
+                          </div>
+                        </div> -->
+
+            <div class="form-group">
+              <label>{{ "apply.phone.title" | translate }} *</label>
+              <input type="text" required class="form-control" id="candidatePhone"
+                name="candidatePhone" placeholder="{{ 'apply.phone.title' | translate }}"
+                [(ngModel)]="candidate.candidatePhone" #candidatePhone="ngModel"
+                [pattern]="phonePattern" (keyup)="handleKeyupPhone($event)"
+                [ngClass]="{ 'is-invalid': (candidatePhone.invalid && submitted) || (candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched))}"/>
+              <div
+                class="invalid-error"
+                *ngIf=" (candidatePhone.invalid && submitted) || (candidatePhone.invalid && (candidatePhone.dirty || candidatePhone.touched)) " >
+                <span class="err" *ngIf="candidatePhone.errors?.['required']">{{ "message.requiredFormatPhone" | translate }}</span>
+                <span class="err" *ngIf="candidatePhone.errors?.['pattern']">{{  "message.FormatPhone" | translate }}</span>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+                          <label >{{'apply.course.title' | translate}} *</label>
+                          <p-dropdown appendTo="body" placeholder="{{'apply.course.placeholder' | translate}}"
+                            [required]="true" [options]="courseList" [(ngModel)]="candidate.courseModel"
+                            optionLabel="courseNm" [ngModelOptions]="{ standalone: true }" #courseModel="ngModel"
+                            [ngClass]="{ 'ng-invalid ng-dirty': (courseModel.invalid && submitted) || courseModel.invalid && (courseModel.dirty || courseModel.touched)}">
+                          </p-dropdown>
+
+                          <input type="text" hidden required class="form-control " id="course" name="course"
+                          placeholder="{{'course0102.subjectDetail.placeholderCourse' | translate}}"
+                          [(ngModel)]="candidate.courseModel" #courseModel="ngModel"
+                          [ngClass]="{ 'is-invalid': (courseModel.invalid && submitted) || (courseModel.invalid && (courseModel.dirty || courseModel.touched))}" />
+
+                          <div class="invalid-error"
+                            *ngIf="(courseModel.invalid && submitted) || courseModel.invalid && (courseModel.dirty || courseModel.touched)">
+                            <span class='err' *ngIf="courseModel.errors?.['required']">{{ 'message.requiredCourse' | translate}}</span>
+                          </div>
+                        </div> -->
+
+            <div class="form-group">
+              <label>{{ "apply.message.title" | translate }}</label>
+              <textarea
+                [(ngModel)]="candidate.candidateMessage"
+                name="message"
+                cols="30"
+                rows="4"
+                placeholder="{{ 'apply.message.title' | translate }}"
+              ></textarea>
+            </div>
+
+            <!-- <div class="form-group">
+                            <label for="log-file">{{'apply.uploadCv.title' | translate}} *</label>
+                            <input [(ngModel)] = "file" (change)="handleFile($event)" accept="application/pdf"
+                             type="file" name="log-file" id="log-file" >
+                        </div> -->
+            <div class="form-group">
+              <button type="submit" class="edu-btn btn-medium">
+                {{ "button.apply.title" | translate }} <i class="icon-4"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ul class="shape-group">
+      <li class="shape-1 scene">
+        <img
+          data-depth="2"
+          src="assets/images/about/shape-07.png"
+          alt="Shape"
+        />
+      </li>
+      <li class="shape-2 scene">
+        <img
+          data-depth="-2"
+          src="assets/images/about/shape-13.png"
+          alt="Shape"
+        />
+      </li>
+      <li class="shape-3 scene">
+        <img
+          data-depth="2"
+          src="assets/images/counterup/shape-02.png"
+          alt="Shape"
+        />
+      </li>
+    </ul>
+  </div>
+</section>

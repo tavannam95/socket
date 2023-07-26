@@ -1,0 +1,140 @@
+<div id="addMenuModal" class="modal fade show" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ "sys4.equiqmentDetail.title" | translate }}
+        </h4>
+        <button type="button" class="btn-close" mat-button mat-dialog-close (click)="onCancel()"></button>
+      </div>
+
+      <div class="card-body" style="max-height: 700px; overflow-y: scroll">
+        <form #myForm="ngForm">
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="equiqmentName" class="form-label-inline">{{
+                "edu.edu0104.equiqmentName" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <input type="text" required class="form-control " id="equiqmentName" name="equiqmentName"
+                placeholder="{{'sys4.userDetail.placeholderEquiqmentName' | translate}}"
+                [(ngModel)]="equiqment.equiqmentName" #equiqmentName="ngModel"
+                [ngClass]="{ 'is-invalid': (equiqmentName.invalid && submitted) || (equiqmentName.invalid && (equiqmentName.dirty || equiqmentName.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(equiqmentName.invalid && submitted) || equiqmentName.invalid && (equiqmentName.dirty || equiqmentName.touched)">
+                <span *ngIf="equiqmentName.errors?.['required']">{{ 'message.requiredEquiqmentName' | translate
+                  }}</span>
+                <span *ngIf="equiqmentName.errors?.['minlength']">{{'message.requiredMin' |
+                  translate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="equiqmentType" class="form-label-inline">{{
+                "edu.edu0104.equiqmentType" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <p-dropdown appendTo="body" placeholder="{{'sys4.userDetail.placeholderEquiqmentType' | translate}}"
+                [required]="true" [options]="equipTypes" [(ngModel)]="equiqment.equiqmentType" optionLabel="label" name="equiqmentType"
+                optionValue="commCd" [ngModelOptions]="{ standalone: true }" #equiqmentType="ngModel"
+                [ngClass]="{ 'ng-invalid ng-dirty': (equiqmentType.invalid && submitted) || equiqmentType.invalid && (equiqmentType.dirty || equiqmentType.touched)}">
+              </p-dropdown>
+              <div class="invalid-error"
+                *ngIf="(equiqmentType.invalid && submitted) || equiqmentType.invalid && (equiqmentType.dirty || equiqmentType.touched)">
+                <span *ngIf="equiqmentType.errors?.['required']">{{ 'message.requiredEquiqmentType' | translate
+                  }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="equiqmentCD" class="form-label-inline">{{
+                "edu.edu0104.equiqmentCD" | translate
+                }}<span class="text-danger"> *</span></label>
+            </div>
+            <div class="col-lg-9">
+              <input type="text" required class="form-control " id="equiqmentCD" name="equiqmentCD"
+                placeholder="{{'sys4.userDetail.placeholderEquiqmentCD' | translate}}"
+                [(ngModel)]="equiqment.equiqmentCD" #equiqmentCD="ngModel"
+                [ngClass]="{ 'is-invalid': (equiqmentCD.invalid && submitted) || (equiqmentCD.invalid && (equiqmentCD.dirty || equiqmentCD.touched))}" />
+              <div class="invalid-error"
+                *ngIf="(equiqmentCD.invalid && submitted) || equiqmentCD.invalid && (equiqmentCD.dirty || equiqmentCD.touched)">
+                <span *ngIf="equiqmentCD.errors?.['required']">{{ 'message.requiredEquiqmentCD' | translate
+                  }}</span>
+                <span *ngIf="equiqmentCD.errors?.['minlength']">{{'message.requiredMin' |
+                  translate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="organization" class="form-label-inline">{{
+                "edu.edu0104.equiqmentStatus" | translate
+                }}</label>
+            </div>
+            <div class="col-lg-9">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="active">
+                  Active
+                </label>
+                <input class="form-check-input" type="radio" name="equiqmentStatus" id="active" required
+                  (change)="equiqment.equiqmentStatus  = true" [checked]="equiqment.equiqmentStatus == true" >
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="blocked">
+                  Blocked
+                </label>
+                <input class="form-check-input" type="radio" name="equiqmentStatus" id="blocked"
+                  (change)="equiqment.equiqmentStatus  = false"
+                  [checked]="equiqment.equiqmentStatus == false">
+              </span>
+            </div>
+          </div>
+
+          <div class="row mb-3" [hidden]="!disable">
+            <div class="col-lg-3">
+              <label for="status-user" class="form-label-inline">{{
+                "sys3.userDetail.status" | translate
+                }}</label>
+            </div>
+
+            <div class="col-lg-9">
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="active">
+                  {{"sys.sys0103.status.active" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="active"
+                  (change)="tsstUser.status  = true" [checked]="tsstUser.status == true">
+              </span>
+              <span class="form-check form-check-inline">
+                <label class="form-check-label" for="disable">
+                  {{"sys.sys0103.status.blocked" | translate }}
+                </label>
+                <input class="form-check-input" type="radio" name="status" id="disable"
+                  (change)="tsstUser.status  = false" [checked]="tsstUser.status == false">
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" mat-button mat-dialog-close (click)="onCancel()">
+          {{ "sys3.userDetail.buttonCancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+          {{ "sys3.userDetail.buttonSave" | translate }}
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

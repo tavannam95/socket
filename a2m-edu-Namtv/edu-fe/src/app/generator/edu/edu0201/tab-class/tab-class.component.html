@@ -1,0 +1,73 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <app-breadcrumb></app-breadcrumb>
+
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="card ">
+              <ul class="nav nav-tabs nav-border-top nav-border-top-primary" role="tablist"
+                style="border-bottom: none;">
+                <li class="nav-item">
+                  <a id="tabClass1" (click)="changeTab(1)" class="nav-link active" data-bs-toggle="tab" href="#CLASS_FORM"
+                    role="tab">{{"edu.edu0201.classForm" | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a id="tabClass2" (click)="changeTab(2)" class="nav-link " data-bs-toggle="tab" href="#ClASS_ANNOUNCEMENTS"
+                    role="tab">{{"edu.edu0201.classAnnouncements" | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a id="tabClass3" (click)="changeTab(3)" class="nav-link " data-bs-toggle="tab" href="#TOPIC"
+                  role="tab">{{"edu.edu0201.topic" | translate}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end row-->
+
+        <div class="row">
+          <!--Start Right Content -->
+          <div class="col-xxl-12">
+            <div class="tab-content text-muted">
+              <div class="tab-pane active" id="CLASS_FORM" role="tabpanel">
+                <app-class-form (save)="afterSave($event)"></app-class-form>
+              </div>
+              <div class="tab-pane" id="ClASS_ANNOUNCEMENTS" role="tabpanel">
+                <app-list-class-announcement #listClassAnnou></app-list-class-announcement>
+              </div>
+              <div class="tab-pane" id="TOPIC" role="tabpanel">
+                <app-list-post   [classId]="classId" [type]="'CLASS'" ></app-list-post>
+              </div>
+            </div>
+          </div>
+          <!--End Right Content -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--end row-->
+</div>
+<!-- container-fluid -->
+<p-confirmDialog #courseInfoDialog key="tabClass"></p-confirmDialog>
+<p-confirmDialog #confirmDialog key="tabSubject">
+  <p-footer >
+    <button
+      type="button"
+      pButton
+      label='{{ "course0201.course.courseList" | translate }}'
+      value="Update"
+      class="p-button-tertiary"
+      (click)="redirect('ListCourse')"></button>
+      <button
+        type="button"
+        pButton
+        label="{{'course.tab.course.editInfo.title' | translate}}"
+        (click)="redirect('CourseInfo')"
+      ></button>
+  </p-footer>
+</p-confirmDialog>

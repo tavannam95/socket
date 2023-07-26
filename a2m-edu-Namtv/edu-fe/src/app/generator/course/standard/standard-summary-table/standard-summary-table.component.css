@@ -1,0 +1,17 @@
+table th {
+  word-break: break-word;
+  vertical-align: top;
+  white-space: break-spaces !important;
+}
+
+table td {
+  word-break: break-word;
+  vertical-align: top;
+  white-space: break-spaces !important;
+}
+
+:host ::ng-deep .p-dropdown {
+  min-width: 65px !important;
+  width: 65px !important;
+  margin: auto;
+}

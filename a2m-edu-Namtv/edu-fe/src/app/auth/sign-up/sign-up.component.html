@@ -1,0 +1,168 @@
+<div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100">
+  <div class="auth-page-content overflow-hidden pt-lg-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card overflow-hidden m-0">
+            <div class="row justify-content-center g-0">
+              <div class="p-lg-5 p-4">
+                <div>
+                  <h1 class="text-primary">Register Account</h1>
+                </div>
+
+                <div class="mt-4">
+                  <form #form="ngForm" class="row g-3" (ngSubmit)="onSave(form.invalid)">
+                    <div class="col-md-6">
+                      <label for="fullnameInput" class="form-label">{{"sys3.userNameSearch" | translate }}<span
+                          class="text-danger">*</span></label>
+                      <input type="text" minlength="4" class="form-control" id="fullnameInput" name="fullName"
+                        placeholder="Enter your name" [(ngModel)]="userInfo.fullName"
+                        #fullName="ngModel" [ngClass]="{ 'is-invalid': (fullName.invalid && submitted) || (fullName.invalid && (fullName.dirty || fullName.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(fullName.invalid && submitted) || fullName.invalid && (fullName.dirty || fullName.touched)">
+                        <span *ngIf="fullName.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                        <span *ngIf="fullName.errors?.['minlength']">Name must be at least 4 characters long.</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="userName" class="form-label">{{"sys.userId" | translate }}<span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="userName" name="userName"
+                        placeholder="Enter user name" [(ngModel)]="user['userId']"
+                        #userName="ngModel" [ngClass]="{ 'is-invalid': (userName.invalid && submitted) || (userName.invalid && (userName.dirty || userName.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(userName.invalid && submitted) || userName.invalid && (userName.dirty || userName.touched)">
+                        <span *ngIf="userName.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="organization" class="form-label">Organization<span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="organization" name="organization"
+                        placeholder="Enter organization" [(ngModel)]="userInfo.organization"
+                        #organization="ngModel" [ngClass]="{ 'is-invalid': (organization.invalid && submitted) || (organization.invalid && (organization.dirty || organization.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(organization.invalid && submitted) || organization.invalid && (organization.dirty || organization.touched)">
+                        <span *ngIf="organization.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                      <label for="position">Position</label>
+                      <select class="form-select  mb-3" id="position" name="position" [(ngModel)]="user['position']">
+                        <option [value]="undefined">Open this select position</option>
+                        <option *ngFor="let position of listPos" [value]="position.COMM_CD">{{position.COMM_NM}}</option>
+                    </select>
+                    </div> -->
+                    <div class="col-md-6">
+                      <label for="dob" class="form-label">{{"sys.user.dob" | translate}}<span
+                        class="text-danger">*</span></label>
+                      <div class="form-icon right">
+                        <p-calendar placeholder="" [(ngModel)]="userInfo.dob" id="dob" name="dob" [required]="true" #dobUser="ngModel"
+                          dateFormat="{{'common.template.dateformat' | translate}}" [readonlyInput]="true" appendTo="body"
+                          [ngClass]="{ 'ng-invalid ng-dirty': (dobUser.invalid && submitted) || dobUser.invalid && (dobUser.dirty || dobUser.touched)}">
+                        </p-calendar>
+                        <i class="ri-calendar-2-fill"></i>
+                      </div>
+                      <div class="invalid-error" *ngIf="(dobUser.invalid && submitted) || dobUser.invalid && (dobUser.dirty || dobUser.touched)">
+                        <span *ngIf="dobUser.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">{{"sys.email" | translate }}<span
+                          class="text-danger">*</span></label>
+                      <input type="email" class="form-control" id="email" placeholder="Email" name="email" [email]="true"
+                        [(ngModel)]="userInfo.email"
+                        #email="ngModel" [ngClass]="{ 'is-invalid': (email.invalid && submitted) || (email.invalid && (email.dirty || email.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(email.invalid && submitted) || email.invalid && (email.dirty || email.touched)">
+                        <span *ngIf="email.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                        <span *ngIf="email.errors?.['email']">{{ 'message.requiredMessage' | translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">
+                        {{"sys.user.gender" | translate}} :&nbsp;&nbsp;
+                      </label>
+                      <div>
+                        <span>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="male">
+                              {{"sys.user.male" | translate }}
+                            </label>
+                            <input class="form-check-input" type="radio" name="gender" id="male" (change)="gender  = true"
+                              checked>
+                        </div>
+                        </span>
+                        <span>&nbsp;&nbsp;
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="female">
+                              {{"sys.user.female" | translate }}
+                            </label>
+                            <input class="form-check-input" type="radio" name="gender" id="female"
+                              (change)="gender  = false">
+                          </div>
+                        </span>
+                      </div>
+
+                    </div>
+                    <div class="col-md-6">
+                      <label for="password" class="form-label">{{"sys.user.pwd" | translate}}<span
+                          class="text-danger">*</span></label>
+                      <input type="password" class="form-control" id="password" placeholder="Password" name="password"
+                        [(ngModel)]="user['password']"
+                        #password="ngModel" [ngClass]="{ 'is-invalid': (password.invalid && submitted) || (password.invalid && (password.dirty || password.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(password.invalid && submitted) || password.invalid && (password.dirty || password.touched)">
+                        <span *ngIf="password.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="confirmPassword" class="form-label">{{"sys.user.confirmPwd" | translate }}<span
+                          class="text-danger">*</span></label>
+                      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password"
+                        name="confirmPassword" [(ngModel)]="user['confirmPassword']"
+                        #confirmPass="ngModel" [ngClass]="{ 'is-invalid': (confirmPass.invalid && submitted) || ((confirmPass.invalid || user['confirmPassword'] != user['password']) && (confirmPass.dirty || confirmPass.touched))}"
+                        required>
+                      <div class="invalid-error" *ngIf="(confirmPass.invalid && submitted) || (confirmPass.invalid || user['confirmPassword'] != user['password']) && (confirmPass.dirty || confirmPass.touched)">
+                        <span *ngIf="confirmPass.errors?.['required']">{{ 'message.requiredMessage' | translate }}</span>
+                        <span *ngIf="user['confirmPassword'] != user['password'] && !confirmPass.errors?.['required']">{{"message.MatchPassword" | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label for="address" class="form-label">{{"sys.homeAddress" | translate }}</label>
+                      <input type="text" class="form-control" id="address" placeholder="Address" name="address"
+                        [(ngModel)]="userInfo.address">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="cellPhone" class="form-label">{{"sys.cellPhone" | translate }}</label>
+                      <input type="text" class="form-control" id="cellPhone" placeholder="Enter your cell phone"
+                        name="cellPhone" [(ngModel)]="userInfo.cellPhone">
+                    </div>
+                    <div class="col-12">
+                      <div class="text-center">
+                        <button class="btn btn-success w-25" type="submit">{{"button.save.title" | translate }}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="mt-5 text-center">
+                  <p class="mb-0">Already have an account ? <a href="/"
+                      class="fw-semibold text-primary text-decoration-underline"> Sign in</a> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end auth page content -->
+</div>
+<!-- end auth-page-wrapper -->

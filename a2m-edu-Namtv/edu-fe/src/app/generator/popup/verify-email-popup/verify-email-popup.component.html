@@ -1,0 +1,91 @@
+<div class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 overflow-hidden">
+      <!-- <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+          <div class="bg-overlay"></div>
+          <div class="shape">
+              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+                  <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+              </svg>
+          </div>
+        </div> -->
+      <div class="modal-header p-2">
+        <button type="button" class="btn-close" (click)="closePopup(0)"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body p-4">
+          <div class="mb-4">
+            <div class="avatar-lg mx-auto">
+              <div class="avatar-title bg-light text-primary display-5 rounded-circle shadow">
+                <i class="ri-mail-line"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-2 mt-4">
+            <div class="text-muted text-center mb-4 mx-lg-3">
+              <h4 class="">{{"gen.title.verifyEmailPopup1"| translate }}</h4>
+              <p>{{"gen.title.verifyEmailPopup2"| translate }} <span class="fw-semibold">{{data?.EMAIL}}</span></p>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit1-input" class="visually-hidden">Dight 1</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 2)" maxlength="1" id="digit1-input" [(ngModel)]="digit1">
+                </div>
+              </div><!-- end col -->
+
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit2-input" class="visually-hidden">Dight 2</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 3)" maxlength="1" id="digit2-input" [(ngModel)]="digit2">
+                </div>
+              </div><!-- end col -->
+
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit3-input" class="visually-hidden">Dight 3</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 4)" maxlength="1" id="digit3-input" [(ngModel)]="digit3">
+                </div>
+              </div><!-- end col -->
+
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit4-input" class="visually-hidden">Dight 4</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 5)" maxlength="1" id="digit4-input" [(ngModel)]="digit4">
+                </div>
+              </div><!-- end col -->
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit5-input" class="visually-hidden">Dight 5</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 6)" maxlength="1" id="digit5-input" [(ngModel)]="digit5">
+                </div>
+              </div><!-- end col -->
+              <div class="col-2">
+                <div class="mb-3">
+                  <label for="digit6-input" class="visually-hidden">Dight 6</label>
+                  <input type="text" class="form-control form-control-lg bg-light border-light text-center"
+                    onkeyup="moveToNext(this, 7)" maxlength="1" id="digit6-input" [(ngModel)]="digit6">
+                </div>
+              </div><!-- end col -->
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-success w-25" (click)="onSubmit()">{{"button.submit.title"| translate
+                }}</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="mb-0">{{"gen.title.verifyEmailPopup3"| translate }}<a href="auth-pass-reset-basic.html"
+              class="fw-semibold text-primary text-decoration-underline">{{"gen.title.verifyEmailPopup4"| translate
+              }}</a> </p>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

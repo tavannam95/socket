@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Mar 12 15:27:16 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a2m.auth.dao.AuthDomainDao">
+    
+    <select id="existsByDomain" parameterType="map" resultType="long">
+        SELECT COUNT(*)
+        FROM AUTH_DOMAIN
+        WHERE DOMAIN_NAME = #{domainName}
+    </select>
+    
+</mapper>

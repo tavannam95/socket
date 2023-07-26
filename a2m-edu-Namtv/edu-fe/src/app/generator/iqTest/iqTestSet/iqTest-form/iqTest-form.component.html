@@ -1,0 +1,141 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <!-- start page title -->
+    <app-breadcrumb></app-breadcrumb>
+    <!-- <app-progress-bar></app-progress-bar> -->
+    <!-- end page title -->
+
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card">
+          <div class="card-body">
+            <form #myForm="ngForm">
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="iqTestNm" class="form-label-inline">{{
+                    "iqTest.IqTest.columns.IqTestNm" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+                <div class="col-lg-9">
+                  <input type="text" required class="form-control " id="iqTestNm" name="iqTestNm"
+                    placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestNm' | translate}}"
+                    [(ngModel)]="iqTest.iqTestNm" #iqTestNm="ngModel"
+                    [ngClass]="{ 'iqTest-invalid': (iqTestNm.invalid && submitted) || (iqTestNm.invalid && (iqTestNm.dirty || iqTestNm.touched))}" />
+                  <div class="invalid-error"
+                    *ngIf="(iqTestNm.invalid && submitted) || iqTestNm.invalid && (iqTestNm.dirty || iqTestNm.touched)">
+                    <span *ngIf="iqTestNm.errors?.['required']">{{ 'message.requiredIqTestName' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="iqTestNm" class="form-label-inline">{{
+                    "iqTest.IqTest.columns.TotalQuestion" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+                <div class="col-lg-9">
+                  <input type="number" required class="form-control " id="totalQues" name="totalQues"
+                    placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestTotal' | translate}}"
+                    [(ngModel)]="iqTest.totalQues" #totalQues="ngModel"
+                    [ngClass]="{ 'iqTest-invalid': (totalQues.invalid && submitted) || (totalQues.invalid && (totalQues.dirty || totalQues.touched))}" />
+                  <div class="invalid-error"
+                    *ngIf="(totalQues.invalid && submitted) || totalQues.invalid && (totalQues.dirty || totalQues.touched)">
+                    <span *ngIf="totalQues.errors?.['required']">{{ 'message.requiredTotalOfQues' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2" *ngFor="let cat of categorys; let catIndex = index" >
+                <div class="col-lg-3">
+                  <label for="commNm" class="form-label-inline">{{
+                    "iqTest.IqTest.columns.IqTestCategory" | translate
+                    }} {{catIndex+1}}<span class="text-danger"> *</span></label>
+                </div>
+                  <div class="col-lg-6">
+                    <input type="text" required class="form-control "
+                      placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestCategory' | translate}}"
+                      [(ngModel)]="cat.commNm" #commNm="ngModel" [ngModelOptions]="{ standalone: true }" readonly/>
+                </div>
+                <div class="col-lg-3">
+                  <input type="number" required class="form-control "
+                    placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderNumOfQues' | translate}}"
+                    [(ngModel)]="cat.num" [ngModelOptions]="{ standalone: true }" #num="ngModel"
+                    [ngClass]="{ 'iqTest-invalid': (num.invalid && submitted) || (num.invalid && (num.dirty || num.touched))}" />
+                  <div class="invalid-error"
+                    *ngIf="(num.invalid && submitted) || num.invalid && (num.dirty || num.touched)">
+                    <span *ngIf="num.errors?.['required']">{{ 'message.requiredNumOfQues' | translate }}</span>
+                  </div>
+                  <!-- <p-dropdown appendTo="body"
+                    placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderNumOfQues' | translate}}" [required]="true"
+                    [options]="listNumOfQues" [(ngModel)]="cat.num" [ngModelOptions]="{ standalone: true }" #num="ngModel"
+                    [ngClass]="{ 'ng-invalid ng-dirty': (num.invalid && submitted) || num.invalid && (num.dirty || num.touched)}">
+                  </p-dropdown>
+                  <div class="invalid-error"
+                    *ngIf="(num.invalid && submitted) || num.invalid && (num.dirty || num.touched)">
+                    <span *ngIf="num.errors?.['required']">{{ 'message.requiredNumOfQues' | translate
+                      }}</span>
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <label for="iqTestTime" class="form-label-inline">{{
+                    "iqTest.IqTest.columns.IqTestTime" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+
+                <div class="col-lg-3">
+                  <input type="number" required class="form-control " id="iqTestTime" name="iqTestTime"
+                    placeholder="{{'iqTest.IqTest.IqTestDetail.placeholderIqTestTime' | translate}}"
+                    [(ngModel)]="iqTest.iqTestTime" #iqTestTime="ngModel"
+                    [ngClass]="{ 'iqTest-invalid': (iqTestTime.invalid && submitted) || (iqTestTime.invalid && (iqTestTime.dirty || iqTestTime.touched))}" />
+
+                  <div class="invalid-error"
+                    *ngIf="(iqTestTime.invalid && submitted) || iqTestTime.invalid && (iqTestTime.dirty || iqTestTime.touched)">
+                    <span *ngIf="iqTestTime.errors?.['required']">{{ 'message.requiredIqTestTime' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3" hidden>
+                <div class="col-lg-3">
+                  <label for="status-user" class="form-label-inline">{{
+                    "sys3.userDetail.status" | translate
+                    }}<span class="text-danger"> *</span></label>
+                </div>
+
+                <div class="col-lg-9">
+                  <span class="form-check form-check-inline">
+                    <label class="form-check-label" for="active">
+                      {{"sys.sys0103.status.active" | translate }}
+                    </label>
+                    <input class="form-check-input" type="radio" name="status" id="active" (change)="iqTest.status=true"
+                      [checked]="iqTest.status == true">
+                  </span>
+                  <span class="form-check form-check-inline">
+                    <label class="form-check-label" for="disable">
+                      {{"sys.sys0103.status.blocked" | translate }}
+                    </label>
+                    <input class="form-check-input" type="radio" name="status" id="disable" (change)="iqTest.status=false"
+                      [checked]="iqTest.status == false">
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button *ngIf="!iqTest.cannotCRUD" type="button" class="btn btn-primary" (click)="onSave(myForm.invalid)">
+              {{ "iqTest.iqQues.buttonAndTest" | translate }}
+            </button>
+          </div>
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+  </div> <!-- container-fluid -->
+
+</div>

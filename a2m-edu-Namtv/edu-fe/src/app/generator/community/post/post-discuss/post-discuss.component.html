@@ -1,0 +1,326 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card mt-n4 mx-n4">
+          <div class="bg-soft-warning">
+            <div class="card-body pb-0 px-4">
+              <div class="row mb-3">
+                <div class="col-md">
+                  <div class="row align-items-center g-3">
+                    <div class="col-md-auto">
+                      <div class="avatar-md">
+                        <div class="avatar-title bg-white rounded-circle">
+                          <img *ngIf="post.userInfoCreate?.imgPath == null" src="assets/images/brands/slack.png" alt="" class="avatar-md rounded-circle shadow">
+                          <img *ngIf="post.userInfoCreate?.imgPath != null" src="{{apiUrl}}/tcco-files/getFile/{{post.userInfoCreate?.imgPath}}?filePath={{post.userInfoCreate?.imgPath}}" alt="" class="avatar-md rounded-circle shadow">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div>
+                        <h4 class="fw-bold">{{post.postTitle}}</h4>
+                        <div class="hstack gap-3 flex-wrap">
+                          <div><i class="ri-building-line align-bottom me-1"></i>{{post.userInfoCreate?.fullName}}</div>
+                          <div class="vr"></div>
+                          <div>{{ 'community.post.updateDate' | translate }} : <span class="fw-medium">{{(post.updDate?post.updDate:post.insDate) | date: 'hh:mm dd/MM/yyyy'}}</span>
+                          </div>
+                          <div class="vr"></div>
+                          <div *ngFor="let item of post.listTag" class="btn badge bg-light text-dark">{{item}}</div>
+                          <!-- <div class="badge rounded-pill bg-info fs-12">New</div>
+                          <div class="badge rounded-pill bg-danger fs-12">High</div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-auto">
+                  <div class="hstack gap-1 flex-wrap">
+                    <!-- <button type="button" class="btn py-0 fs-16 favourite-btn active shadow-none">
+                      <i class="ri-star-fill"></i>
+                    </button>
+                    <button type="button" class="btn py-0 fs-16 text-body shadow-none">
+                      <i class="ri-share-line"></i>
+                    </button>
+                    <button type="button" class="btn py-0 fs-16 text-body shadow-none">
+                      <i class="ri-flag-line"></i>
+                    </button> -->
+                    <button *ngIf="post.referenceId" (click)="goCourse()" type="button" class="btn btn-outline-secondary waves-effect waves-light shadow-none">
+                      {{ 'community.post.goLecture' | translate }} <i class="ri-arrow-right-up-line"></i>
+                    </button>
+                    <button (click)="backFunction()" type="button" class="btn py-0 fs-16 favourite-btn active shadow-none">
+                      <!-- <i class="ri-arrow-go-back-line"></i> -->
+                      <i class="mdi mdi-backspace-outline"></i>
+                      <!-- <i class="mdi mdi-backspace"></i> -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <ul class="nav nav-tabs-custom border-bottom-0" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#project-overview" role="tab">
+                    Overview
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
+                    Documents
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-activities" role="tab">
+                    Activities
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-team" role="tab">
+                    Team
+                  </a>
+                </li>
+              </ul> -->
+            </div>
+            <!-- end card body -->
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="tab-content text-muted">
+          <div class="tab-pane fade show active" id="project-overview" role="tabpanel">
+            <div class="row justify-content-center">
+              <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-column h-100">
+                      <div class="d-flex">
+                        <div class="flex-grow-1">
+                          <!-- <h3 class="mb-4 fw-semibold">{{post.postTitle}}</h3> -->
+                        </div>
+                        <div class="flex-shrink-0">
+                          <div class="d-flex gap-1 align-items-center">
+                            <!-- <button type="button" class="btn avatar-xs mt-n1 p-0 favourite-btn shadow-none">
+                              <span class="avatar-title bg-transparent fs-15">
+                                <i class="ri-star-fill"></i>
+                              </span>
+                            </button> -->
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 shadow-none"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="feather feather-more-horizontal icon-sm">
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                              </button>
+
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <!-- <a class="dropdown-item" href="apps-projects-overview.html"><i
+                                    class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a> -->
+                                <a (click)="openComment()" class="dropdown-item"><i
+                                    class="mdi mdi-reply align-bottom me-2 text-muted"></i> {{ 'community.button.comment' | translate }}</a>
+                                <a routerLink="/community/post-form/{{post.key}}" class="dropdown-item"><i
+                                    class="ri-pencil-fill align-bottom me-2 text-muted"></i> {{ 'community.button.edit' | translate }}</a>
+                                <div class="dropdown-divider"></div>
+                                <!-- <a class="dropdown-item" ><i
+                                    class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-muted">
+                        <div class="text-dark text-break editer-view-img" [innerHTML]="post.postContent | safeHtml">
+
+                        </div>
+                        <div class="pt-3 border-top border-top-dashed mt-4">
+                          <div class="row">
+
+                            <!-- <div class="col-lg-3 col-sm-6">
+                              <div>
+                                <p class="mb-2 text-uppercase fw-medium">{{ 'community.post.insertDate' | translate }} :</p>
+                                <h5 class="fs-15 mb-0">{{post.insDate | date: 'hh:mm dd/MM/yyyy'}}</h5>
+                              </div>
+                            </div> -->
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end card body -->
+                </div>
+                <!-- end card -->
+
+                <div class="card" *ngIf="post.openComment">
+                  <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">{{ 'community.button.comment' | translate }}</h4>
+
+                  </div><!-- end card header -->
+                  <div class="card-body">
+                    <app-answer-form [inputPost]="post" (answerSaved)="commentSaved($event)"></app-answer-form>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">{{ 'community.post.listComment' | translate }}</h4>
+                    <!-- <div class="flex-shrink-0">
+                      <div class="dropdown card-header-dropdown">
+                        <a class="text-reset dropdown-btn"  data-bs-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                          <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" style="">
+                          <a class="dropdown-item" >Recent</a>
+                          <a class="dropdown-item" >Top Rated</a>
+                          <a class="dropdown-item" >Previous</a>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div><!-- end card header -->
+
+                  <div class="card-body">
+
+                    <div class="d-flex mb-4" *ngFor="let answer of post.listAnswer; let answerIndex = index">
+                      <div class="flex-shrink-0">
+                        <img *ngIf="answer.userInfoCreate.imgPath==null" src="assets/images/users/avatar-8.jpg" alt=""
+                          class="avatar-xs rounded-circle shadow">
+                        <img *ngIf="answer.userInfoCreate.imgPath!=null"
+                          src="{{apiUrl}}/tcco-files/getFile/{{answer.userInfoCreate?.imgPath}}?filePath={{answer.userInfoCreate?.imgPath}}"
+                          alt="" class="avatar-xs rounded-circle shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <div class="row">
+                          <div class="col-11">
+                            <h5 class="fs-13">{{answer.userInfoCreate.fullName}}<small
+                                class="text-muted ms-2">{{answer.insDate | date: 'hh:mm dd/MM/yyyy'}}</small></h5>
+                          </div>
+                          <div class="col-1">
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 shadow-none"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="feather feather-more-horizontal icon-sm">
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                              </button>
+
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <a (click)="openReply(answer)" class="dropdown-item"><i
+                                    class="mdi mdi-reply align-bottom me-2 text-muted"></i> {{ 'community.button.reply' | translate }}</a>
+                                <a (click)="editAnswer(answer)" class="dropdown-item"><i
+                                    class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                    {{ 'community.button.edit' | translate }}</a>
+                                <div class="dropdown-divider"></div>
+                                <a (click)="removeAnswer(answer, post, answerIndex)" class="dropdown-item" ><i
+                                    class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> {{ 'community.button.remove' | translate }}</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <app-answer-form [inputAnswer]="answer" (answerSaved)="answerEdited($event)"
+                          *ngIf="answer.editAnswer"></app-answer-form>
+
+                        <div class="text-dark text-break" [innerHTML]="answer.answerContent | safeHtml"></div>
+
+                        <app-reply-form [inputAnswer]="answer" (replySaved)="replySaved($event)"
+                          *ngIf="answer.openReply"></app-reply-form>
+
+
+                        <div class="d-flex mt-4" *ngFor="let reply of answer.listReply; let replyIndex = index">
+                          <div class="flex-shrink-0">
+                            <img *ngIf="reply.userInfoCreate.imgPath==null" src="assets/images/users/avatar-8.jpg"
+                              alt="" class="avatar-xs rounded-circle shadow">
+                            <img *ngIf="reply.userInfoCreate.imgPath!=null"
+                              src="{{apiUrl}}/tcco-files/getFile/{{reply.userInfoCreate?.imgPath}}?filePath={{reply.userInfoCreate?.imgPath}}"
+                              alt="" class="avatar-xs rounded-circle shadow">
+                          </div>
+                          <div class="flex-grow-1 ms-3">
+                            <div class="row">
+                              <div class="col-11">
+                                <h5 class="fs-13">{{reply.userInfoCreate.fullName}}<small
+                                    class="text-muted ms-2">{{reply.insDate | date: 'hh:mm dd/MM/yyyy'}}</small></h5>
+                              </div>
+                              <div class="col-1">
+                                <div class="dropdown">
+                                  <button
+                                    class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 shadow-none"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round" class="feather feather-more-horizontal icon-sm">
+                                      <circle cx="12" cy="12" r="1"></circle>
+                                      <circle cx="19" cy="12" r="1"></circle>
+                                      <circle cx="5" cy="12" r="1"></circle>
+                                    </svg>
+                                  </button>
+
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a (click)="editReply(reply)" class="dropdown-item"><i
+                                        class="ri-pencil-fill align-bottom me-2 text-muted"></i> {{ 'community.button.edit' | translate }}</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a (click)="removeReply(reply, answer, replyIndex)" class="dropdown-item" ><i
+                                        class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> {{ 'community.button.remove' | translate }}</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <app-reply-form [inputReply]="reply" (replySaved)="replyEdited($event)"
+                              *ngIf="reply.editReply"></app-reply-form>
+                            <div class="text-dark text-break" [innerHTML]="reply.replyContent | safeHtml"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <form class="mt-4">
+                      <div class="row g-3">
+                        <div class="col-12">
+                          <label for="exampleFormControlTextarea1" class="form-label text-body">{{ 'community.post.write1Comment' | translate }}</label>
+                          <ckeditor name="lectureContent" [(ngModel)]="newAnswerContent" [config]="configCkeditor"
+                            (change)="onEditorChange($event)">
+                          </ckeditor>
+                        </div>
+                        <div class="col-12 text-end" *ngIf="newAnswerContent.trim() != ''">
+                          <button (click)="saveAnswer()" type="button" class="btn btn-success">{{ 'community.button.comment' | translate }}</button>
+
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- end card body -->
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- ene col -->
+              <div class="col-xxl-3 col-xl-3 col-lg-3">
+                <app-card-view-tag [jsonTags]="post.tags"></app-card-view-tag>
+                <!-- end card -->
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end tab pane -->
+        </div>
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>
+</div>
+<p-confirmDialog> </p-confirmDialog>

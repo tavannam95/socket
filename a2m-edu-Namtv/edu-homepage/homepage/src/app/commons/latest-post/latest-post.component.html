@@ -1,0 +1,20 @@
+<div class="edu-blog-widget widget-latest-post">
+    <div class="inner">
+        <h4 class="widget-title">{{'blog.latestPost' | translate}}</h4>
+        <div class="content latest-post-list">
+            <div *ngFor="let new of news "  class="latest-post">
+                <div class="thumbnail">
+                    <a href="javascript:void(0)" (click)="goToNewsDetail(new.ID)">
+                        <img src="assets/images/blog/small-post-01.jpg" alt="Blog Images">
+                    </a>
+                </div>
+                <div class="post-content">
+                    <h6 class="title"><a href="javascript:void(0)" (click)="goToNewsDetail(new.ID)" >{{new.NOTICE_TITLE}}</a></h6>
+                    <ul class="blog-meta">
+                        <li><i class="icon-27"></i>{{new.CREATED_DATE | date: 'yyyy-MM-dd'}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

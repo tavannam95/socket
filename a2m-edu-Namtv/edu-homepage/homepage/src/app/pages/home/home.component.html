@@ -1,0 +1,622 @@
+<div class="event-area bg-lighten03" *ngIf="listEvent.length>0" style="background-color: white;">
+  <div class="container" style="max-width: 1920px; padding: 0px;">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <!-- <div class="carousel-indicators">
+
+        <ng-container *ngFor="let item of listEvent;let i = index " >
+          <button type="button" *ngIf="i==0" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="" aria-label="Slide 2"></button>
+        </ng-container>
+
+      </div> -->
+      <div class="carousel-inner">
+        <ng-container *ngFor="let item of listEvent">
+          <div class="carousel-item active" *ngIf="item.key == listEvent[0].key" style="overflow: hidden; max-height: 820px; padding-top: opx; text-align: center; cursor: pointer;" (click)="gotoCoursesEventCourse(item)">
+            <a>
+            <img [src]="urlImage+item.filePath"class="d-block w-100 " alt="...">
+            </a>
+          </div>
+          <div class="carousel-item" *ngIf="item.key != listEvent[0].key" style="overflow: hidden; max-height: 820px; padding-top: opx; text-align: center; cursor: pointer;" (click)="gotoCoursesEventCourse(item)">
+            <a>
+              <img [src]="urlImage+item.filePath" class="d-block w-100 " alt="...">
+            </a>
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--=       Hero Banner Area Start      =-->
+<!--=====================================-->
+<div class="hero-banner hero-style-2 bg-image">
+  <div class="container">
+    <div class="row row--45 align-items-center">
+      <div class="col-lg-6">
+        <div class="banner-content">
+          <h2 [ngClass]="{'content-hidden': translate.currentLang != 'kr'}" class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">최고의 프로그램 중 하나
+            <br> 로 <span class="color-secondary">프로그래밍 기술 개발</span> 그리고 <span class="color-primary">한국에서 일하다</span>
+          </h2>
+
+          <h2 [ngClass]="{'content-hidden': translate.currentLang != 'en'}" class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">One Of The Best
+            Programs<br> To <span class="color-secondary">Develop Programming Skills</span> And <span class="color-primary">Work In Korea</span></h2>
+
+          <h3 [ngClass]="{'content-hidden': translate.currentLang != 'vi'}" style="font-size: 26px;" class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">
+            Chương Trình Tốt Nhất<br> Để <span class="color-secondary">Phát Triển Kỹ Năng Lập Trình</span> <br /> Và <span class="color-primary">Làm Việc Tại Hàn Quốc</span></h3>
+          <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">{{'home.banner.content' | translate}}</p>
+
+          <div class="banner-btn" data-sal-delay="400" data-sal="slide-up" data-sal-duration="1000">
+            <a routerLink="/courses" class="edu-btn">{{'button.findCourses.title' | translate}} <i class="icon-4"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="banner-gallery">
+          <div class="thumbnail thumbnail-1" data-sal-delay="500" data-sal="slide-up" data-sal-duration="1000">
+            <img src="assets/images/banner/man-2.jpg" alt="Girl Image">
+          </div>
+          <div class="thumbnail thumbnail-2" data-sal-delay="500" data-sal="slide-down" data-sal-duration="1000">
+            <img src="assets/images/banner/give-book.png" alt="Girl Image">
+          </div>
+          <div class="online-support" data-sal-delay="600" data-sal="slide-right" data-sal-duration="1000">
+            <div class="inner">
+              <div class="icon">
+                <i class="icon-29"></i>
+              </div>
+              <div class="content">
+                <span class="subtitle">{{ "home.title.support" | translate }} </span>
+                <h4 class="title"><a href="tel:+0123456789">+84 (0) 98 946 7958</a></h4>
+              </div>
+            </div>
+          </div>
+          <ul class="shape-group">
+            <li class="shape-1 scene shape-light" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="2" src="assets/images/faq/shape-13.png" alt="Shape">
+            </li>
+            <li class="shape-1 scene shape-dark" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="2" src="assets/images/faq/dark-shape-13.png" alt="Shape">
+            </li>
+            <li class="shape-2 scene" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="-2" src="assets/images/faq/shape-12.png" alt="Shape">
+            </li>
+            <li class="shape-3 scene shape-light" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="2" src="assets/images/faq/shape-09.png" alt="Shape">
+            </li>
+            <li class="shape-3 scene shape-dark" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="2" src="assets/images/faq/dark-shape-09.png" alt="Shape">
+            </li>
+            <li class="shape-4 scene" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
+              <img data-depth="-2" src="assets/images/cta/shape-04.png" alt="Shape">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- End Categories Area  -->
+<!--=====================================-->
+<!--=       About Area Start      		=-->
+<!--=====================================-->
+<div class="gap-bottom-equal edu-about-area about-style-2">
+  <div class="container edublink-animated-shape">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-7">
+        <div class="about-image-gallery">
+          <img class="main-img-1" src="assets/images/about/about-19.jpg" alt="About Image">
+          <div class="author-box" data-parallax='{"x": 0, "y": -120}'>
+            <div class="inner">
+              <div class="thumb">
+                <img src="assets/images/about/shape-03.png" alt="Shape Image">
+              </div>
+              <div class="content">
+                <h4 class="title">{{"home.aboutUs.titleImage"|translate}}</h4>
+                <p>{{"home.aboutUs.descImage" | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="award-status bounce-slide" style="display: none;">
+            <div class="inner">
+              <div class="icon">
+                <i class="icon-30"></i>
+              </div>
+              <div class="content">
+                <h6 class="title">20K+</h6>
+                <span class="subtitle">{{"home.text.enrolledStudents" | translate}}</span>
+              </div>
+            </div>
+          </div>
+          <ul class="shape-group">
+            <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+              <img data-depth="2" src="assets/images/about/shape-38.png" alt="Shape">
+            </li>
+            <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+              <img data-depth="-2" src="assets/images/about/shape-37.png" alt="Shape">
+            </li>
+            <li class="shape-3 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+              <img data-depth="1.8" src="assets/images/about/shape-04.png" alt="Shape">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="about-content">
+          <div class="section-title section-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+            <span class="pre-title">{{ "common.menu.aboutUs" | translate }}</span>
+            <h2 [ngClass]="{'content-hidden': translate.currentLang != 'vi'}" class="title">Hơn 10 năm kinh nghiệm<br/> <span class="color-secondary">phát triển phần mềm</span> <br/> và <span class="color-secondary">đào tạo thực tập</span>. </h2>
+
+            <h2 [ngClass]="{'content-hidden': translate.currentLang != 'en'}" class="title">Over 10 years of experience <br/>in <span class="color-secondary">software development</span> <br/> and <span class="color-secondary">internship training</span>.</h2>
+
+            <h2 [ngClass]="{'content-hidden': translate.currentLang != 'kr'}" style="font-size: 27px;" class="title"><span class="color-secondary">소프트웨어 개발</span> <br/> 및 <span class="color-secondary">인턴십 교육</span> 분야에서 <br/>10년 이상의 경험을 쌓았습니다.</h2>
+
+            <span class="shape-line"><i class="icon-19"></i></span>
+            <!-- <p>{{'home.about.content' | translate}}</p> -->
+            <p>Trung tâm Đào tạo lập trình AtwoM (A2MEdu) trực thuộc công ty <a [style.color]="'blue'" href="https://atwom.com.vn/">AtwoM Việt Nam</a>, được thành lập với mục tiêu huấn luyện, bồi dưỡng các nhân tài IT nhằm phục vụ cho việc cung ứng nguồn nhân lực IT chất lượng cao cho bản thân công ty cũng như các đối tác liên kết trong và ngoài nước, đặc biệt là Hàn Quốc, nơi mà AtwoM Việt Nam có nhiều lợi thế cũng như có sẵn các đối tác tin cậy</p>
+          </div>
+          <ul class="features-list" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+            <li>{{'home.about.featuresList.expertTrainers' | translate}}</li>
+            <li>{{'home.about.featuresList.remoteLearning' | translate}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ul class="shape-group">
+      <li class="shape-1 circle scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+        <span data-depth="-2.3"></span>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--=====================================-->
+<!--=       Course Area Start      		=-->
+<!--=====================================-->
+<!-- Start Course Area  -->
+<div class="edu-course-area course-area-2 gap-tb-text bg-lighten03">
+  <div class="container">
+    <div class="section-title section-center" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+      <h2 class="title">{{ "home.courses.subtitle" | translate }}</h2>
+      <span class="shape-line"><i class="icon-19"></i></span>
+    </div>
+    <div class="row g-5">
+      <!-- Start Single Course  -->
+      <div *ngFor="let e of courses" class="col-md-6 col-lg-4" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+        <div class="edu-course course-style-2 hover-button-bg-white">
+          <div class="inner">
+            <div class="thumbnail">
+              <!-- <a href="javascript:void(0)" > -->
+                <img *ngIf="e.status" src="{{e.imgPath}}" alt="Course Meta">
+                <img *ngIf="!e.status" src="{{e.imgPath}}" alt="Course Meta" style="opacity: 0.2;">
+              <!-- </a> -->
+              <div class="time-top">
+                <span class="duration"><i class="icon-61"></i>{{e.time}} Tháng</span>
+              </div>
+            </div>
+            <div class="content">
+              <!-- {{e.courseGoal}} -->
+              <span class="course-level">{{e.courseStatus}}</span>
+              <h5 class="title">
+                {{e.courseNm}}
+                <!-- <a href="javascript:void(0)">{{e.courseNm}}</a> -->
+              </h5>
+              <div class="course-rating">
+                <div class="rating">
+                  <i *ngFor='let in of counter(e.rate) ;let i = index' class="icon-23"></i>
+
+                </div>
+                <!-- ({{e.rate}} /{{e.numRate}} Rating) -->
+                <span class="rating-count"></span>
+              </div>
+              <!--              <div class="course-price">$29.00</div>-->
+              <!-- <ul class="course-meta">
+                <li><i class="icon-24"></i>{{e.lessons}} Lessons</li>
+              </ul> -->
+            </div>
+          </div>
+          <div class="course-hover-content-wrapper" *ngIf="e.status">
+          </div>
+          <div class="course-hover-content" *ngIf="e.status">
+            <div class="content">
+              <span class="course-level">{{e.courseStatus}}</span>
+              <h5 class="title">
+                <a href="javascript:void(0)" (click)="gotoCoursesDetail(e.key)">{{e.courseNm}}</a>
+              </h5>
+              <div class="course-rating">
+                <div class="rating">
+                  <i *ngFor='let in of counter(e.rate) ;let i = index' class="icon-23"></i>
+
+                </div>
+                <!-- ({{e.rate}} /{{e.numRate}} Rating) -->
+                <span class="rating-count"></span>
+              </div>
+              <!--              <div class="course-price">$29.00</div>-->
+              <p>{{e.courseGoal}}</p>
+              <!-- <ul class="course-meta">
+                <li><i class="icon-24"></i>{{e.lessons}} Lessons</li>
+              </ul> -->
+              <a *ngIf="e.status" href="javascript:void(0)" (click)="goToRegis(e)" class="edu-btn btn-secondary btn-small">Đăng kí <i class="icon-4"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Single Course  -->
+
+    </div>
+    <!-- <div class="course-view-all" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1200">
+      <a routerLink="/courses"  class="edu-btn">{{ "home.courses.seeMore" | translate }} <i class="icon-4"></i></a>
+    </div> -->
+  </div>
+</div>
+<!-- End Course Area -->
+<!--=====================================-->
+<!--=       Video Area Start      		=-->
+<!--=====================================-->
+
+<div class="video-area-1">
+    <div class="container custom_mb_10r">
+      <div class="section-title section-center"  data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+        <!--      <span class="pre-title">{{ "home.title.courses" | translate }}</span>-->
+        <div class="section-title section-center" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+          <!--      <span class="pre-title">{{ "home.title.courses" | translate }}</span>-->
+          <h2 class="title">{{ "home.title.gallery" | translate }}</h2>
+          <span class="shape-line"><i class="icon-19"></i></span>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="video-gallery">
+              <div class="thumbnail slide-custom" style="border-radius: 0 80px 0 120px !important;">
+                <div class="swiper university-activator">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide ">
+                      <img src="assets/images/others/slider-1.jpg" alt="Thumb">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/images/others/slider-2.jpg" alt="Thumb">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/images/others/slider-3.jpg" alt="Thumb">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/images/others/slider-4.jpg" alt="Thumb">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="assets/images/others/slider-5.jpg" alt="Thumb">
+                    </div>
+                  </div>
+                  <div class="hero-slider-bg-controls">
+                    <div class="swiper-slide-controls slide-prev">
+                      <i class="icon-west"></i>
+                    </div>
+                    <div class="swiper-slide-controls slide-next">
+                      <i class="icon-east"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- <img src="assets/images/others/video-01.jpg" alt="Thumb">
+              <a href="https://www.youtube.com/watch?v=PICj5tr9hcc" class="video-play-btn video-popup-activation">
+                  <i class="icon-18"></i>
+              </a> -->
+              </div>
+              <ul class="shape-group">
+                <li class="shape-1 scene">
+                  <img data-depth="2" class="rotateit" src="assets/images/about/shape-37.png" alt="Shape">
+                </li>
+                <li class="shape-2 scene">
+                  <img data-depth="-2" src="assets/images/faq/shape-04.png" alt="Shape">
+                </li>
+                <li class="shape-3 scene shape-light">
+                  <img data-depth="2" src="assets/images/faq/shape-14.png" alt="Shape">
+                </li>
+                <li class="shape-3 scene shape-dark">
+                  <img data-depth="2" src="assets/images/faq/dark-shape-14.png" alt="Shape">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--=====================================-->
+  <!--=       CounterUp Area Start      	=-->
+  <!--=====================================-->
+  <!-- <div class="counterup-area-5 edu-section-gap" >
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-3 col-sm-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
+          <div class="edu-counterup counterup-style-5 primary-color">
+            <h2 class="counter-item count-number">
+              <span class="odometer" data-odometer-final="400+">.</span><span></span>
+            </h2>
+            <h6 class="title">{{'home.counterup.studentEnrolled' | translate}}</h6>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+          <div class="edu-counterup counterup-style-5 secondary-color">
+            <h2 class="counter-item count-number">
+              <span class="odometer" data-odometer-final="50+">.</span><span></span>
+            </h2>
+            <h6 class="title">{{'home.counterup.classCompleted' | translate}}</h6>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+          <div class="edu-counterup counterup-style-5 extra02-color">
+            <h2 class="counter-item count-number">
+              <span class="odometer" data-odometer-final="99.9">.</span><span>%</span>
+            </h2>
+            <h6 class="title">{{'home.counterup.satisfactionRate' | translate}}</h6>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
+          <div class="edu-counterup counterup-style-5 extra05-color">
+            <h2 class="counter-item count-number">
+              <span class="odometer" data-odometer-final="20+">.</span><span></span>
+            </h2>
+            <h6 class="title">{{'home.counterup.topInstructors' | translate}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!--=====================================-->
+  <!--=       Testimonial Area Start      =-->
+  <!--=====================================-->
+  <!-- Start Testimonial Area  -->
+  <div class="testimonial-area-5 gap-lg-bottom-equal">
+    <div class="container">
+      <div class="row g-lg-5">
+        <div class="col-lg-5">
+          <div class="testimonial-heading-area">
+            <div class="section-title section-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+              <h2 class="title">{{ "home.feedback.subtitle" | translate }}</h2>
+              <span class="shape-line"><i class="icon-19"></i></span>
+              <p>TẬN TÂM - ĐỒNG HÀNH - KẾT NỐI</p>
+              <!--            <a href="#" class="edu-btn btn-large">View All<i class="icon-4"></i></a>-->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="swiper-testimonial-slider-wrapper swiper testimonial-coverflow">
+            <div class="swiper-wrapper">
+              <div *ngFor="let s of students" class="swiper-slide">
+                <div class="testimonial-grid">
+                  <div class="thumbnail">
+                    <img [src]="s.img" alt="Testimonial">
+                    <span class="qoute-icon"><i class="icon-26"></i></span>
+
+                  </div>
+                  <div class="content">
+                    <p>{{s.feeling}}</p>
+                    <div class="rating-icon">
+                      <i *ngFor='let in of counter(s.rate) ;let i = index' class="icon-23"></i>
+
+                    </div>
+                    <h5 class="title">{{ s.name }}</h5>
+                    <!-- <span class="subtitle">{{ s.location }}</span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--=       Teachers Area Start      		=-->
+<!--=====================================-->
+<!-- Start Teachers Area  -->
+<div class="edu-course-area course-area-2 gap-tb-text bg-lighten03">
+  <div class="container">
+    <div class="section-title section-center" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+      <h2 class="title">{{ "common.menu.instructor" | translate }}</h2>
+      <span class="shape-line"><i class="icon-19"></i></span>
+    </div>
+    <div class="row g-5">
+
+
+
+      <!-- Start Instructor Grid  -->
+      <!-- <div *ngFor="let t of teachers" class="col-lg-4 col-md-6" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+        <div class="edu-team-grid team-style-2 custom_grid"  >
+            <div class="inner">
+                <div class="thumbnail-wrap">
+                    <div class="thumbnail custom_img_background" style="background-image: url('{{t.img}}');">
+                    </div>
+                </div>
+                <div class="content">
+                    <h5 class="title"><a >{{t.name}}</a></h5>
+                    <span class="designation">{{t.position}}</span>
+                    <p>{{t.shortDescription}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="card-body">
+      <div class="live-preview">
+
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="row g-3 mt-5 custom_space-between" >
+                      <div class="col-xxl-2 col-md-4 col-6 custom_grid custom_text-center" *ngFor="let t of teachers">
+                          <div>
+                              <img src="{{t.img}}" alt="" class="rounded-circle avatar-xl shadow custom_img_background">
+                              <!-- <img src="{{t.img}}" alt="" class="rounded-circle avatar-xl shadow custom_img_background custom_img_background1" *ngIf="t.id != 0 && t.id != 3"> -->
+                              <!-- <p class="mt-2 mb-lg-0 custom_text-center"><code>{{t.name}}</code></p> -->
+                              <h5 _ngcontent-lqb-c87="" class="title mt-4"> {{t.name}}  </h5>
+                              <p class="mt-2 mb-lg-0 custom_text-center">{{t.position}}</p>
+                          </div>
+                      </div><!-- end col -->
+                  </div><!-- end row -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  </div>
+    <!-- End Instructor Grid  -->
+    </div>
+    <!-- <div class="course-view-all" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1200">
+      <a routerLink="/courses"  class="edu-btn">{{ "home.courses.seeMore" | translate }} <i class="icon-4"></i></a>
+    </div> -->
+  </div>
+</div>
+<!-- End Teachers Area -->
+<!--=====================================-->
+
+  <!--=====================================-->
+  <!--=       Brand Area Start      		=-->
+  <!--=====================================-->
+  <!-- Start Brand Area  -->
+  <div class="edu-brand-area brand-area-2 bg-image" >
+    <div class="container edublink-animated-shape">
+      <div class="section-title section-center" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+        <h2 class="title">Đối tác tuyển dụng</h2>
+        <span class="shape-line"><i class="icon-19"></i></span>
+      </div>
+      <div class="row brand-grid-wrap brand-style-2">
+        <div class="brand-grid col-2 custom_20_parent" >
+          <a href="https://atwom.com.vn/" class="custom_width" target="_blank">
+            <img src="assets/images/a2m/logo_a2mvn1.png" alt="Brand Logo" >
+          </a>
+        </div>
+        <div class="brand-grid col-2 custom_20_parent mt-4">
+          <a href="https://www.techlead.vn/" class="custom_width" target="_blank">
+            <img src="assets/images/a2m/logo_techlead1.png" alt="Brand Logo" >
+          </a>
+        </div>
+        <div class="brand-grid col-2 custom_20_parent mt-4">
+          <a href="https://a2m.co.kr/" class="custom_width" target="_blank">
+            <img src="assets/images/a2m/logo_a2m1.png" alt="Brand Logo" >
+          </a>
+        </div>
+        <div class="brand-grid col-2 custom_20_parent mt-4">
+          <a href="http://www.kpst.co.kr/" class="custom_width" target="_blank">
+            <img src="assets/images/a2m/logo_kpst1.png" alt="Brand Logo" >
+          </a>
+        </div>
+        <div class="brand-grid col-2 custom_20_parent mt-4">
+          <a href="https://ttc-solutions.com/" class="custom_width" target="_blank">
+            <img src="assets/images/a2m/logo_ttc1.png" alt="Brand Logo" >
+          </a>
+        </div>
+
+      </div>
+      <ul class="shape-group">
+        <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+          <img data-depth="-2" src="assets/images/about/shape-37.png" alt="Shape">
+        </li>
+      </ul>
+    </div>
+    <ul class="shape-group">
+      <li class="shape-2 scene shape-light" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+        <img data-depth="-2" src="assets/images/about/shape-41.png" alt="Shape">
+      </li>
+      <li class="shape-2 scene shape-dark" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+        <img data-depth="-2" src="assets/images/about/dark-shape-41.png" alt="Shape">
+      </li>
+    </ul>
+  </div>
+
+  <!-- End Brand Area  -->
+  <!--=====================================-->
+  <!--=       FAQ Area Start      		=-->
+  <!--=====================================-->
+  <div class="edu-faq-area faq-style-1">
+    <div class="container">
+      <div class="row g-5 row--45">
+        <div class="col-lg-6">
+          <div class="edu-faq-gallery">
+            <div class="row g-5">
+              <div class="col-6" data-sal-delay="50" data-sal="slide-right" data-sal-duration="800">
+                <div class="faq-thumbnail thumbnail-1">
+                  <img src="assets/images/faq/faq-01.jpg" alt="Faq Images">
+                </div>
+              </div>
+              <div class="col-6" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800">
+                <div class="faq-thumbnail thumbnail-2">
+                  <img src="assets/images/faq/faq-02.jpg" alt="Faq Images">
+                </div>
+              </div>
+              <div class="col-6" data-sal-delay="50" data-sal="slide-right" data-sal-duration="800">
+                <div class="faq-thumbnail thumbnail-3">
+                  <img src="assets/images/faq/faq-03.jpg" alt="Faq Images">
+                </div>
+              </div>
+              <div class="col-6" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800">
+                <div class="faq-thumbnail thumbnail-4">
+                  <img src="assets/images/faq/faq-04.jpg" alt="Faq Images">
+                </div>
+              </div>
+            </div>
+            <ul class="shape-group">
+              <li class="shape-1 scene shape-light" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="2" src="assets/images/faq/shape-02.png" alt="Shape Images">
+              </li>
+              <li class="shape-1 scene shape-dark" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="1.5" src="assets/images/faq/dark-shape-02.png" alt="Shape Images">
+              </li>
+              <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="-2" src="assets/images/faq/shape-03.png" alt="Shape Images">
+              </li>
+              <li class="shape-3 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="2" src="assets/images/faq/shape-04.png" alt="Shape Images">
+              </li>
+              <li class="shape-4 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="-2" src="assets/images/faq/shape-05.png" alt="Shape Images">
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800">
+          <div class="edu-faq-content">
+            <div class="section-title section-center">
+              <h2 class="title">CÂU HỎI THƯỜNG GẶP</h2>
+              <span class="shape-line"><i class="icon-19"></i></span>
+            </div>
+            <div class="faq-accordion" id="faq-accordion">
+              <div class="accordion">
+                <div *ngFor="let each of faqs" class="accordion-item">
+                  <h5 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + each.id" aria-expanded="true">
+                      {{each.question}}
+                    </button>
+                  </h5>
+                  <div id="{{'collapse' + each.id}}" class="accordion-collapse collapse" data-bs-parent="#faq-accordion">
+                    <div class="accordion-body">
+                      <p> {{each.answer}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="shape-group">
+              <li class="shape-1 scene shape-light" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <img data-depth="1.5" src="assets/images/about/shape-02.png" alt="Shape Images">
+              </li>
+              <li class="shape-2 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
+                <span data-depth="-2.2"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--=====================================-->
+  <!--=      		Blog Area Start   		=-->
+  <!--=====================================-->
+  <!-- Start Blog Area  -->
+
+  <!-- End Blog Area  -->
